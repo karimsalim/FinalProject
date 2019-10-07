@@ -18,7 +18,5 @@ namespace DAL
         protected double InterestRate { get; set; }
 
         protected DateTime MaximumDate { get; set; }
-
-        protected virtual Account Account { get; set; }
     }
 }

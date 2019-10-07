@@ -21,7 +21,6 @@ namespace DAL
        
         //propriétés commun avec class person 
         protected virtual ICollection<Account> Accounts { get; set; }
-        protected virtual Person Person { get; set; }
         protected virtual Employee Conseiller { get; set; }
         
     }
