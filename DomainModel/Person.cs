@@ -10,15 +10,15 @@ namespace DAL
     public abstract class Person
     {
         [Key]
-        protected int PersonId { get; set; }
+        public int PersonId { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir un nom")]
-        protected string FirstName { get; set; }
+        public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir un prénom")]
-        protected string LastName { get; set; }
+        public string LastName { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir une date de naissance")]
-        protected DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
     }
 }

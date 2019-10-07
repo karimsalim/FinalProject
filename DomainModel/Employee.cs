@@ -10,14 +10,14 @@ namespace DAL
     public class Employee : Person
     {
         [Required(ErrorMessage = "Veuillez saisir le nom du bureau")]
-        protected string OfficeName { get; set; }
+        public string OfficeName { get; set; }
 
         [Required]
-        protected bool isJunior { get; set; }
+        public bool isJunior { get; set; }
 
 
-        protected virtual ICollection<Client> Clients { get; set; }
-        protected virtual Employee Manager { get; set; }
+        public virtual ICollection<Client> Clients { get; set; }
+        public virtual Employee Manager { get; set; }
 
     }
 }

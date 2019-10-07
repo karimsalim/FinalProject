@@ -11,21 +11,21 @@ namespace DAL
     {
         #region Proprietes
         [Required(ErrorMessage ="Veuillez saisir la date de gestion")]
-        protected DateTime GestionDate { get; set; }
+        public DateTime GestionDate { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir le montant autorisé")]
-        protected decimal AutorizedOverdraft { get; set; }
+        public decimal AutorizedOverdraft { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir le montant")]
-        protected decimal FreeOverdraft { get; set; }
+        public decimal FreeOverdraft { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir le montant de taux")]
-        protected double OverdraftChargeRate { get; set; }
+        public double OverdraftChargeRate { get; set; }
         #endregion
 
         #region Relations
 
-        protected virtual ICollection<Card> Cards { get; set; }
+        public virtual ICollection<Card> Cards { get; set; }
         #endregion
 
     }

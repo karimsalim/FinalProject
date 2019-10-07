@@ -10,13 +10,13 @@ namespace DAL
     public class Savings : Account
     {
         [Required(ErrorMessage = "Une valeur minimale est requise.")]
-        protected int MinimumAmount { get; set; }
+        public int MinimumAmount { get; set; }
 
-        protected int MaximumAmount { get; set; }
+        public int MaximumAmount { get; set; }
 
         [Required(ErrorMessage = "Le taux d'intêret doit être précisé.")]
-        protected double InterestRate { get; set; }
+        public double InterestRate { get; set; }
 
-        protected DateTime MaximumDate { get; set; }
+        public DateTime MaximumDate { get; set; }
     }
 }
