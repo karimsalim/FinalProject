@@ -19,6 +19,6 @@ namespace DAL
         protected string LastName { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir une date de naissance")]
-        protected DateTime DateOfBird { get; set; }
+        protected DateTime DateOfBirth { get; set; }
     }
 }

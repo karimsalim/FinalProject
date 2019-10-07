@@ -10,7 +10,7 @@ namespace DAL
     public class Deposit : Account
     {
         #region Proprietes
-        [Required(ErrorMessage ="Veuillez saisir la date de gestion"]
+        [Required(ErrorMessage ="Veuillez saisir la date de gestion")]
         protected DateTime GestionDate { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir le montant autorisé")]
@@ -26,7 +26,7 @@ namespace DAL
         #region Relations
         protected virtual Account CompteBancaire { get; set; }
 
-        protected virtual List<Card> Card { get; set; }
+        protected virtual List<Card> Cards { get; set; }
         #endregion
 
     }

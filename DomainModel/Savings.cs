@@ -19,6 +19,6 @@ namespace DAL
 
         protected DateTime MaximumDate { get; set; }
 
-        virtual protected Account Account { get; set; }
+        protected virtual Account Account { get; set; }
     }
 }

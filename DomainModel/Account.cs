@@ -42,7 +42,7 @@ namespace DAL
         #endregion
 
         #region Relations
-        virtual protected Client Client { get; set; }
+        protected virtual Client Client { get; set; }
 
         #endregion
 
