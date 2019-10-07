@@ -24,7 +24,7 @@ namespace DAL
         #endregion
 
         #region Relations
-        public virtual CompteBancaire CompteBancaire { get; set; }
+        public virtual Account CompteBancaire { get; set; }
 
         public virtual List<Card> Card { get; set; }
         #endregion
