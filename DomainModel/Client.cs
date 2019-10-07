@@ -11,17 +11,18 @@ namespace DAL
 
     {       /*les propriétés clients */
         [Required(ErrorMessage ="Veuillez saisir la rue ")]
-        public string Street { get; set; }
+        protected string Street { get; set; }
 
         [Required(ErrorMessage ="Veuillez saisir votre ZipCode")]
-        public string ZipCode { get; set; }
+        protected string ZipCode { get; set; }
           
         [Required(ErrorMessage ="Veuillez saisir la Ville ")]
-        public string City { get; set; }
+        protected string City { get; set; }
        
         //propriétés commun avec class person 
-        public virtual List<Account> Accounts { get; set; }
-        public virtual Person Person { get; set; }
+        protected virtual ICollection<Account> Accounts { get; set; }
+        protected virtual Person Person { get; set; }
+        protected virtual Employee Conseiller { get; set; }
         
     }
 
