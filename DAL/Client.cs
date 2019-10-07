@@ -13,8 +13,8 @@ namespace DAL
         [Required(ErrorMessage ="Veuillez saisir la rue ")]
         public string Street { get; set; }
 
-        [Required(ErrorMessage ="Veuillez saisir votre ZideCode")]
-        public string ZideCode { get; set; }
+        [Required(ErrorMessage ="Veuillez saisir votre ZipCode")]
+        public string ZipCode { get; set; }
           
         [Required(ErrorMessage ="Veuillez saisir la Ville ")]
         public string City { get; set; }
