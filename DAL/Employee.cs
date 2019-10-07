@@ -9,9 +9,6 @@ namespace DAL
 {
     public class Employee : Person
     {
-        [Key]
-        public int EmployeeId { get; set; }
-
         [Required(ErrorMessage = "Veuillez saisir le nom du bureau")]
         public string OfficeName { get; set; }
 
