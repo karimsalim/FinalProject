@@ -9,6 +9,8 @@ namespace DAL
 {
     public class Card
     {
+        [Key]
+        public int CardId { get; set; }
 
         #region Proprietes
         [Required(ErrorMessage = "Veuillez saisir le type de carte bancaire")]

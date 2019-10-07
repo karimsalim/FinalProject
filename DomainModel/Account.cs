@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DAL
 {
-    public abstract class Account
+    public class Account
     {
         #region Proprietes
         [Key]
