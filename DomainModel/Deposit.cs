@@ -7,26 +7,26 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class Deposit
+    public class Deposit : Account
     {
         #region Proprietes
         [Required(ErrorMessage ="Veuillez saisir la date de gestion"]
-        public DateTime GestionDate { get; set; }
+        protected DateTime GestionDate { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir le montant autorisé")]
-        public decimal AutorizedOverdraft { get; set; }
+        protected decimal AutorizedOverdraft { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir le montant")]
-        public decimal FreeOverdraft { get; set; }
+        protected decimal FreeOverdraft { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir le montant de taux")]
-        public double OverdraftChargeRate { get; set; }
+        protected double OverdraftChargeRate { get; set; }
         #endregion
 
         #region Relations
-        public virtual Account CompteBancaire { get; set; }
+        protected virtual Account CompteBancaire { get; set; }
 
-        public virtual List<Card> Card { get; set; }
+        protected virtual List<Card> Card { get; set; }
         #endregion
 
     }
