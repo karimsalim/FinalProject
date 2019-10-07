@@ -26,7 +26,7 @@ namespace DAL
         #region Relations
         protected virtual Account CompteBancaire { get; set; }
 
-        protected virtual List<Card> Cards { get; set; }
+        protected virtual ICollection<Card> Cards { get; set; }
         #endregion
 
     }

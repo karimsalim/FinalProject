@@ -16,7 +16,7 @@ namespace DAL
         protected bool isJunior { get; set; }
 
 
-        protected virtual List<Client> Clients { get; set; }
+        protected virtual ICollection<Client> Clients { get; set; }
         protected virtual Employee Manager { get; set; }
 
     }

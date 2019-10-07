@@ -20,7 +20,7 @@ namespace DAL
         protected string City { get; set; }
        
         //propriétés commun avec class person 
-        protected virtual List<Account> Accounts { get; set; }
+        protected virtual ICollection<Account> Accounts { get; set; }
         protected virtual Person Person { get; set; }
         protected virtual Employee Conseiller { get; set; }
         
