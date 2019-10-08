@@ -14,9 +14,11 @@ namespace BackEndASP.Controllers
     {
         private BankContext db = new BankContext();
 
-        // GET: Cards
+        [AjaxOnly] //Pour accepter uniquement les appels ajax
+        // GET: Cards/Id avec ID l'id du compte courant (Deposit) sélectionné
         public ActionResult Index(int? id)
         {
+            ViewBag.IdCard = id;
             return PartialView(db.Cards.Include("Deposit").Where(c => c.Deposit.AccountID == id).ToList());
         }
 
@@ -38,7 +40,7 @@ namespace BackEndASP.Controllers
         // GET: Cards/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Cards/Create
