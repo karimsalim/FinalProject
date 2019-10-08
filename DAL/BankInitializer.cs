@@ -165,39 +165,60 @@ namespace DAL
 
             context.SaveChanges(); //Sauvegarde des données au coté de la BDD
 
-            //TODO : Modification de l'initializer Savings
-            //Il faut initialiser le compte avec un Saving
+           
 
-            //#region Savings
-            //List<Savings> savings = new List<Savings>()
-            //{
-            //    new Savings()
-            //    {
-            //        MinimumAmount=12,
-            //        MaximumAmount=200,
-            //        InterestRate=10,
-            //        MaximumDate=DateTime.Parse("2020/01/01"),
-            //    },
-            //    new Savings()
-            //    {
-            //        MinimumAmount=20,
-            //        MaximumAmount=5000,
-            //        InterestRate=10,
-            //        MaximumDate=DateTime.Parse("2020/05/05"),
-            //    },
-            //    new Savings()
-            //    {
-            //        MinimumAmount=100,
-            //        MaximumAmount=10000,
-            //        InterestRate=10,
-            //        MaximumDate=DateTime.Parse("2024/04/15"),
-            //    },
-            //};
-            //#endregion
+            #region Savings
+            List<Savings> savings = new List<Savings>()
+            {
+                new Savings()
+                {
+                  
+                   BankCode ="18591",
+                   BranchCode="17274",
+                   AccountNumber="12464164940",
+                   Key="45",
+                   BIC="IWMRPUCXAZ",
+                   IBAN="RFP56954TAK",
+                   Balance= 10000,
+                    MinimumAmount=12,
+                    MaximumAmount=200,
+                    InterestRate=10,
+                    MaximumDate=DateTime.Parse("2020/01/01"),
+                },
+                new Savings()
+                {
+                   BankCode ="18592",
+                   BranchCode="17275",
+                   AccountNumber="12464164947",
+                   Key="44",
+                   BIC="IWMRPUKXOY",
+                   IBAN="RFP56954PXK",
+                   Balance= 10000,
+                    MinimumAmount=20,
+                    MaximumAmount=5000,
+                    InterestRate=10,
+                    MaximumDate=DateTime.Parse("2020/05/05"),
+                },
+                new Savings()
+                {
+                   BankCode ="18590",
+                   BranchCode="17270",
+                   AccountNumber="12464164930",
+                   Key="40",
+                   BIC="KNMRPUCXOI",
+                   IBAN="RFPO6954TUK",
+                   Balance= 10000,
+                    MinimumAmount=100,
+                    MaximumAmount=10000,
+                    InterestRate=10,
+                    MaximumDate=DateTime.Parse("2024/04/15"),
+                },
+            };
+            #endregion
 
-            //savings.ForEach(s => context.Savings.Add(s)); //Ajout de la liste des savings dans le context
+            savings.ForEach(s => context.Savings.Add(s)); //Ajout de la liste des savings dans le context
 
-            //context.SaveChanges(); //Sauvegarde des données au coté de la BDD
+            context.SaveChanges(); //Sauvegarde des données au coté de la BDD
 
 
             base.Seed(context);
