@@ -9,10 +9,10 @@ namespace DAL
 {
     public class Card
     {
+        #region Proprietes
         [Key]
         public int CardId { get; set; }
 
-        #region Proprietes
         [Required(ErrorMessage = "Veuillez saisir le type de carte bancaire")]
         public string NewtorkIssuer { get; set; }
 

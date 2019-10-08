@@ -9,6 +9,7 @@ namespace DAL
 {
     public class Savings : Account
     {
+        #region Propriété
         [Required(ErrorMessage = "Une valeur minimale est requise.")]
         public int MinimumAmount { get; set; }
 
@@ -18,5 +19,6 @@ namespace DAL
         public double InterestRate { get; set; }
 
         public DateTime MaximumDate { get; set; }
+        #endregion
     }
 }

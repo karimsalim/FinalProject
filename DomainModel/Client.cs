@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 namespace DAL
 {
     public class Client : Person
-
-    {       /*les propriétés clients */
+     {
+        #region Propriété
+        /*les propriétés clients */
         [Required(ErrorMessage ="Veuillez saisir la rue ")]
         public string Street { get; set; }
 
@@ -18,11 +19,14 @@ namespace DAL
           
         [Required(ErrorMessage ="Veuillez saisir la Ville ")]
         public string City { get; set; }
-       
+        #endregion
+
+        #region Relation
         //propriétés commun avec class person 
         public virtual ICollection<Account> Accounts { get; set; }
         public virtual Employee Conseiller { get; set; }
-        
+        #endregion
+
     }
 
 }

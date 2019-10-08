@@ -9,7 +9,6 @@ namespace DAL
 {
     public abstract class Person
     {
-        #region Propriété
         [Key]
         public int PersonId { get; set; }
 
@@ -20,7 +19,7 @@ namespace DAL
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Veuillez saisir une date de naissance")]
-        public DateTime DateOfBirth { get; set; }
-        #endregion
+        public DateTime DateOfBird { get; set; }
+   
     }
 }
