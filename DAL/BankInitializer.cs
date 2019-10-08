@@ -76,7 +76,7 @@ namespace DAL
                 new Client()
                 {
                     FirstName="Edith",
-                    LastName="Layali",
+                    LastName="Nawali",
                     DateOfBirth=DateTime.Parse("1975/05/07"),
                     City="Lyon",
                     ZipCode="69100",
@@ -250,8 +250,27 @@ namespace DAL
             employees[3].Manager = employees[3];
             #endregion
 
-            //TODO : AJOUTER LES DONNEES DU CARDS
+           
+            #region Init données de cartes bancaires
+            List<Card> cards = new List<Card>()
+            {
+                new Card()
+                {
+                    NewtorkIssuer="VisaCard",
+                    CardNumber="1993178516874882",
+                    SecurityCode="5138",
+                    ExpirationDate=DateTime.Parse("2020/01/12"),
+                },
 
+                new Card()
+                {
+                    NewtorkIssuer="AmexCard",
+                    CardNumber="1302564804382137",
+                    SecurityCode="6871",
+                    ExpirationDate=DateTime.Parse("2020/01/02"),
+                },
+            };
+            #endregion
             #region Ajout des données dans le context
 
             employees.ForEach(e => context.Employees.Add(e)); //Ajout de la liste des employes dans le context
