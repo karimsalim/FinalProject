@@ -14,6 +14,11 @@ namespace BackEndASP
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "AfficheCards",
+                url: "Cards/{id}",
+                defaults: new { Controller = "Cards", action = "Index"});
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
