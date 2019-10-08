@@ -200,6 +200,27 @@ namespace DAL
             };
             #endregion
 
+            #region Init données de cartes bancaires
+            List<Card> cards = new List<Card>()
+            {
+                new Card()
+                {
+                    NewtorkIssuer="VisaCard",
+                    CardNumber="1993178516874882",
+                    SecurityCode="5138",
+                    ExpirationDate=DateTime.Parse("2020/01/12"),
+                },
+
+                new Card()
+                {
+                    NewtorkIssuer="AmexCard",
+                    CardNumber="1302564804382137",
+                    SecurityCode="6871",
+                    ExpirationDate=DateTime.Parse("2020/01/02"),
+                },
+            };
+            #endregion
+
             #region Init Listes des données
             List<Account> listcompte = new List<Account>();
             List<Account> listcompte2 = new List<Account>();
@@ -207,6 +228,9 @@ namespace DAL
 
             List<Client> listclient1 = new List<Client>();
             List<Client> listclient2 = new List<Client>();
+
+            List<Card> listcards1 = new List<Card>();
+            List<Card> listcards2 = new List<Card>();
             #endregion
 
             #region Ajout des clients pour l'employee
@@ -243,6 +267,15 @@ namespace DAL
 
             #endregion
 
+            #region Ajout des CB pour les comptes
+            listcards1.Add(cards[0]);
+            listcards2.Add(cards[1]);
+
+            deposits[0].Cards = listcards1;
+            deposits[3].Cards = listcards2;
+
+            #endregion
+
             #region Ajout des managers pour les employees
             employees[0].Manager = employees[2];
             employees[1].Manager = employees[3];
@@ -250,27 +283,8 @@ namespace DAL
             employees[3].Manager = employees[3];
             #endregion
 
-           
-            #region Init données de cartes bancaires
-            List<Card> cards = new List<Card>()
-            {
-                new Card()
-                {
-                    NewtorkIssuer="VisaCard",
-                    CardNumber="1993178516874882",
-                    SecurityCode="5138",
-                    ExpirationDate=DateTime.Parse("2020/01/12"),
-                },
+            
 
-                new Card()
-                {
-                    NewtorkIssuer="AmexCard",
-                    CardNumber="1302564804382137",
-                    SecurityCode="6871",
-                    ExpirationDate=DateTime.Parse("2020/01/02"),
-                },
-            };
-            #endregion
             #region Ajout des données dans le context
 
             employees.ForEach(e => context.Employees.Add(e)); //Ajout de la liste des employes dans le context
