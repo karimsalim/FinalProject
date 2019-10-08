@@ -87,13 +87,13 @@ namespace DAL
             //Ajout Relation Entre Client et Account => 1 client a +eurs Comptes\\
             modelBuilder.Entity<Client>()
                 .HasMany(c => c.Accounts)
-                .WithOptional(A => A.Client)
+                .WithRequired(A => A.Client)
                 .WillCascadeOnDelete(true);
 
             //Ajout Relation Entre Client et Employe => 1 employe a +eurs Clients\\
             modelBuilder.Entity<Employee>()
                 .HasMany(e => e.Clients)
-                .WithOptional(c => c.Conseiller)
+                .WithRequired(c => c.Conseiller)
                 .WillCascadeOnDelete(false);
 
             //Ajout Relation Entre Deposit et Card => 1 Deposit possede +eurs Cards\\
