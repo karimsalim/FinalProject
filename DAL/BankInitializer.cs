@@ -23,7 +23,6 @@ namespace DAL
                     Street ="Rue MiKael Jackson",
 
                 },
-
                 new Client()
                 {
                     FirstName="Karen",
@@ -33,7 +32,6 @@ namespace DAL
                     ZipCode="25487",
                     Street="Rue Rockefeller",
                 },
-
                 new Client()
                 {
                     FirstName="Edith",
@@ -46,45 +44,56 @@ namespace DAL
             };
             #endregion
 
+            clients.ForEach(c => context.Clients.Add(c)); //Ajout de la liste des clients dans le context
+
+            context.SaveChanges(); //Sauvegarde des données au coté de la BDD
+
             #region employees
             List<Employee> employees = new List<Employee>()
             {
-               new Employee()
-               {
+                new Employee()
+                {
                    FirstName="Fabrice",
                    LastName="Roussignole",
                    DateOfBirth=DateTime.Parse("1992/02/21"),
                    OfficeName="Etienne Bank",
                    isJunior =true,
-               },
-
-               new Employee()
-               {
+                },
+                new Employee()
+                {
                    FirstName="Mourice",
                    LastName="Badran",
                    DateOfBirth=DateTime.Parse("1997/05/11"),
                    OfficeName="Etienne Bank",
                    isJunior =true,
-               },
+                },
                 new Employee()
-               {
+                {
                    FirstName="Biky",
                    LastName="Boo",
                    DateOfBirth=DateTime.Parse("1975/08/11"),
                    OfficeName="Etienne Bank",
                    isJunior =false,
-               },
-
-                 new Employee()
-               {
-                   FirstName="Tom",
-                   LastName="Tom",
-                   DateOfBirth=DateTime.Parse("2001/10/21"),
-                   OfficeName="Etienne Bank",
-                   isJunior =true,
+                },
+                new Employee()
+                {
+                    FirstName="Tom",
+                    LastName="Tom",
+                    DateOfBirth=DateTime.Parse("2001/10/21"),
+                    OfficeName="Etienne Bank",
+                    isJunior =true,
                },
             };
             #endregion
+
+            employees.ForEach(e => context.Employees.Add(e)); //Ajout de la liste des employes dans le context
+
+            employees[0].Manager = employees[2];
+            employees[1].Manager = employees[3];
+            employees[2].Manager = employees[3];
+            employees[3].Manager = employees[3];
+
+            context.SaveChanges(); //Sauvegarde des données au coté de la BDD
 
             #region deposits
             List<Deposit> deposits = new List<Deposit>()
@@ -105,7 +114,7 @@ namespace DAL
                    OverdraftChargeRate=20.6,
 
                 },
-                 new Deposit()
+                new Deposit()
                 {
                    GestionDate=DateTime.Parse("2019/01/10"),
                    BankCode ="37584",
@@ -120,7 +129,7 @@ namespace DAL
                    OverdraftChargeRate=20.6,
 
                 },
-                   new Deposit()
+                new Deposit()
                 {
                    GestionDate=DateTime.Parse("2019/03/25"),
                    BankCode ="37591",
@@ -134,8 +143,7 @@ namespace DAL
                    AccountNumber="16464164972",
                    OverdraftChargeRate=20.6,
                 },
-
-                     new Deposit()
+                new Deposit()
                 {
                    GestionDate=DateTime.Parse("2019/03/25"),
                    BankCode ="37591",
@@ -153,33 +161,44 @@ namespace DAL
             };
             #endregion
 
-            #region Savings
-            List<Savings> savings = new List<Savings>()
-            {
-                new Savings()
-                {
-                    MinimumAmount=12,
-                    MaximumAmount=200,
-                    InterestRate=10,
-                    MaximumDate=DateTime.Parse("2 ans"),
-                },
+            deposits.ForEach(d => context.Deposits.Add(d)); // Ajout de la liste des deposits dans le context
 
-                new Savings()
-                {
-                    MinimumAmount=20,
-                    MaximumAmount=5000,
-                    InterestRate=10,
-                    MaximumDate=DateTime.Parse("2 ans"),
-                },
-                  new Savings()
-                {
-                    MinimumAmount=100,
-                    MaximumAmount=10000,
-                    InterestRate=10,
-                    MaximumDate=DateTime.Parse("3 ans"),
-                },
-            };
-            #endregion
+            context.SaveChanges(); //Sauvegarde des données au coté de la BDD
+
+            //TODO : Modification de l'initializer Savings
+            //Il faut initialiser le compte avec un Saving
+
+            //#region Savings
+            //List<Savings> savings = new List<Savings>()
+            //{
+            //    new Savings()
+            //    {
+            //        MinimumAmount=12,
+            //        MaximumAmount=200,
+            //        InterestRate=10,
+            //        MaximumDate=DateTime.Parse("2020/01/01"),
+            //    },
+            //    new Savings()
+            //    {
+            //        MinimumAmount=20,
+            //        MaximumAmount=5000,
+            //        InterestRate=10,
+            //        MaximumDate=DateTime.Parse("2020/05/05"),
+            //    },
+            //    new Savings()
+            //    {
+            //        MinimumAmount=100,
+            //        MaximumAmount=10000,
+            //        InterestRate=10,
+            //        MaximumDate=DateTime.Parse("2024/04/15"),
+            //    },
+            //};
+            //#endregion
+
+            //savings.ForEach(s => context.Savings.Add(s)); //Ajout de la liste des savings dans le context
+
+            //context.SaveChanges(); //Sauvegarde des données au coté de la BDD
+
 
             base.Seed(context);
         }

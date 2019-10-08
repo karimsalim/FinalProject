@@ -31,6 +31,9 @@ namespace DAL
         #endregion
 
         #region Constructeur Statique
+        /// <summary>
+        /// Crée la BDD directement et supprime à chaque appel
+        /// </summary>
         static BankContext()
         {
             Database.SetInitializer(new BankInitializer());
@@ -53,8 +56,8 @@ namespace DAL
 
             #region Initialisation des tables du namespace BCR
             modelBuilder.Entity<Employee>().ToTable(schemaName: "BCR", tableName: "Employes");
-            modelBuilder.Entity<Client>().ToTable(schemaName: "BCS", tableName: "Clients");
-            modelBuilder.Entity<Person>().ToTable(schemaName: "BCS", tableName: "Person");
+            modelBuilder.Entity<Client>().ToTable(schemaName: "BCR", tableName: "Clients");
+            modelBuilder.Entity<Person>().ToTable(schemaName: "BCR", tableName: "Person");
             #endregion
 
             //Ajout Clef primaire dans la table Personne\\
@@ -77,9 +80,9 @@ namespace DAL
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             //Modification du nom de la colonne du Conseiller coté Client\\
-            modelBuilder.Entity<Client>()
-                .Property(C => C.Conseiller.PersonId)
-                .HasColumnName("Conseiller");
+            //modelBuilder.Entity<Client>()
+            //    .Property(C => C.Conseiller.PersonId)
+            //    .HasColumnName("Conseiller");
 
             //Ajout Relation Entre Client et Account => 1 client a +eurs Comptes\\
             modelBuilder.Entity<Client>()
