@@ -13,12 +13,12 @@ namespace DAL
         [Required(ErrorMessage = "Une valeur minimale est requise.")]
         public int MinimumAmount { get; set; }
 
-        public int MaximumAmount { get; set; }
+        public int? MaximumAmount { get; set; }
 
         [Required(ErrorMessage = "Le taux d'intêret doit être précisé.")]
         public double InterestRate { get; set; }
 
-        public DateTime MaximumDate { get; set; }
+        public DateTime? MaximumDate { get; set; }
         #endregion
     }
 }

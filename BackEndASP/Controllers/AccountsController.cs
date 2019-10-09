@@ -18,13 +18,17 @@ namespace BackEndASP.Controllers
         // GET: Accounts
         public ActionResult Index(int? id)
         {
+            //TODO => INITIALISER LORS DU CLICK CHEZ LE CONTROLLEUR CLIENT
+            //ClientIdViewModel PersonID = new ClientIdViewModel { PersonID = id };
+            //ViewBag.IdClient = id;
             //return View(db.Accounts.Include("Clients").Where(a => a.Client.PersonId == id).ToList());
             List<Savings> tmpSavings = db.Savings.Where(a => a.Client.PersonId == id).ToList();
             List<Deposit> tmpDeposits = db.Deposits.Where(a => a.Client.PersonId == id).ToList();
             AccountViewModel accountViewModel = new AccountViewModel
             {
                 Savings = tmpSavings,
-                Deposits = tmpDeposits
+                Deposits = tmpDeposits,
+                PersonID = id
             };
             return View(accountViewModel);
         }
@@ -41,12 +45,14 @@ namespace BackEndASP.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView(account);
+            return View(account);
         }
 
         // GET: Accounts/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id, string typecompte)
         {
+            ViewBag.IdClient = id;
+            ViewBag.typecompte = typecompte;
             return View();
         }
 
@@ -55,16 +61,18 @@ namespace BackEndASP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AccountID,BankCode,BranchCode,AccountNumber,Key,IBAN,BIC,Balance")] Account account)
+        public ActionResult CreateSaving([Bind(Include = "BankCode,BranchCode,AccountNumber,Key,IBAN,BIC,Balance," +
+            "MinimumAmount,MaximumAmount, InterestRate, MaximumDate")] Savings saving, int? id)
         {
             if (ModelState.IsValid)
             {
-                db.Accounts.Add(account);
+                saving.Client = db.Clients.Find(id);
+                db.Savings.Add(saving);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Accounts",new { id = id });
             }
 
-            return View(account);
+            return View(saving);
         }
 
         // GET: Accounts/Edit/5

@@ -16,5 +16,6 @@ namespace BackEndASP.ViewModels
 
         public List<Deposit> Deposits { get; set; }
 
+        public int? PersonID { get; set; }
     }
 }

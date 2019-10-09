@@ -20,6 +20,12 @@ namespace BackEndASP
                 new { id = @"\d+" });
 
             routes.MapRoute(
+                name: "CreerCompte",
+                url: "Accounts/{id}/Create/{typecompte}",
+                new { Controller = "Accounts", action = "Create" },
+                new { id = @"\d+", typecompte = @"(Deposit|Saving)$" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
