@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DAL.Account>
+﻿@*@model IEnumerable<DAL.Account>*@
+@model BackEndASP.ViewModels.AccountViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -9,63 +10,151 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<h2>Liste des comptes d'épargnes</h2>
+<div class="well">
+    <h2>Liste des comptes d'épargnes</h2>
+    <a class="btn btn-info" href="@Url.Action("Create", "Accounts")">
+        Ajouter un compte épargne
+        <span class="glyphicon glyphicon-plus-sign"></span>
+    </a>
+    @if (Model.Savings.Count > 0)
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Savings.First().BankCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Savings.First().BranchCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Savings.First().AccountNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Savings.First().Key)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Savings.First().IBAN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Savings.First().BIC)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Savings.First().Balance)
+                </th>
+                <th></th>
+            </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BankCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BranchCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccountNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Key)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IBAN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BIC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Balance)
-        </th>
-        <th></th>
-    </tr>
+            @foreach (var item in Model.Savings)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BranchCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Key)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IBAN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BIC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.AccountID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.AccountID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.AccountID })
+                    </td>
+                </tr>
+            }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BankCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BranchCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccountNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Key)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IBAN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BIC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Balance)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AccountID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AccountID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AccountID })
-        </td>
-    </tr>
-}
+        </table>
+    }
+    else
+    {
 
-</table>
+        <H4>Le client n'a aucun compte d'épargne</H4>
+
+    }
+</div>
+<div class="well">
+    <h2>Liste des comptes courants</h2>
+    <a class="btn btn-info" href="@Url.Action("Create", "Accounts")">
+        Ajouter un compte courant
+        <span class="glyphicon glyphicon-plus-sign"></span>
+    </a>
+    @if (Model.Deposits.Count > 0)
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Deposits.First().BankCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Deposits.First().BranchCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Deposits.First().AccountNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Deposits.First().Key)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Deposits.First().IBAN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Deposits.First().BIC)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Deposits.First().Balance)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Deposits)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BranchCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Key)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IBAN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BIC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.AccountID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.AccountID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.AccountID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <H4>Le client n'a aucun compte courant.</H4>
+    }
+</div>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BackEndASP.ViewModels;
 using DAL;
 
 namespace BackEndASP.Controllers
@@ -17,7 +18,15 @@ namespace BackEndASP.Controllers
         // GET: Accounts
         public ActionResult Index(int? id)
         {
-            return View(db.Accounts.Include("Clients").Where(a => a.Client.PersonId == id).ToList());
+            //return View(db.Accounts.Include("Clients").Where(a => a.Client.PersonId == id).ToList());
+            List<Savings> tmpSavings = db.Savings.Where(a => a.Client.PersonId == id).ToList();
+            List<Deposit> tmpDeposits = db.Deposits.Where(a => a.Client.PersonId == id).ToList();
+            AccountViewModel accountViewModel = new AccountViewModel
+            {
+                Savings = tmpSavings,
+                Deposits = tmpDeposits
+            };
+            return View(accountViewModel);
         }
 
         // GET: Accounts/Details/5
