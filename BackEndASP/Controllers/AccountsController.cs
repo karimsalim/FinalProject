@@ -70,7 +70,7 @@ namespace BackEndASP.Controllers
                 saving.Client = db.Clients.Find(id);
                 db.Savings.Add(saving);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Accounts",new { id = id });
+                return RedirectToAction("Index", "Accounts", new { id = id });
             }
 
             return View(saving);
@@ -80,12 +80,29 @@ namespace BackEndASP.Controllers
         #region Modifier un compte d'un client => Get: /Account/{id}/Edit/{typecompte}/{idcompte}
         public ActionResult Edit(int? id, string typecompte, int? idcompte)
         {
-            if (id == null)
+            if (id == null || idcompte == null || typecompte == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            int findDeposit = db.Deposits.Where(d => d.AccountID == idcompte).Count();
-            int findSaving = db.Savings.Where(s => s.AccountID == idcompte).Count();
+            EditAccountViewModel editAccount = new EditAccountViewModel();
+            switch (typecompte)
+            {
+                case "Saving":
+                    editAccount.EditSaving = db.Savings.Find(idcompte);
+                    editAccount.PersonID = id;
+                    editAccount.TypeCompte = typecompte;
+                    return View(editAccount);
+                //break;
+                case "Deposit":
+                    editAccount.EditDeposit = db.Deposits.Find(idcompte);
+                    editAccount.PersonID = id;
+                    editAccount.TypeCompte = typecompte;
+                    return View(editAccount);
+                    //break;
+                default:
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    //break;
+            }
             Account account = db.Accounts.Find(idcompte);
             if (account == null)
             {
@@ -149,5 +166,6 @@ namespace BackEndASP.Controllers
             base.Dispose(disposing);
         }
         #endregion
+
     }
 }
