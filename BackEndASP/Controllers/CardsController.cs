@@ -42,6 +42,7 @@ namespace BackEndASP.Controllers
         // GET: Cards/Create
         public ActionResult Create()
         {
+            ViewBag.IdDeposit = UtilVars.IdDeposit;
             return View();
         }
 
