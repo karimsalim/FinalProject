@@ -9,7 +9,7 @@
     @if (Model.TypeCompte == "Saving")
     {
 
-        using (Html.BeginForm($"EditSaving/{Model.PersonID}","Accounts",FormMethod.Post))
+        using (Html.BeginForm($"EditSaving/{Model.PersonID}", "Accounts", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
 
@@ -79,6 +79,38 @@
                 </div>
 
                 <div class="form-group">
+                    @Html.LabelFor(model => model.EditSaving.MinimumAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EditSaving.MinimumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EditSaving.MinimumAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EditSaving.MaximumAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EditSaving.MaximumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EditSaving.MaximumAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EditSaving.InterestRate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EditSaving.InterestRate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EditSaving.InterestRate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EditSaving.MaximumDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EditSaving.MaximumDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EditSaving.MaximumDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <button class="btn btn-success" type="submit">
                             Enregistrer <span class="glyphicon glyphicon-floppy-save"></span>
@@ -96,86 +128,118 @@
     else if (Model.TypeCompte == "Deposit")
     {
 
-        using (Html.BeginForm($"EditDeposit/{Model.PersonID}","Accounts",FormMethod.Post))
+        using (Html.BeginForm($"EditDeposit/{Model.PersonID}", "Accounts", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <h4>Modification d'un compte courant</h4>
-                <a href="@Url.Action("Index", "Accounts", new { id = Model.PersonID })" class="btn btn-info">
-                    <span class="glyphicon glyphicon-arrow-left"></span> Retour à la liste
-                </a>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.EditDeposit.AccountID)
+<div class="form-horizontal">
+    <h4>Modification d'un compte courant</h4>
+    <a href="@Url.Action("Index", "Accounts", new { id = Model.PersonID })" class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span> Retour à la liste
+    </a>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.EditDeposit.AccountID)
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EditDeposit.BankCode, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditDeposit.BankCode, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EditDeposit.BankCode, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EditDeposit.BankCode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EditDeposit.BankCode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EditDeposit.BankCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EditDeposit.BranchCode, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditDeposit.BranchCode, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EditDeposit.BranchCode, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EditDeposit.BranchCode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EditDeposit.BranchCode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EditDeposit.BranchCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EditDeposit.AccountNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditDeposit.AccountNumber, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EditDeposit.AccountNumber, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EditDeposit.AccountNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EditDeposit.AccountNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EditDeposit.AccountNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EditDeposit.Key, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditDeposit.Key, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EditDeposit.Key, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EditDeposit.Key, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EditDeposit.Key, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EditDeposit.Key, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EditDeposit.IBAN, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditDeposit.IBAN, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EditDeposit.IBAN, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EditDeposit.IBAN, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EditDeposit.IBAN, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EditDeposit.IBAN, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EditDeposit.BIC, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditDeposit.BIC, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EditDeposit.BIC, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EditDeposit.BIC, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EditDeposit.BIC, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EditDeposit.BIC, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EditDeposit.Balance, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditDeposit.Balance, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EditDeposit.Balance, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EditDeposit.Balance, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EditDeposit.Balance, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EditDeposit.Balance, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <button class="btn btn-success" type="submit">
-                            Enregistrer <span class="glyphicon glyphicon-floppy-save"></span>
-                        </button>
-                        <a class="btn btn-danger" href="@Url.Action("Index","Accounts",new { id = Model.PersonID })">
-                            Annuler <span class="glyphicon glyphicon-ban-circle"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EditDeposit.GestionDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EditDeposit.GestionDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EditDeposit.GestionDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EditDeposit.AutorizedOverdraft, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EditDeposit.AutorizedOverdraft, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EditDeposit.AutorizedOverdraft, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EditDeposit.FreeOverdraft, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EditDeposit.FreeOverdraft, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EditDeposit.FreeOverdraft, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EditDeposit.OverdraftChargeRate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EditDeposit.OverdraftChargeRate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EditDeposit.OverdraftChargeRate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button class="btn btn-success" type="submit">
+                Enregistrer <span class="glyphicon glyphicon-floppy-save"></span>
+            </button>
+            <a class="btn btn-danger" href="@Url.Action("Index","Accounts",new { id = Model.PersonID })">
+                Annuler <span class="glyphicon glyphicon-ban-circle"></span>
+            </a>
+        </div>
+    </div>
+</div>
 
         }
 
