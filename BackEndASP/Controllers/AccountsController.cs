@@ -15,7 +15,7 @@ namespace BackEndASP.Controllers
     {
         private BankContext db = new BankContext();
 
-        // GET: Accounts
+        #region Récupérer la liste des comptes a partir d'un id d'un client => Get: /Account/{id}
         public ActionResult Index(int? id)
         {
             //TODO => INITIALISER LORS DU CLICK CHEZ LE CONTROLLEUR CLIENT
@@ -32,6 +32,7 @@ namespace BackEndASP.Controllers
             };
             return View(accountViewModel);
         }
+        #endregion
 
         // GET: Accounts/Details/5
         public ActionResult Details(int? id)
@@ -48,7 +49,7 @@ namespace BackEndASP.Controllers
             return View(account);
         }
 
-        // GET: Accounts/Create
+        #region Création d'un compte pour un client => Get : /Account/{id}/Create/{typeCompte}
         public ActionResult Create(int? id, string typecompte)
         {
             ViewBag.IdClient = id;
@@ -74,15 +75,18 @@ namespace BackEndASP.Controllers
 
             return View(saving);
         }
+        #endregion
 
-        // GET: Accounts/Edit/5
-        public ActionResult Edit(int? id)
+        #region Modifier un compte d'un client => Get: /Account/{id}/Edit/{idcompte}
+        public ActionResult Edit(int? id, int? idcompte)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            int findDeposit = db.Deposits.Where(d => d.AccountID == idcompte).Count();
+            int findSaving = db.Savings.Where(s => s.AccountID == idcompte).Count();
+            Account account = db.Accounts.Find(idcompte);
             if (account == null)
             {
                 return HttpNotFound();
@@ -105,7 +109,9 @@ namespace BackEndASP.Controllers
             }
             return View(account);
         }
+        #endregion
 
+        #region Suppression d'un compte client
         // GET: Accounts/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -131,7 +137,9 @@ namespace BackEndASP.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region Méthode dispose
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -140,5 +148,6 @@ namespace BackEndASP.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
     }
 }
