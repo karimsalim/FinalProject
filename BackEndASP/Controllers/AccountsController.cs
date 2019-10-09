@@ -17,7 +17,7 @@ namespace BackEndASP.Controllers
         // GET: Accounts
         public ActionResult Index(int? id)
         {
-            return PartialView(db.Accounts.Include("Client").Where(a => a.Client.PersonId == id).ToList());
+            return View(db.Accounts.Include("Clients").Where(a => a.Client.PersonId == id).ToList());
         }
 
         // GET: Accounts/Details/5
