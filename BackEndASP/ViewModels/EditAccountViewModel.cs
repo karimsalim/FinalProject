@@ -7,8 +7,13 @@ using DAL;
 
 namespace BackEndASP.ViewModels
 {
-    public class ClientIdViewModel
+    public class EditAccountViewModel
     {
+
+        public Savings EditSaving { get; set; }
+
+        public Deposit EditDeposit { get; set; }
+
         public int? PersonID { get; set; }
 
         public string TypeCompte { get; set; }
