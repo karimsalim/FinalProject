@@ -77,8 +77,8 @@ namespace BackEndASP.Controllers
         }
         #endregion
 
-        #region Modifier un compte d'un client => Get: /Account/{id}/Edit/{idcompte}
-        public ActionResult Edit(int? id, int? idcompte)
+        #region Modifier un compte d'un client => Get: /Account/{id}/Edit/{typecompte}/{idcompte}
+        public ActionResult Edit(int? id, string typecompte, int? idcompte)
         {
             if (id == null)
             {

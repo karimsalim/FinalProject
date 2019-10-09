@@ -27,9 +27,9 @@ namespace BackEndASP
 
             routes.MapRoute(
                 name: "EditCompte",
-                url: "Account/{id}/Edit/{idcompte}",
+                url: "Account/{id}/Edit/{typecompte}/{idcompte}",
                 new { Controller = "Accounts", action = "Edit" },
-                new { id = @"\d+", idcompte = @"\d+" });
+                new { id = @"\d+", typecompte = @"(Deposit|Saving)$", idcompte = @"\d+" });
 
             routes.MapRoute(
                 name: "Default",

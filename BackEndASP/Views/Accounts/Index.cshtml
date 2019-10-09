@@ -66,7 +66,7 @@
                         @Html.DisplayFor(modelItem => item.Balance)
                     </td>
                     <td>
-                        <a class="btn btn-warning" href="@Url.Action("Edit","Accounts", new { id = Model.PersonID, idcompte = item.AccountID })"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-warning" href="@Url.Action("Edit","Accounts", new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })"><span class="glyphicon glyphicon-pencil"></span></a>
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.AccountID }) |
         @Url.Action("Edit","Accounts",new { id = ViewBag.IdClient, idcompte = item.AccountID }) *@
                         @Html.ActionLink("Details", "Details", new { id = item.AccountID }) |
@@ -143,7 +143,7 @@
                         @Html.DisplayFor(modelItem => item.Balance)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.AccountID }) |
+                        <a class="btn btn-warning" href="@Url.Action("Edit","Accounts", new { id = Model.PersonID, typecompte="Deposit", idcompte = item.AccountID })"><span class="glyphicon glyphicon-pencil"></span></a>
                         @Html.ActionLink("Details", "Details", new { id = item.AccountID }) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.AccountID })
                     </td>
