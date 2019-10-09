@@ -41,11 +41,14 @@
             @Html.DisplayFor(modelItem => item.ExpirationDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CardId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CardId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CardId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.CardId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CardId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CardId })
         </td>
     </tr>
 }
 
 </table>
+<div id="Edit" class="col-xs-12 alert-info" style="border-radius:20px; padding:30px; display:none;">
+
+</div>

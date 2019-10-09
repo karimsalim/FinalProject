@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BackEndASP.Utils;
 using DAL;
 
 namespace BackEndASP.Controllers
@@ -14,12 +15,12 @@ namespace BackEndASP.Controllers
     {
         private BankContext db = new BankContext();
 
-        [AjaxOnly] //Pour accepter uniquement les appels ajax
+        //[AjaxOnly] //Pour accepter uniquement les appels ajax
         // GET: Cards/Id avec ID l'id du compte courant (Deposit) sélectionné
         public ActionResult Index(int? id)
         {
-            ViewBag.IdCard = id;
-            return PartialView(db.Cards.Include("Deposit").Where(c => c.Deposit.AccountID == id).ToList());
+            UtilVars.IdDeposit = UtilVars.IdDeposit == null ? id : UtilVars.IdDeposit;
+            return View(db.Cards.Include("Deposit").Where(c => c.Deposit.AccountID == id).ToList());
         }
 
         // GET: Cards/Details/5
@@ -34,13 +35,14 @@ namespace BackEndASP.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.IdDeposit = UtilVars.IdDeposit;
             return View(card);
         }
 
         // GET: Cards/Create
         public ActionResult Create()
         {
-            return PartialView();
+            return View();
         }
 
         // POST: Cards/Create
@@ -54,7 +56,7 @@ namespace BackEndASP.Controllers
             {
                 db.Cards.Add(card);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = UtilVars.IdDeposit });
             }
 
             return View(card);
@@ -72,6 +74,7 @@ namespace BackEndASP.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.IdDeposit = UtilVars.IdDeposit;
             return View(card);
         }
 
@@ -86,7 +89,7 @@ namespace BackEndASP.Controllers
             {
                 db.Entry(card).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new { id = UtilVars.IdDeposit });
             }
             return View(card);
         }
