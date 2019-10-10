@@ -62,12 +62,8 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.PersonId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { id = ViewBag.idConseiller }) 
 </p>
 
-@*ajouter un lien avec le contrôleur des comptes  *@
-<p>
-   
-    @Html.Partial("accounts")
-</p>
+
 

@@ -24,8 +24,8 @@ namespace BackEndASP
             routes.MapRoute(
                 name: "Default",
 
-                url: "{controller}/{action}",
-                defaults: new { controller = "Employees", action = "listEmployeDebug" }
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Employees", action = "listEmployeDebug", id = UrlParameter.Optional }
             );
         }
     }

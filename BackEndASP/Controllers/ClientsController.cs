@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BackEndASP.ViewModel;
 using DAL;
 
 namespace BackEndASP.Controllers
@@ -17,6 +18,7 @@ namespace BackEndASP.Controllers
         // GET: Clients
         public ActionResult Index(int? id)
         {
+            ViewBag.idManager = id;
             List<Client> listClient = null;
 
             Employee employee = db.Employees.Find(id);
@@ -40,6 +42,7 @@ namespace BackEndASP.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Client client = db.Clients.Find(id);
+            ViewBag.idConseiller = client.Conseiller.PersonId;
             if (client == null)
             {
                 return HttpNotFound();
@@ -72,7 +75,7 @@ namespace BackEndASP.Controllers
                 client.Conseiller = employee;
                 db.People.Add(client);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction($"{id}", "Employees");
             }
 
             return View(client);
@@ -86,11 +89,16 @@ namespace BackEndASP.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Client client = db.Clients.Find(id);
+
+            ClientViewModel clientViewModel = new ClientViewModel();
+            clientViewModel.currentClient = client;
+            clientViewModel.idConseiller = client.Conseiller.PersonId;
+
             if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(clientViewModel);
         }
 
         // POST: Clients/Edit/5
@@ -98,15 +106,18 @@ namespace BackEndASP.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonId,FirstName,LastName,DateOfBirth,Street,ZipCode,City")] Client client, int? id)
+        public ActionResult Edit(ClientViewModel clientViewModel)
         {
+            Employee conseiller = db.Employees.Find(clientViewModel.idConseiller);
+            clientViewModel.currentClient.Conseiller = conseiller;
+
             if (ModelState.IsValid)
             {
-                db.Entry(client).State = EntityState.Modified;
+                db.Entry(clientViewModel.currentClient).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index/"+ conseiller.PersonId);
             }
-            return View(client);
+            return View(clientViewModel.currentClient);
         }
 
         // GET: Clients/Delete/5
@@ -117,6 +128,7 @@ namespace BackEndASP.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Client client = db.Clients.Find(id);
+            ViewBag.idConseiller = client.Conseiller.PersonId;
             if (client == null)
             {
                 return HttpNotFound();
@@ -130,9 +142,10 @@ namespace BackEndASP.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Client client = db.Clients.Find(id);
+            int idConseiller = client.Conseiller.PersonId;
             db.Clients.Remove(client);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index/" + idConseiller);
         }
 
         protected override void Dispose(bool disposing)
