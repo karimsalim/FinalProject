@@ -62,7 +62,7 @@ namespace BackEndASP.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateSaving([Bind(Include = "BankCode,BranchCode,AccountNumber,Key,IBAN,BIC,Balance," +
-            "MinimumAmount,MaximumAmount, InterestRate, MaximumDate")] Savings saving, int? id)
+            "MinimumAmount,MaximumAmount, InterestRate, MaximumDate")] Savings saving, int? id)/**/
         {
             if (ModelState.IsValid)
             {
@@ -168,6 +168,8 @@ namespace BackEndASP.Controllers
 
         #region Suppression d'un compte client
         // GET: Accounts/Delete/5
+        [HttpPost]
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -179,18 +181,20 @@ namespace BackEndASP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(account);
+            ViewBag.idCompte = id;
+            return PartialView(account);
         }
 
         // POST: Accounts/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteSaving")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Account account = db.Accounts.Find(id);
+            ViewBag.IdClient = account.Client.PersonId;
             db.Accounts.Remove(account);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = ViewBag.IdClient });
         }
         #endregion
 
