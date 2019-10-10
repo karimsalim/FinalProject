@@ -15,16 +15,29 @@
     </a>
     @if (!string.IsNullOrEmpty(Context.Request.QueryString.Get("Edit")))
     {
-        <div class="info" style="display:inline" id="info">
-            <div class="col-xs-6 well">
-                <p>Le compte a été modifié.</p>
-                <button class="btn btn-info" id="CloseDiv">Fermer</button>
+        <div id="modalEditSuccess" class="modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modification du compte</h4>
+                    </div>
+                    <div class="modal-body alert alert-info">
+                        <p>Le compte a été modifié.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="CloseDiv">
+                            Fermer
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
         <script type="text/javascript">
-                $("#CloseDiv").click(function () {
-                    $("#info").fadeOut();
-                });
+            $("#CloseDiv").click(function () {
+                $("#modalEditSuccess").fadeOut();
+            });
         </script>
     }
 

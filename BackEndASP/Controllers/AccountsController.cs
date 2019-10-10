@@ -149,7 +149,20 @@ namespace BackEndASP.Controllers
                 return RedirectToAction("Index", "Accounts",new { id = id, Edit ="Success" });
             }
             return View("Edit", account);
-            //return View(account);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditDeposit(EditAccountViewModel account, int? id)
+        {
+            if(ModelState.IsValid)
+            {
+                db.Entry(account.EditDeposit).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Accounts", new { id = id, Edit = "Success" });
+            }
+            account.EditSaving = null;
+            return View("Edit",account);
         }
         #endregion
 
