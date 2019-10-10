@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BackEndASP.Utils;
+
 using DAL;
 
 namespace BackEndASP.Controllers
@@ -19,7 +19,7 @@ namespace BackEndASP.Controllers
         // GET: Cards/Id avec ID l'id du compte courant (Deposit) sélectionné
         public ActionResult Index(int? id)
         {
-            UtilVars.IdDeposit = UtilVars.IdDeposit == null ? id : UtilVars.IdDeposit;
+            ViewBag.IdDeposit = id;
             return View(db.Cards.Include("Deposit").Where(c => c.Deposit.AccountID == id).ToList());
         }
 
@@ -35,14 +35,14 @@ namespace BackEndASP.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdDeposit = UtilVars.IdDeposit;
+            ViewBag.IdDeposit = id;
             return View(card);
         }
 
         // GET: Cards/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.IdDeposit = UtilVars.IdDeposit;
+            ViewBag.IdDeposit = id;
             return View();
         }
 
@@ -51,16 +51,17 @@ namespace BackEndASP.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CardId,NewtorkIssuer,CardNumber,SecurityCode,ExpirationDate")] Card card)
+        public ActionResult Create([Bind(Include = "CardId,NewtorkIssuer,CardNumber,SecurityCode,ExpirationDate")] Card card, int? id)
         {
             if (ModelState.IsValid)
             {
+                card.Deposit = db.Deposits.Find(id);
                 db.Cards.Add(card);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { id = UtilVars.IdDeposit });
+                return RedirectToAction("Index", new { id = id });
             }
-
-            return View(card);
+            ViewBag.IdDeposit = id;
+            return View("Create", card);
         }
 
         // GET: Cards/Edit/5
@@ -75,7 +76,7 @@ namespace BackEndASP.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdDeposit = UtilVars.IdDeposit;
+            ViewBag.IdDeposit = id;
             return View(card);
         }
 
@@ -84,13 +85,13 @@ namespace BackEndASP.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CardId,NewtorkIssuer,CardNumber,SecurityCode,ExpirationDate")] Card card)
+        public ActionResult Edit([Bind(Include = "CardId,NewtorkIssuer,CardNumber,SecurityCode,ExpirationDate")] Card card, int? id)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(card).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index",new { id = UtilVars.IdDeposit });
+                return RedirectToAction("Index", new { id = id });
             }
             return View(card);
         }
