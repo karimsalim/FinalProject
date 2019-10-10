@@ -85,7 +85,7 @@ namespace BackEndASP.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonId,FirstName,LastName,DateOfBirth,Street,ZipCode,City")] Client client)
+        public ActionResult Edit([Bind(Include = "PersonId,FirstName,LastName,DateOfBirth,Street,ZipCode,City")] Client client, int? id)
         {
             if (ModelState.IsValid)
             {
