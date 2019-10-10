@@ -15,10 +15,21 @@ namespace BackEndASP.Controllers
         private BankContext db = new BankContext();
 
         // GET: Clients
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            //ViewBag.Id = id; 
-            return View(db.Clients.ToList());
+            List<Client> listClient = null;
+
+            Employee employee = db.Employees.Find(id);
+           
+            if (listClient is null)
+            {
+                listClient = db.Clients.Where(c => c.Conseiller.PersonId== id).ToList();
+            } else
+            {
+                listClient.AddRange(db.Clients.Where(c => c.Conseiller.PersonId == id).ToArray<Client>());
+            }
+          
+            return View(listClient);
         }
 
         // GET: Clients/Details/5
@@ -53,11 +64,13 @@ namespace BackEndASP.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PersonId,FirstName,LastName,DateOfBirth,Street,ZipCode,City")] Client client)
+        public ActionResult Create([Bind(Include = "PersonId,FirstName,LastName,DateOfBirth,Street,ZipCode,City")] Client client, int? id)
         {
             if (ModelState.IsValid)
             {
-                db.Clients.Add(client);
+                Employee employee = db.Employees.Find(id);
+                client.Conseiller = employee;
+                db.People.Add(client);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
