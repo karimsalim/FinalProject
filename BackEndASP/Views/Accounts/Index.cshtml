@@ -13,6 +13,22 @@
         Ajouter un compte épargne
         <span class="glyphicon glyphicon-plus-sign"></span>
     </a>
+    @if (!string.IsNullOrEmpty(Context.Request.QueryString.Get("Edit")))
+    {
+        <div class="info" style="display:inline" id="info">
+            <div class="col-xs-6 well">
+                <p>Le compte a été modifié.</p>
+                <button class="btn btn-info" id="CloseDiv">Fermer</button>
+            </div>
+        </div>
+        <script type="text/javascript">
+                $("#CloseDiv").click(function () {
+                    $("#info").fadeOut();
+                });
+        </script>
+    }
+
+
     @if (Model.Savings.Count > 0)
     {
         <table class="table">
@@ -164,3 +180,4 @@
         <H4>Le client n'a aucun compte courant.</H4>
     }
 </div>
+

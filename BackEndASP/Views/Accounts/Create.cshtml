@@ -119,7 +119,7 @@
     }
     else if (ViewBag.typecompte == "Deposit")
     {
-        using (Html.BeginForm("CreateDeposit", "Accounts", FormMethod.Post, new { id = ViewBag.IdClient }))
+        using (Html.BeginForm($"CreateDeposit/{ViewBag.IdClient}", "Accounts", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
             <h4>Créer un nouveau compte courant</h4>

@@ -56,10 +56,9 @@ namespace BackEndASP.Controllers
             ViewBag.typecompte = typecompte;
             return View();
         }
+        #endregion
 
-        // POST: Accounts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        #region Sauvegarde de la création d'un compte epargne
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateSaving([Bind(Include = "BankCode,BranchCode,AccountNumber,Key,IBAN,BIC,Balance," +
@@ -72,8 +71,32 @@ namespace BackEndASP.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", "Accounts", new { id = id });
             }
+            AccountViewModel account = new AccountViewModel();
+            account.Savings.Add(saving);
+            ViewBag.IdClient = id;
+            ViewBag.typecompte = "Saving";
+            return View("Create", account);
+        }
+        #endregion
 
-            return View(saving);
+        #region Sauvegarde de la création d'un compte courant
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateDeposit([Bind(Include = "BankCode, BranchCode,AccountNumber,Key,IBAN,BIC,Balance," +
+            "GestionDate, AutorizedOverdraft,FreeOverdraft,OverdraftChargeRate")] Deposit deposit, int? id)
+        {
+            if(ModelState.IsValid)
+            {
+                deposit.Client = db.Clients.Find(id);
+                db.Deposits.Add(deposit);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Accounts", new { id = id });
+            }
+            AccountViewModel account = new AccountViewModel();
+            account.Deposits.Add(deposit);
+            ViewBag.IdClient = id;
+            ViewBag.typecompte = "Deposit";
+            return View("Create", account);
         }
         #endregion
 
@@ -103,28 +126,30 @@ namespace BackEndASP.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     //break;
             }
-            Account account = db.Accounts.Find(idcompte);
-            if (account == null)
-            {
-                return HttpNotFound();
-            }
-            return View(account);
+            //Account account = db.Accounts.Find(idcompte);
+            //if (account == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(account);
         }
+        #endregion
 
-        // POST: Accounts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        #region Sauvegarder la modification d'un compte epargne
+        //Modification d'un compte de type Saving avec une requête POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AccountID,BankCode,BranchCode,AccountNumber,Key,IBAN,BIC,Balance")] Account account)
+        public ActionResult EditSaving( EditAccountViewModel account, int? id)/*[Bind(Include = "AccountID,BankCode,BranchCode,AccountNumber,Key,IBAN,BIC,Balance," +
+            "MinimumAmount,MaximumAmount,InterestRate,MaximumDate")]*/
         {
             if (ModelState.IsValid)
             {
-                db.Entry(account).State = EntityState.Modified;
+                db.Entry(account.EditSaving).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Accounts",new { id = id, Edit ="Success" });
             }
-            return View(account);
+            return View("Edit", account);
+            //return View(account);
         }
         #endregion
 
