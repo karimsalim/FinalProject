@@ -14,6 +14,12 @@ namespace BackEndASP.Controllers
     public class EmployeesController : Controller
     {
         private BankContext db = new BankContext();
+        public ActionResult listEmployeDebug()
+        {
+            var listEmployee = db.Employees.ToList();
+            return View(listEmployee);
+        }
+
 
         // GET: Employees
         public ActionResult Index(int? id)
@@ -31,7 +37,8 @@ namespace BackEndASP.Controllers
                     ViewBag.isManager = true;
                 }
             }
-            ViewBag.IdEmployee = employee.PersonId;
+            //
+            ViewBag.IdEmployee = employee.PersonId; //id nécessaire pour le paramètre de création d'employé et client ainsi que leurs listes.
             return View();
         }
 
@@ -39,6 +46,7 @@ namespace BackEndASP.Controllers
         {
             Employee employee = db.Employees.Find(id); //Récupère l'employé de l'id courante
             var listEmployee = db.Employees.ToList(); //Génération de la liste des employés
+            ViewBag.IdManagerForBackToList = employee.PersonId; //Transport l'id du manager pour le Back de la ViewListEmploye
             List<Employee> list = null;
 
             //Parcours de la liste des employés
@@ -58,7 +66,6 @@ namespace BackEndASP.Controllers
                         {
                             list.AddRange(db.Employees.Where(c => c.PersonId == item.PersonId).ToArray<Employee>()); // Sinon si possède déjà 1 élément ou plus rajoute 1 élément dans la liste
                         }
-
                     }
                 }
             }
@@ -75,14 +82,10 @@ namespace BackEndASP.Controllers
 
             Employee employee = db.Employees.Find(id); //Récupère l'employé de l'id courante
 
-            string manager = employee.Manager.FirstName; //Génération de la liste des employés
-
-
-
             //Si le nom du manager est différent de l'employé courant
             if (employee.FirstName != employee.Manager.FirstName)
             {
-                ViewBag.Manager = manager;
+                ViewBag.Manager = employee.Manager.FirstName; //Génération de la liste des employés
                 ViewBag.DisplayManager = "Manager :";
             }
             if (employee == null)
@@ -108,7 +111,6 @@ namespace BackEndASP.Controllers
             if (ModelState.IsValid)
             {
                 Employee manager = db.Employees.Find(id); //Récupère l'employé de l'id courante
-
                 //Gestion d'erreur, vérification de l'éxistance de l'employé
                 if (manager is null)
                 {
@@ -139,17 +141,13 @@ namespace BackEndASP.Controllers
             var listEmployee = db.Employees.ToList(); //Récupère la liste des employé
             Employee employee = db.Employees.Find(id); //Récupère l'id de l'employé courant
 
-            EmployeeViewModel employeeViewModel = new EmployeeViewModel();
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel(); //Créer un objet ViewModel aillant un objet Employee et une SelectList
             employeeViewModel.CurrentEmployee = employee;
+
+            //Objet listeEmployee, value PersonId, Texte affiché LastName, séléctionne par defaut le manager de l'employé
             employeeViewModel.ListManager = new SelectList(listEmployee, "PersonId", "LastName", employee.Manager?.PersonId);
 
-            //List<SelectListItem> items = new List<SelectListItem>();
-
-            //items.Add(new SelectListItem { Text = EmployeeViewModel.CurrentManager.LastName, Value = "0", Selected = true });
-            //items.Add(new SelectListItem { Text = EmployeeViewModel.ListEmployee, Value = "1" });
-
-            //SelectList selectList = 
-
+            ViewBag.IdManagerForBackToList = employee.Manager.PersonId; //Transport l'id du manager pour le Back de la ViewDetail
 
             if (employeeViewModel == null)
             {
@@ -163,15 +161,20 @@ namespace BackEndASP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonId,FirstName,LastName,DateOfBirth,OfficeName,isJunior")] Employee employee)
+        public ActionResult Edit([Bind(Exclude = "ListManager")] EmployeeViewModel employeeViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(employee).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(employee);
+            Employee employee = db.Employees.Find(employeeViewModel.CurrentEmployee.PersonId); //Recherche l'employé que l'on modifie
+            int currentManger = employee.Manager.PersonId;//Recupère l'id du manager travaillant sur l'employé afin de retourner sur la liste des employé de celui-ci
+            Employee manager = db.Employees.Find(employeeViewModel.CurrentEmployee.Manager.PersonId); //Recherche le manager séléctionner dans la combobox
+            employee.Manager = manager; //Assigne le manager à l'employé
+
+            //if (ModelState.IsValid)
+            //{
+            db.Entry(employee).CurrentValues.SetValues(employeeViewModel.CurrentEmployee); //Récupère la valeur courrante et la remplace par la nouvelle
+            db.SaveChanges();
+            return RedirectToAction("ListEmployee/" + currentManger);
+            //}
+            //return View(employeeViewModel);
         }
 
         // GET: Employees/Delete/5
@@ -195,9 +198,10 @@ namespace BackEndASP.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Employee employee = db.Employees.Find(id);
+            int currentManger = employee.Manager.PersonId; //Récupère l'id du manager afin de retourner sur la liste des employé de celui-ci
             db.People.Remove(employee);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ListEmployee/" + currentManger);
         }
 
         protected override void Dispose(bool disposing)
