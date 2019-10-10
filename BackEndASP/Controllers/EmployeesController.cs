@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using BackEndASP.ViewModel;
 
 namespace BackEndASP.Controllers
 {
@@ -44,12 +45,12 @@ namespace BackEndASP.Controllers
             foreach (var item in listEmployee)
             {
                 //Si l'employé possède comme manager l'employé courant
-                if (item.Manager.PersonId == employee.PersonId) 
+                if (item.Manager.PersonId == employee.PersonId)
                 {
                     //Si l'employé n'est pas l'employé courant
-                    if(item.PersonId != employee.PersonId)
+                    if (item.PersonId != employee.PersonId)
                     {
-                        if(list is null)
+                        if (list is null)
                         {
                             list = db.Employees.Where(c => c.PersonId == item.PersonId).ToList(); // Si la liste est vide ajoute 1 élément
                         }
@@ -57,7 +58,7 @@ namespace BackEndASP.Controllers
                         {
                             list.AddRange(db.Employees.Where(c => c.PersonId == item.PersonId).ToArray<Employee>()); // Sinon si possède déjà 1 élément ou plus rajoute 1 élément dans la liste
                         }
-                        
+
                     }
                 }
             }
@@ -73,7 +74,10 @@ namespace BackEndASP.Controllers
             }
 
             Employee employee = db.Employees.Find(id); //Récupère l'employé de l'id courante
+
             string manager = employee.Manager.FirstName; //Génération de la liste des employés
+
+
 
             //Si le nom du manager est différent de l'employé courant
             if (employee.FirstName != employee.Manager.FirstName)
@@ -114,11 +118,11 @@ namespace BackEndASP.Controllers
                 {
                     employee.Manager = manager; //Le manager de l'employé crée est l'employé courant (celui qui le créer)
 
-                    db.People.Add(employee);                //
-                    db.SaveChanges();                       // Ajout et sauvegarde dans la bdd
-                    return RedirectToAction("ListEmployee/"+ id);       //
+                    db.People.Add(employee);                               //
+                    db.SaveChanges();                                     // Ajout et sauvegarde dans la bdd
+                    return RedirectToAction("ListEmployee/" + id);       //
                 }
-               
+
             }
 
             return View(employee);
@@ -131,13 +135,27 @@ namespace BackEndASP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
 
-            if (employee == null)
+            var listEmployee = db.Employees.ToList(); //Récupère la liste des employé
+            Employee employee = db.Employees.Find(id); //Récupère l'id de l'employé courant
+
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel();
+            employeeViewModel.CurrentEmployee = employee;
+            employeeViewModel.ListManager = new SelectList(listEmployee, "PersonId", "LastName", employee.Manager?.PersonId);
+
+            //List<SelectListItem> items = new List<SelectListItem>();
+
+            //items.Add(new SelectListItem { Text = EmployeeViewModel.CurrentManager.LastName, Value = "0", Selected = true });
+            //items.Add(new SelectListItem { Text = EmployeeViewModel.ListEmployee, Value = "1" });
+
+            //SelectList selectList = 
+
+
+            if (employeeViewModel == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(employeeViewModel);
         }
 
         // POST: Employees/Edit/5
