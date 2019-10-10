@@ -1,0 +1,19 @@
+﻿@model IEnumerable<DAL.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<h3>Manager : @Html.ViewBag.EmployeManager</h3>
+@if (ViewBag.isManager == true)
+{
+    <p>
+        @Html.ActionLink("Créer un employé", "Create", new { id = ViewBag.IdEmployee }) |  @Html.ActionLink("Liste employé", "ListEmployee", new { id = ViewBag.IdEmployee })
+    </p>
+}
+    <p>
+        @Html.ActionLink("Créer un client", "Create", "Clients", new { id = ViewBag.IdEmployee }, "" )|  @Html.ActionLink("Liste des clients", "Index", "Clients", new { id = ViewBag.IdEmployee }, "")
+    </p>
+
+    <p>@Html.ActionLink("Back to List", "listEmployeDebug")</p>
