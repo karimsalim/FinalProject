@@ -31,8 +31,8 @@
         Ajouter un compte épargne
         <span class="glyphicon glyphicon-plus-sign"></span>
     </a>
-
-    @if (!string.IsNullOrEmpty(Context.Request.QueryString.Get("Edit")))
+    @*Fenetre modale pour la confirmation de modification*@
+    @if (TempData["Edit"]?.ToString() == "Success")
     {
         <div id="modalEditSuccess" class="modal" role="dialog">
             <div class="modal-dialog">
@@ -55,6 +55,53 @@
         </div>
     }
 
+    @*Fenetre modale pour la confirmation de création*@
+    @if (TempData["Create"]?.ToString() == "Success")
+    {
+        <div id="modalEditSuccess" class="modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Création du compte</h4>
+                    </div>
+                    <div class="modal-body alert alert-info">
+                        <p>Le compte a été crée.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="CloseDiv">
+                            Fermer
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+
+    @*Fenetre modale pour la confirmation de suppression*@
+    @if (TempData["Delete"]?.ToString() == "Success")
+    {
+        <div id="modalEditSuccess" class="modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Suppression du compte</h4>
+                    </div>
+                    <div class="modal-body alert alert-info">
+                        <p>Le compte a été supprimé.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="CloseDiv">
+                            Fermer
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
 
     @if (Model.Savings.Count > 0)
     {
@@ -109,7 +156,7 @@
                         @Html.DisplayFor(modelItem => item.Balance)
                     </td>
                     <td>
-                        @using (Html.BeginForm($"Delete/{item.AccountID}/Saving", "Accounts", FormMethod.Post, new { id = "FormDelSaving" }))
+                        @using (Html.BeginForm($"Delete/{item.AccountID}/Saving", "Accounts", FormMethod.Post, new { @class = "FormDelSaving" }))
                         {
                             <a class="btn btn-warning" href="@Url.Action("Edit","Accounts",
                                 new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
@@ -118,7 +165,7 @@
 
                             <a class="btn btn-success" href="@Url.Action("Details","Accounts",
                                 new {id = Model.PersonID,typecompte = "Saving", idcompte = item.AccountID})">
-                                <span class="glyphicon glyphicon-zoom-in"></span> 
+                                <span class="glyphicon glyphicon-zoom-in"></span>
                             </a>
 
                             @Html.AntiForgeryToken()
@@ -138,9 +185,7 @@
     }
     else
     {
-
         <H4>Le client n'a aucun compte d'épargne</H4>
-
     }
 </div>
 <div class="well">
@@ -202,7 +247,7 @@
                         @Html.DisplayFor(modelItem => item.Balance)
                     </td>
                     <td>
-                        @using (Html.BeginForm($"Delete/{item.AccountID}/Deposit", "Accounts", FormMethod.Post, new { id = "FormDelDeposit" }))
+                        @using (Html.BeginForm($"Delete/{item.AccountID}/Deposit", "Accounts", FormMethod.Post, new { @class = "FormDelDeposit" }))
                         {
                             @*<a class="btn btn-warning" href="@Url.Action("Edit","Accounts",
                 new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">

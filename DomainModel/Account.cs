@@ -46,6 +46,16 @@ namespace DAL
 
         #endregion
 
+        #region Methodes
+        /// <summary>
+        /// Permet de récupérer le RIB (BBAN) d'un compte
+        /// </summary>
+        /// <returns>BBAN du compte sélectionné</returns>
+        public string GetRib()
+        {
+            return $"{this.BankCode} {this.BranchCode} {this.AccountNumber} {this.Key}"; 
+        }
+        #endregion
 
 
     }

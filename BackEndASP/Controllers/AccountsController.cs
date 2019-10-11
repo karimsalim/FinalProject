@@ -34,26 +34,53 @@ namespace BackEndASP.Controllers
         }
         #endregion
 
-        // GET: Accounts/Details/5
-        public ActionResult Details(int? id)
+        #region Details des comptes du client
+        public ActionResult Details(int? id, string typecompte, int? idCompte)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
-            if (account == null)
+            switch (typecompte)
             {
-                return HttpNotFound();
+                case "Deposit":
+                    EditAccountViewModel deposit = new EditAccountViewModel()
+                    {
+                        EditDeposit = db.Deposits
+                            .Include("Cards").First(d => d.AccountID == idCompte),
+                        PersonID = id,
+                        TypeCompte = typecompte
+                    };
+                    if (deposit.EditDeposit == null){
+                        return HttpNotFound();
+                    }
+                    deposit.ReturnUrl = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    return View(deposit);
+                case "Saving":
+                    EditAccountViewModel saving = new EditAccountViewModel()
+                    {
+                        EditSaving = db.Savings.Find(idCompte),
+                        PersonID = id,
+                        TypeCompte = typecompte
+                    };
+                    if (saving.EditSaving == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    saving.ReturnUrl = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    return View(saving);
             }
-            return View(account);
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
+
+        #endregion
 
         #region Création d'un compte pour un client => Get : /Account/{id}/Create/{typeCompte}
         public ActionResult Create(int? id, string typecompte)
         {
             ViewBag.IdClient = id;
             ViewBag.typecompte = typecompte;
+            ViewBag.Url = System.Web.HttpContext.Current.Request.UrlReferrer;
             return View();
         }
         #endregion
@@ -69,6 +96,7 @@ namespace BackEndASP.Controllers
                 saving.Client = db.Clients.Find(id);
                 db.Savings.Add(saving);
                 db.SaveChanges();
+                TempData.Add("Create", "Success");
                 return RedirectToAction("Index", "Accounts", new { id = id });
             }
             AccountViewModel account = new AccountViewModel();
@@ -90,6 +118,7 @@ namespace BackEndASP.Controllers
                 deposit.Client = db.Clients.Find(id);
                 db.Deposits.Add(deposit);
                 db.SaveChanges();
+                TempData.Add("Create", "Success");
                 return RedirectToAction("Index", "Accounts", new { id = id });
             }
             AccountViewModel account = new AccountViewModel();
@@ -114,12 +143,14 @@ namespace BackEndASP.Controllers
                     editAccount.EditSaving = db.Savings.Find(idcompte);
                     editAccount.PersonID = id;
                     editAccount.TypeCompte = typecompte;
+                    editAccount.ReturnUrl = System.Web.HttpContext.Current.Request.UrlReferrer;
                     return View(editAccount);
                 //break;
                 case "Deposit":
                     editAccount.EditDeposit = db.Deposits.Find(idcompte);
                     editAccount.PersonID = id;
                     editAccount.TypeCompte = typecompte;
+                    editAccount.ReturnUrl = System.Web.HttpContext.Current.Request.UrlReferrer;
                     return View(editAccount);
                 //break;
                 default:
@@ -146,7 +177,9 @@ namespace BackEndASP.Controllers
             {
                 db.Entry(account.EditSaving).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Accounts", new { id = id, Edit = "Success" });
+                //ViewBag.Edit = "Success";
+                TempData.Add("Edit", "Success");
+                return RedirectToAction("Index", "Accounts", new { id = id});
             }
             return View("Edit", account);
         }
@@ -159,17 +192,15 @@ namespace BackEndASP.Controllers
             {
                 db.Entry(account.EditDeposit).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData.Add("Edit", "Success");
                 return RedirectToAction("Index", "Accounts", new { id = id, Edit = "Success" });
             }
-            account.EditSaving = null;
             return View("Edit", account);
         }
         #endregion
 
         #region Suppression d'un compte client => Post : /Account/Delete/{id}/{typecompte}
-        // GET: Accounts/Delete/5
         [HttpPost]
-
         public ActionResult Delete(int? id, string typecompte)
         {
             if (id == null)
@@ -203,6 +234,7 @@ namespace BackEndASP.Controllers
             ViewBag.IdClient = account.Client.PersonId;
             db.Accounts.Remove(account);
             db.SaveChanges();
+            TempData.Add("Delete", "Success");
             return RedirectToAction("Index", new { id = ViewBag.IdClient });
         }
 
@@ -217,6 +249,7 @@ namespace BackEndASP.Controllers
             ViewBag.IdClient = account.Client.PersonId;
             db.Deposits.Remove(account);
             db.SaveChanges();
+            TempData.Add("Delete", "Success");
             return RedirectToAction("Index", new { id = ViewBag.IdClient });
         }
         #endregion

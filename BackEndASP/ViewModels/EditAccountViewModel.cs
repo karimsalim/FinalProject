@@ -18,5 +18,6 @@ namespace BackEndASP.ViewModels
 
         public string TypeCompte { get; set; }
 
+        public Uri ReturnUrl { get; set; }
     }
 }

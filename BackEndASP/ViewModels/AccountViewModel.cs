@@ -18,6 +18,8 @@ namespace BackEndASP.ViewModels
 
         public int? PersonID { get; set; }
 
+        public string Mode { get; set; }
+
         public AccountViewModel()
         {
             this.Savings = new List<Savings>();

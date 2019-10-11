@@ -113,6 +113,10 @@
                 <div class="col-md-offset-2 col-md-10">
                     <button class="btn btn-success" type="submit">Créer le compte épargne <span class="glyphicon glyphicon-floppy-disk"></span></button>
                     @*<input type="submit" value="Create" class="btn btn-default" />*@
+                    <a href="@ViewBag.Url" class="btn btn-danger">
+                        Annuler
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
                 </div>
             </div>
         }
@@ -221,18 +225,14 @@
                 <div class="col-md-offset-2 col-md-10">
                     <button class="btn btn-success" type="submit">Créer le compte courant <span class="glyphicon glyphicon-floppy-disk"></span></button>
                     @*<input type="submit" value="Create" class="btn btn-default" />*@
+                    <a href="@ViewBag.Url" class="btn btn-danger">
+                        Annuler
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
                 </div>
             </div>
         }
     }
-</div>
-
-<div>
-    <a href="@Url.Action("Index", "Accounts",new {id = ViewBag.IdClient})" class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span>
-        Retour à la liste
-    </a>
-    @*@Html.ActionLink("Retour", "Index", new { id = ViewBag.IdClient })*@
 </div>
 
 @section Scripts {

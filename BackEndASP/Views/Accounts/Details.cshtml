@@ -1,74 +1,159 @@
-﻿@model DAL.Account
+﻿@model BackEndASP.ViewModels.EditAccountViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Details du compte sélectionné";
 }
 
-<h2>Details</h2>
+@if (Model.TypeCompte == "Deposit")
+{
+    <h2>Détails du compte courant sélectionné</h2>
 
-<div>
-    <h4>Account</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BankCode)
-        </dt>
+    <div class="well">
+        <h4> RIB : <b>@Model.EditDeposit.GetRib()</b></h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditDeposit.IBAN)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditDeposit.IBAN)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditDeposit.BIC)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditDeposit.BIC)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditDeposit.Balance)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditDeposit.Balance) €
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditDeposit.GestionDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditDeposit.GestionDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditDeposit.AutorizedOverdraft)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditDeposit.AutorizedOverdraft)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditDeposit.FreeOverdraft)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditDeposit.FreeOverdraft)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditDeposit.OverdraftChargeRate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditDeposit.OverdraftChargeRate)
+            </dd>
+        </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.BankCode)
-        </dd>
+        <p>
+            <a class="btn btn-warning"
+               href="@Url.Action("Edit","Accounts",
+                    new { id = Model.PersonID, typecompte = Model.TypeCompte, idcompte = Model.EditDeposit.AccountID })
+               ">
+                Modifier <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <a class="btn btn-info"
+               href="@Url.Action("Create","Accounts", new {id = Model.PersonID, typecompte = Model.TypeCompte})">
+                Créer <span class="glyphicon glyphicon-plus-sign"></span>
+            </a>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BranchCode)
-        </dt>
+            <a class="btn btn-success" href="@Url.Action("Index","Accounts",new { id = Model.PersonID })">
+                Retour
+                <span class="glyphicon glyphicon-arrow-left"></span>
+            </a>
 
-        <dd>
-            @Html.DisplayFor(model => model.BranchCode)
-        </dd>
+            @*Ajout de la vue partielle des cartes de crédits*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AccountNumber)
-        </dt>
+        </p>
+    </div>
+}
+else
+{
+    <h2>Détails du compte épargne sélectionné</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.AccountNumber)
-        </dd>
+    <div class="well">
+        <h4> RIB : <b>@Model.EditSaving.GetRib()</b></h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditSaving.IBAN)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditSaving.IBAN)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditSaving.BIC)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditSaving.BIC)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditSaving.Balance)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditSaving.Balance) €
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditSaving.MinimumAmount)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditSaving.MinimumAmount)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditSaving.MaximumAmount)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditSaving.MaximumAmount)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditSaving.InterestRate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditSaving.InterestRate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => Model.EditSaving.MaximumDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => Model.EditSaving.MaximumDate)
+            </dd>
+        </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Key)
-        </dt>
+        <p>
+            <a class="btn btn-warning"
+               href="@Url.Action("Edit","Accounts",
+                    new { id = Model.PersonID, typecompte = Model.TypeCompte, idcompte = Model.EditSaving.AccountID })
+               ">
+                Modifier <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <a class="btn btn-info"
+               href="@Url.Action("Create","Accounts", new {id = Model.PersonID, typecompte = Model.TypeCompte})">
+                Créer <span class="glyphicon glyphicon-plus-sign"></span>
+            </a>
 
-        <dd>
-            @Html.DisplayFor(model => model.Key)
-        </dd>
+            <a class="btn btn-success" href="@Url.Action("Index","Accounts",new { id = Model.PersonID })">
+                Retour
+                <span class="glyphicon glyphicon-arrow-left"></span>
+            </a>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IBAN)
-        </dt>
+            @*Ajout de la vue partielle des cartes de crédits*@
 
-        <dd>
-            @Html.DisplayFor(model => model.IBAN)
-        </dd>
+        </p>
+    </div>
+}
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BIC)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BIC)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Balance)
-        </dd>
-
-    </dl>
-</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AccountID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.AccountID }) |
+        @Html.ActionLink("Back to List", "Index")*@
 </p>

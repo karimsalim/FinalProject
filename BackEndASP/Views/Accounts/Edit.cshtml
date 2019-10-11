@@ -117,9 +117,10 @@
                         <button class="btn btn-success" type="submit">
                             Enregistrer <span class="glyphicon glyphicon-floppy-save"></span>
                         </button>
-                        <a class="btn btn-danger" href="@Url.Action("Index","Accounts",new { id = Model.PersonID })">
+                        <a class="btn btn-danger" href="@Model.ReturnUrl">
                             Annuler <span class="glyphicon glyphicon-ban-circle"></span>
                         </a>
+                        @*Url.Action("Index","Accounts",new { id = Model.PersonID })*@
                     </div>
                 </div>
             </div>
@@ -239,9 +240,10 @@
                         <button class="btn btn-success" type="submit">
                             Enregistrer <span class="glyphicon glyphicon-floppy-save"></span>
                         </button>
-                        <a class="btn btn-danger" href="@Url.Action("Index","Accounts",new { id = Model.PersonID })">
+                        <a class="btn btn-danger" href="@Model.ReturnUrl">
                             Annuler <span class="glyphicon glyphicon-ban-circle"></span>
                         </a>
+                        @*@Url.Action("Index", "Accounts", new { id = Model.PersonID })*@
                     </div>
                 </div>
             </div>
@@ -249,11 +251,6 @@
         }
 
     }
-</div>
-<div>
-    <a href="@Url.Action("Index", "Accounts", new { id = Model.PersonID })" class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span> Retour à la liste
-    </a>
 </div>
 
 @section Scripts {
