@@ -1,18 +1,18 @@
 ﻿@model DAL.Card
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Ajouter une carte banquaire";
 }
 
-<h2>Create</h2>
+<h2>Ajouter une carte banquaire</h2>
 
 
 @using (Html.BeginForm($"Create/{ViewBag.IdDeposit}", "Cards", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Card</h4>
+    <div class="form-horizontal well">
+        <h4>Informations de la carte banquaire</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -50,15 +50,20 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Créer" class="btn btn-success" />
+                <a href="@ViewBag.Url" class="btn btn-danger">
+                    Annuler
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
             </div>
+            
         </div>
     </div>
 }
 
 <div>
-    <span class="btn btn-danger">
+    @*<span class="btn btn-danger">
         @Html.ActionLink("Annuler", "Index", "Cards", new { id = ViewBag.IdDeposit }, "")
-    </span>
+    </span>*@
 </div>
 
 @section Scripts {

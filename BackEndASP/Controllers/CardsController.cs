@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-
+using BackEndASP.ViewModels;
 using DAL;
 
 namespace BackEndASP.Controllers
@@ -43,6 +43,7 @@ namespace BackEndASP.Controllers
         public ActionResult Create(int? id)
         {
             ViewBag.IdDeposit = id;
+            ViewBag.Url = System.Web.HttpContext.Current.Request.UrlReferrer;
             return View();
         }
 
@@ -58,7 +59,7 @@ namespace BackEndASP.Controllers
                 card.Deposit = db.Deposits.Find(id);
                 db.Cards.Add(card);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { id = id });
+                return RedirectToAction("Details", "Accounts",new { id = id });
             }
             ViewBag.IdDeposit = id;
             return View("Create", card);

@@ -9,7 +9,28 @@
     <h2>Détails du compte courant sélectionné</h2>
 
     <div class="well">
-        <h4> RIB : <b>@Model.EditDeposit.GetRib()</b></h4>
+        <div class="entete-titre">
+            <h4>
+                RIB : <b>@Model.EditDeposit.GetRib()</b>
+            </h4>
+            <div class="btn-group" style="margin-left:30px;">
+                <a class="small btn btn-warning"
+                   href="@Url.Action("Edit","Accounts",
+                    new { id = Model.PersonID, typecompte = Model.TypeCompte, idcompte = Model.EditDeposit.AccountID })">
+                    Modifier <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <a class="small btn btn-success"
+                   href="@Url.Action("Create","Accounts", new {id = Model.PersonID, typecompte = Model.TypeCompte})">
+                    Créer <span class="glyphicon glyphicon-plus-sign"></span>
+                </a>
+
+                <a class="small btn btn-info" href="@Url.Action("Index","Accounts",new { id = Model.PersonID })">
+                    Retour
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                </a>
+            </div>
+        </div>
+
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -56,34 +77,35 @@
             </dd>
         </dl>
 
-        <p>
-            <a class="btn btn-warning"
-               href="@Url.Action("Edit","Accounts",
-                    new { id = Model.PersonID, typecompte = Model.TypeCompte, idcompte = Model.EditDeposit.AccountID })
-               ">
-                Modifier <span class="glyphicon glyphicon-pencil"></span>
-            </a>
-            <a class="btn btn-info"
-               href="@Url.Action("Create","Accounts", new {id = Model.PersonID, typecompte = Model.TypeCompte})">
-                Créer <span class="glyphicon glyphicon-plus-sign"></span>
-            </a>
 
-            <a class="btn btn-success" href="@Url.Action("Index","Accounts",new { id = Model.PersonID })">
-                Retour
-                <span class="glyphicon glyphicon-arrow-left"></span>
-            </a>
-
-            @Html.Partial("../Cards/Index")
-
-        </p>
     </div>
+    @Html.Partial("../Cards/Index")
 }
 else
 {
     <h2>Détails du compte épargne sélectionné</h2>
 
     <div class="well">
-        <h4> RIB : <b>@Model.EditSaving.GetRib()</b></h4>
+        <div class="entete-titre">
+            <h4> RIB : <b>@Model.EditSaving.GetRib()</b></h4>
+            <div class="btn-group" style="margin-left:30px;">
+                <a class="btn btn-warning"
+                   href="@Url.Action("Edit","Accounts",
+                    new { id = Model.PersonID, typecompte = Model.TypeCompte, idcompte = Model.EditSaving.AccountID })
+               ">
+                    Modifier <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <a class="btn btn-success"
+                   href="@Url.Action("Create","Accounts", new {id = Model.PersonID, typecompte = Model.TypeCompte})">
+                    Créer <span class="glyphicon glyphicon-plus-sign"></span>
+                </a>
+
+                <a class="btn btn-info" href="@Url.Action("Index","Accounts",new { id = Model.PersonID })">
+                    Retour
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                </a>
+            </div>
+        </div>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -131,21 +153,7 @@ else
         </dl>
 
         <p>
-            <a class="btn btn-warning"
-               href="@Url.Action("Edit","Accounts",
-                    new { id = Model.PersonID, typecompte = Model.TypeCompte, idcompte = Model.EditSaving.AccountID })
-               ">
-                Modifier <span class="glyphicon glyphicon-pencil"></span>
-            </a>
-            <a class="btn btn-info"
-               href="@Url.Action("Create","Accounts", new {id = Model.PersonID, typecompte = Model.TypeCompte})">
-                Créer <span class="glyphicon glyphicon-plus-sign"></span>
-            </a>
-
-            <a class="btn btn-success" href="@Url.Action("Index","Accounts",new { id = Model.PersonID })">
-                Retour
-                <span class="glyphicon glyphicon-arrow-left"></span>
-            </a>
+            
 
             @*Ajout de la vue partielle des cartes de crédits*@
 

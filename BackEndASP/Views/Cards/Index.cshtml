@@ -1,5 +1,5 @@
 ﻿@model BackEndASP.ViewModels.EditAccountViewModel
-    @*IEnumerable<DAL.Card>*@
+@*IEnumerable<DAL.Card>*@
 
 @{
     ViewBag.Title = "Index";
@@ -21,68 +21,87 @@
         </div>
     </div>
 </div>
+@if (Model.EditDeposit.Cards.Count > 0)
+{
 
-<h2>Details des cartes du compte : </h2>
+    <h2>Details des cartes du compte : </h2>
 
-<p>
-    @Html.ActionLink("Ajouter", "Create")  @*A MODIFIER POUR AFFICHER LA PAGE DE CREATION D'UNE CARTE DE CREDIT!!!*@
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().CardId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().CardNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().SecurityCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().NewtorkIssuer)
-        </th>
-        <th></th>
-    </tr>
+    @*<p>
+        @Html.ActionLink("Ajouter", "Create")  A MODIFIER POUR AFFICHER LA PAGE DE CREATION D'UNE CARTE DE CREDIT!!!
+    </p>*@
+    <div class="well">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().CardId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().CardNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().SecurityCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().NewtorkIssuer)
+                </th>
+                <th></th>
+            </tr>
 
-    @foreach (var item in Model.EditDeposit.Cards)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewtorkIssuer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CardNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecurityCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpirationDate)
-            </td>
-            <td>
-                @*<a href="@Url.Action("Edit", "Cards", new { id = item.CardId })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
-        @Html.ActionLink("Details", "Details", new { id = item.CardId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.CardId })
-        <a href="@Url.Action("Delete", "Cards", new { id = item.CardId })" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></a>*@
-                @using (Html.BeginForm($"Delete/{item.CardId}", "Cards", FormMethod.Post, new { id = "FormDelCard" }))
-                {
-                    <a class="btn btn-warning" href="@Url.Action("Edit", "Cards",
+            @foreach (var item in Model.EditDeposit.Cards)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NewtorkIssuer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CardNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SecurityCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpirationDate)
+                    </td>
+                    <td>
+                        @*<a href="@Url.Action("Edit", "Cards", new { id = item.CardId })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+                            @Html.ActionLink("Details", "Details", new { id = item.CardId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CardId })
+                            <a href="@Url.Action("Delete", "Cards", new { id = item.CardId })" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></a>*@
+                        <div class="btn-group">
+                            @using (Html.BeginForm($"Delete/{item.CardId}", "Cards", FormMethod.Post, new { id = "FormDelCard", @class="btn-group" }))
+                            {
+                                <a class="btn btn-warning" href="@Url.Action("Edit", "Cards",
                                 new { id = item.CardId})">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </a>
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
 
 
 
-                    @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => item.CardId, new { id = "idCard" })
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => item.CardId, new { id = "idCard" })
 
-                    <button class="btn btn-danger Delete" type="submit" id="Delete"><span class="glyphicon glyphicon-trash"></span></button>
-                }
-            </td>
-        </tr>
-    }
+                                <button class="btn btn-danger Delete" type="submit" id="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>
+    </div>
+}
+else
+{
+    <h2>Détails des cartes du compte</h2>
+    <div class="well">
+        <div class="alert-danger badge"><h4>Aucune carte existe pour ce compte.</h4></div>
+        <a href="@Url.Action("Create","Cards", new { id = Model.EditDeposit.AccountID })" class="btn btn-info">
+            Ajouter une carte banquaire
+            <span class="glyphicon glyphicon-plus">
+            </span>
+        </a>
+    </div>
+}
 <div id="Edit" class="col-xs-12 alert-info" style="border-radius:20px; padding:30px; display:none;">
 
 </div>

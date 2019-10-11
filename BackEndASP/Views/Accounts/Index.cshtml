@@ -156,7 +156,7 @@
                         @Html.DisplayFor(modelItem => item.Balance)
                     </td>
                     <td>
-                        @using (Html.BeginForm($"Delete/{item.AccountID}/Saving", "Accounts", FormMethod.Post, new { @class = "FormDelSaving" }))
+                        @using (Html.BeginForm($"Delete/{item.AccountID}/Saving", "Accounts", FormMethod.Post, new { @class = "FormDelSaving btn-group" }))
                         {
                             <a class="btn btn-warning" href="@Url.Action("Edit","Accounts",
                                 new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
@@ -247,7 +247,7 @@
                         @Html.DisplayFor(modelItem => item.Balance)
                     </td>
                     <td>
-                        @using (Html.BeginForm($"Delete/{item.AccountID}/Deposit", "Accounts", FormMethod.Post, new { @class = "FormDelDeposit" }))
+                        @using (Html.BeginForm($"Delete/{item.AccountID}/Deposit", "Accounts", FormMethod.Post, new { @class = "FormDelDeposit btn-group"}))
                         {
                             @*<a class="btn btn-warning" href="@Url.Action("Edit","Accounts",
                 new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
@@ -259,7 +259,7 @@
                             </a>
                             <a class="btn btn-success" href="@Url.Action("Details","Accounts",
                                 new {id = Model.PersonID,typecompte = "Deposit", idcompte = item.AccountID})">
-                                <span class="glyphicon glyphicon-zoom-in"> <span class="glyphicon glyphicon-credit-card"></span></span>
+                                <span class="glyphicon glyphicon-list-alt"></span> @*<span class="glyphicon glyphicon-credit-card"></span>*@
                             </a>
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(model => item.AccountID, new { id = "idAccount" })

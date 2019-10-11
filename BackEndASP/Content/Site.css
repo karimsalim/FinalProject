@@ -37,3 +37,11 @@ textarea {
 {
     margin-bottom:0px;
 }
+
+.entete-titre{
+    display:inline-flex;
+    text-align:center;
+}
+.entete{
+    margin:5px;
+}
