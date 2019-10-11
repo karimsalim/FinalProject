@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DAL.Card>
+﻿@model BackEndASP.ViewModels.EditAccountViewModel
+    @*IEnumerable<DAL.Card>*@
 
 @{
     ViewBag.Title = "Index";
@@ -24,26 +25,26 @@
 <h2>Details des cartes du compte : </h2>
 
 <p>
-    @Html.ActionLink("Ajouter", "Create")
+    @Html.ActionLink("Ajouter", "Create")  @*A MODIFIER POUR AFFICHER LA PAGE DE CREATION D'UNE CARTE DE CREDIT!!!*@
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NewtorkIssuer)
+            @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().CardId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CardNumber)
+            @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().CardNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SecurityCode)
+            @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().SecurityCode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ExpirationDate)
+            @Html.DisplayNameFor(model => model.EditDeposit.Cards.Single().NewtorkIssuer)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.EditDeposit.Cards)
     {
         <tr>
             <td>

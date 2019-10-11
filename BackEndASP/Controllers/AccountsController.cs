@@ -193,7 +193,7 @@ namespace BackEndASP.Controllers
                 db.Entry(account.EditDeposit).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData.Add("Edit", "Success");
-                return RedirectToAction("Index", "Accounts", new { id = id, Edit = "Success" });
+                return RedirectToAction("Index", "Accounts", new { id = id});
             }
             return View("Edit", account);
         }

@@ -23,12 +23,12 @@ textarea {
     max-width: 280px;
 }
 
-.btn-danger a{
-    color:white;
-    text-decoration:none;
+.btn-danger a {
+    color: white;
+    text-decoration: none;
+}
 
-
-.modal {
+.modal{
     background-color:rgba(0,0,0,0.6);
     display:inline;
 }
