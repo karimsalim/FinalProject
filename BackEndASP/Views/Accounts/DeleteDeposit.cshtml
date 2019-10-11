@@ -1,0 +1,31 @@
+﻿@model DAL.Account
+
+@{
+    ViewBag.Title = "Suppression d'un compte courant";
+    Layout = null;
+}
+
+<div class="well">
+    <h3>Etes-vous sur de vouloir supprimer ce compte?</h3>
+    <div>
+        @using (Html.BeginForm($"DeleteDeposit/{ViewBag.IdCompte}", "Accounts", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.AccountID)
+            <div class="form-actions no-color">
+                <button type="submit" class="btn btn-danger">
+                    Supprimer
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="CloseModalDel()">
+                    Annuler
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+
+

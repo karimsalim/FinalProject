@@ -22,7 +22,18 @@ select,
 textarea {
     max-width: 280px;
 }
+
 .btn-danger a{
     color:white;
     text-decoration:none;
+
+
+.modal {
+    background-color:rgba(0,0,0,0.6);
+    display:inline;
+}
+
+.alert
+{
+    margin-bottom:0px;
 }
