@@ -4,6 +4,23 @@
     ViewBag.Title = "Index";
 }
 
+@*Fenetre modale pour la confirmation de suppression*@
+<div class="modal" id="myModals" style="display:none">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Supprimer un compte</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
 <h2>Details des cartes du compte : </h2>
 
 <p>
@@ -26,28 +43,43 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NewtorkIssuer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CardNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecurityCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpirationDate)
-        </td>
-        <td>
-            <a href="@Url.Action("Edit", "Cards", new { id = item.CardId })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
-            @*@Html.ActionLink("Details", "Details", new { id = item.CardId }) |*@
-            @*@Html.ActionLink("Delete", "Delete", new { id = item.CardId })*@
-            <a href="@Url.Action("Delete", "Cards", new { id = item.CardId })" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewtorkIssuer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecurityCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpirationDate)
+            </td>
+            <td>
+                @*<a href="@Url.Action("Edit", "Cards", new { id = item.CardId })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+        @Html.ActionLink("Details", "Details", new { id = item.CardId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.CardId })
+        <a href="@Url.Action("Delete", "Cards", new { id = item.CardId })" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></a>*@
+                @using (Html.BeginForm($"Delete/{item.CardId}", "Cards", FormMethod.Post, new { id = "FormDelCard" }))
+                {
+                    <a class="btn btn-warning" href="@Url.Action("Edit", "Cards",
+                                new { id = item.CardId})">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+
+
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => item.CardId, new { id = "idCard" })
+
+                    <button class="btn btn-danger Delete" type="submit" id="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                }
+            </td>
+        </tr>
+    }
 
 </table>
 <div id="Edit" class="col-xs-12 alert-info" style="border-radius:20px; padding:30px; display:none;">

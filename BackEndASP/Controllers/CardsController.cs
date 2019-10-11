@@ -71,12 +71,12 @@ namespace BackEndASP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Card card = db.Cards.Find(id);
+            Card card = db.Cards.Include("Deposit").First(c => c.CardId == id);
             if (card == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IdDeposit = id;
+            ViewBag.IdDeposit = card.Deposit.AccountID;
             return View(card);
         }
 
@@ -85,7 +85,7 @@ namespace BackEndASP.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CardId,NewtorkIssuer,CardNumber,SecurityCode,ExpirationDate")] Card card, int? id)
+        public ActionResult Edit( Card card, int? id)
         {
             if (ModelState.IsValid)
             {
@@ -99,6 +99,7 @@ namespace BackEndASP.Controllers
         // GET: Cards/Delete/5
         public ActionResult Delete(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -108,18 +109,20 @@ namespace BackEndASP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(card);
+            ViewBag.idCard = id;
+            return PartialView("Delete" , card);
         }
 
         // POST: Cards/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
             Card card = db.Cards.Find(id);
+            ViewBag.AccountId = card.Deposit.AccountID;
             db.Cards.Remove(card);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = ViewBag.AccountId } );
         }
 
         protected override void Dispose(bool disposing)

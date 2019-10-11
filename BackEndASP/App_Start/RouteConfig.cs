@@ -26,6 +26,18 @@ namespace BackEndASP
                 new { id = @"\d+"});
 
             routes.MapRoute(
+                name: "DeleteCard",
+                url: "Cards/Delete/{id}",
+                new { Controller = "Card", action = "Delete" },
+                new { id = @"\d+"});
+
+            routes.MapRoute(
+                name: "EditCard",
+                url: "Cards/Edit/{id}",
+                new { Controller = "Cards", action = "Edit" },
+                new { id = @"\d+"});
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
