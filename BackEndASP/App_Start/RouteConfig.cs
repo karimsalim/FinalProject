@@ -20,6 +20,12 @@ namespace BackEndASP
                 new { id = @"\d+" });
 
             routes.MapRoute(
+                name: "DeleteAccount",
+                url: "Accounts/Delete/{id}/{typecompte}",
+                new { Controller = "Accounts", action = "Delete" },
+                new { id = @"\d+", typecompte = @"(Deposit|Saving)$" });
+
+            routes.MapRoute(
                 name: "CreerCompte",
                 url: "Accounts/{id}/Create/{typecompte}",
                 new { Controller = "Accounts", action = "Create" },

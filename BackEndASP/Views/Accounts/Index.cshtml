@@ -2,9 +2,27 @@
 @model BackEndASP.ViewModels.AccountViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Liste des comptes du client";
 }
 
+<div class="modal" id="myModals" style="display:none">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Supprimer un compte</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            @*<div class="modal-footer">
+
+                </div>*@
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <h2>Liste des comptes du client</h2>
 
 <div class="well">
@@ -92,36 +110,18 @@
                         @Html.DisplayFor(modelItem => item.Balance)
                     </td>
                     <td>
-                        <a class="btn btn-warning" href="@Url.Action("Edit","Accounts", 
-                                new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
-                        @using (Html.BeginForm($"Delete/{item.AccountID}", "Accounts", FormMethod.Post,new { id = "FormDel" }))
+                        @using (Html.BeginForm($"Delete/{item.AccountID}/Deposit", "Accounts", FormMethod.Post, new { id = "FormDelSaving" }))
                         {
+                            <a class="btn btn-warning" href="@Url.Action("Edit","Accounts",
+                                new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
                             @Html.AntiForgeryToken()
-                            @Html.HiddenFor(model => item.AccountID,new { id = "idAccount" })
+                            @Html.HiddenFor(model => item.AccountID, new { id = "idAccount" })
 
                             <button class="btn btn-danger Delete" type="submit" id="Delete"><span class="glyphicon glyphicon-trash"></span></button>
                         }
 
-                        <div class="modal" id="myModals" style="display:none">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close"
-                                                data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h4 class="modal-title">Supprimer un compte</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                    </div>
-                                    @*<div class="modal-footer">
-                                        
-                                    </div>*@
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
                         @*<a class="btn btn-danger" href="@Url.Action("Delete", "Accounts", new { id = item.AccountID })">
 
                             </a>*@
@@ -197,15 +197,26 @@
                         @Html.DisplayFor(modelItem => item.Balance)
                     </td>
                     <td>
+                        @using (Html.BeginForm($"Delete/{item.AccountID}/Saving", "Accounts", FormMethod.Post, new { id = "FormDelDeposit" }))
+                        {
+                            @*<a class="btn btn-warning" href="@Url.Action("Edit","Accounts",
+                                new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>*@
                         <a class="btn btn-warning" href="@Url.Action("Edit","Accounts", new { id = Model.PersonID, typecompte="Deposit", idcompte = item.AccountID })">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
                         <a class="btn btn-success" href="@Url.Action("Details", "Accounts",new { id = item.AccountID })">
                             <span class="glyphicon glyphicon-zoom-in"></span> <span class="glyphicon glyphicon-credit-card"></span>
                         </a>
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Accounts", new { id = item.AccountID })">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => item.AccountID, new { id = "idAccount" })
+
+                            <button class="btn btn-danger Delete" type="submit" id="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                        }
+                        @*<a class="btn btn-danger" href="@Url.Action("Delete", "Accounts", new { id = item.AccountID })">
                             <span class="glyphicon glyphicon-trash"></span>
-                        </a>
+                        </a>*@
                     </td>
                 </tr>
             }

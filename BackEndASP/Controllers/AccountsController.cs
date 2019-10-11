@@ -170,7 +170,7 @@ namespace BackEndASP.Controllers
         // GET: Accounts/Delete/5
         [HttpPost]
 
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, string typecompte)
         {
             if (id == null)
             {
@@ -191,6 +191,17 @@ namespace BackEndASP.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Account account = db.Accounts.Find(id);
+            ViewBag.IdClient = account.Client.PersonId;
+            db.Accounts.Remove(account);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { id = ViewBag.IdClient });
+        }
+
+        [HttpPost, ActionName("DeleteDeposit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedDeposit(int id)
+        {
+            Account account = db.Deposits.Find(id);
             ViewBag.IdClient = account.Client.PersonId;
             db.Accounts.Remove(account);
             db.SaveChanges();
