@@ -31,7 +31,7 @@
             {
             },
             function (data) {
-                console.log(data);
+                //console.log(data);
                 //return;
                 $mymodal = $("#myModals");
                 //update the modal's body with the response received
@@ -50,7 +50,7 @@
             {
             },
             function (data) {
-                console.log(data);
+                //console.log(data);
                 //return;
                 $mymodal = $("#myModals");
                 //update the modal's body with the response received

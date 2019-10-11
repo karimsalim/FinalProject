@@ -85,7 +85,7 @@ namespace BackEndASP.Controllers
         public ActionResult CreateDeposit([Bind(Include = "BankCode, BranchCode,AccountNumber,Key,IBAN,BIC,Balance," +
             "GestionDate, AutorizedOverdraft,FreeOverdraft,OverdraftChargeRate")] Deposit deposit, int? id)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 deposit.Client = db.Clients.Find(id);
                 db.Deposits.Add(deposit);
@@ -121,7 +121,7 @@ namespace BackEndASP.Controllers
                     editAccount.PersonID = id;
                     editAccount.TypeCompte = typecompte;
                     return View(editAccount);
-                    //break;
+                //break;
                 default:
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     //break;
@@ -139,14 +139,14 @@ namespace BackEndASP.Controllers
         //Modification d'un compte de type Saving avec une requête POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditSaving( EditAccountViewModel account, int? id)/*[Bind(Include = "AccountID,BankCode,BranchCode,AccountNumber,Key,IBAN,BIC,Balance," +
+        public ActionResult EditSaving(EditAccountViewModel account, int? id)/*[Bind(Include = "AccountID,BankCode,BranchCode,AccountNumber,Key,IBAN,BIC,Balance," +
             "MinimumAmount,MaximumAmount,InterestRate,MaximumDate")]*/
         {
             if (ModelState.IsValid)
             {
                 db.Entry(account.EditSaving).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Accounts",new { id = id, Edit ="Success" });
+                return RedirectToAction("Index", "Accounts", new { id = id, Edit = "Success" });
             }
             return View("Edit", account);
         }
@@ -155,14 +155,14 @@ namespace BackEndASP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditDeposit(EditAccountViewModel account, int? id)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.Entry(account.EditDeposit).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", "Accounts", new { id = id, Edit = "Success" });
             }
             account.EditSaving = null;
-            return View("Edit",account);
+            return View("Edit", account);
         }
         #endregion
 
@@ -182,13 +182,20 @@ namespace BackEndASP.Controllers
                 return HttpNotFound();
             }
             ViewBag.idCompte = id;
-            return PartialView(account);
+            if (typecompte == "Saving")
+            {
+                return PartialView("DeleteSaving",account);
+            }
+            else
+            {
+                return PartialView("DeleteDeposit", account);
+            }
         }
 
         // POST: Accounts/Delete/5
         [HttpPost, ActionName("DeleteSaving")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmedSaving(int id)
         {
             Account account = db.Accounts.Find(id);
             ViewBag.IdClient = account.Client.PersonId;
@@ -201,9 +208,9 @@ namespace BackEndASP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedDeposit(int id)
         {
-            Account account = db.Deposits.Find(id);
+            Deposit account = db.Deposits.Include("Cards").First(d => d.AccountID == id);
             ViewBag.IdClient = account.Client.PersonId;
-            db.Accounts.Remove(account);
+            db.Deposits.Remove(account);
             db.SaveChanges();
             return RedirectToAction("Index", new { id = ViewBag.IdClient });
         }
