@@ -15,6 +15,30 @@ namespace BackEndASP
 
             #region Route Liste des comptes d'un client 
             routes.MapRoute(
+                name: "AfficheCards",
+                url: "Cards/{id}",
+                new { Controller = "Cards", action = "Index" },
+                new { id = @"\d+" });
+
+            routes.MapRoute(
+                name: "CreateCard",
+                url: "Cards/{id}/Create",
+                new { Controller = "Cards", action = "Create" },
+                new { id = @"\d+"});
+
+            routes.MapRoute(
+                name: "DeleteCard",
+                url: "Cards/Delete/{id}",
+                new { Controller = "Card", action = "Delete" },
+                new { id = @"\d+"});
+
+            routes.MapRoute(
+                name: "EditCard",
+                url: "Cards/Edit/{id}",
+                new { Controller = "Cards", action = "Edit" },
+                new { id = @"\d+"});
+
+            routes.MapRoute(
                 name: "AfficheComptes",
                 url: "Accounts/{id}",
                 new { Controller = "Accounts", action = "Index" },

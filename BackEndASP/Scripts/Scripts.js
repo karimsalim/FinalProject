@@ -40,18 +40,6 @@
                 $mymodal.fadeIn();
             });
     });
-
-
-
-
-    ////$.post($form.attr("action"), $form.serialize()).done(function (res) {
-    ////    $mymodal = $("#myModals");
-    ////    //update the modal's body with the response received
-    ////    $mymodal.find("div.modal-body").html(res);
-    ////    // Show the modal
-    ////    $mymodal.modal("show");
-    ////});
-    //});
 });
 
 function CloseModalDel() {
