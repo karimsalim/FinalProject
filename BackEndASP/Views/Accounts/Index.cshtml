@@ -5,6 +5,7 @@
     ViewBag.Title = "Liste des comptes du client";
 }
 
+@*Fenetre modale pour la confirmation de suppression*@
 <div class="modal" id="myModals" style="display:none">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -17,12 +18,10 @@
             </div>
             <div class="modal-body">
             </div>
-            @*<div class="modal-footer">
+        </div>
+    </div>
+</div>
 
-                </div>*@
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 <h2>Liste des comptes du client</h2>
 
 <div class="well">
@@ -116,6 +115,12 @@
                                 new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
+
+                            <a class="btn btn-success" href="@Url.Action("Details","Accounts",
+                                new {id = Model.PersonID,typecompte = "Saving", idcompte = item.AccountID})">
+                                <span class="glyphicon glyphicon-zoom-in"></span> 
+                            </a>
+
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(model => item.AccountID, new { id = "idAccount" })
 
@@ -200,23 +205,25 @@
                         @using (Html.BeginForm($"Delete/{item.AccountID}/Deposit", "Accounts", FormMethod.Post, new { id = "FormDelDeposit" }))
                         {
                             @*<a class="btn btn-warning" href="@Url.Action("Edit","Accounts",
-                                new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
+                new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>*@
+                            <a class="btn btn-warning" href="@Url.Action("Edit","Accounts",
+                                new { id = Model.PersonID, typecompte="Deposit", idcompte = item.AccountID })">
                                 <span class="glyphicon glyphicon-pencil"></span>
-                            </a>*@
-                        <a class="btn btn-warning" href="@Url.Action("Edit","Accounts", new { id = Model.PersonID, typecompte="Deposit", idcompte = item.AccountID })">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
-                        <a class="btn btn-success" href="@Url.Action("Details", "Accounts",new { id = item.AccountID })">
-                            <span class="glyphicon glyphicon-zoom-in"></span> <span class="glyphicon glyphicon-credit-card"></span>
-                        </a>
+                            </a>
+                            <a class="btn btn-success" href="@Url.Action("Details","Accounts",
+                                new {id = Model.PersonID,typecompte = "Deposit", idcompte = item.AccountID})">
+                                <span class="glyphicon glyphicon-zoom-in"> <span class="glyphicon glyphicon-credit-card"></span></span>
+                            </a>
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(model => item.AccountID, new { id = "idAccount" })
 
                             <button class="btn btn-danger Delete" type="submit" id="Delete"><span class="glyphicon glyphicon-trash"></span></button>
                         }
                         @*<a class="btn btn-danger" href="@Url.Action("Delete", "Accounts", new { id = item.AccountID })">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>*@
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>*@
                     </td>
                 </tr>
             }

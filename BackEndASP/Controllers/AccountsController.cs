@@ -166,7 +166,7 @@ namespace BackEndASP.Controllers
         }
         #endregion
 
-        #region Suppression d'un compte client
+        #region Suppression d'un compte client => Post : /Account/Delete/{id}/{typecompte}
         // GET: Accounts/Delete/5
         [HttpPost]
 
@@ -192,7 +192,9 @@ namespace BackEndASP.Controllers
             }
         }
 
-        // POST: Accounts/Delete/5
+        #endregion
+
+        #region Suppression confirmée par l'user d'un compte Saving => Post : /Account/DeleteSaving/{id}
         [HttpPost, ActionName("DeleteSaving")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedSaving(int id)
@@ -204,6 +206,9 @@ namespace BackEndASP.Controllers
             return RedirectToAction("Index", new { id = ViewBag.IdClient });
         }
 
+        #endregion
+
+        #region Suppression confirmée par l'user d'un compte Deposit => Post : /Account/DeleteDeposit/{id}
         [HttpPost, ActionName("DeleteDeposit")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedDeposit(int id)
