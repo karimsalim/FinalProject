@@ -131,6 +131,7 @@ namespace BackEndASP.Controllers
             //ViewBag.AccountId = card.Deposit.AccountID;
             db.Cards.Remove(card);
             db.SaveChanges();
+            TempData.Add("Delete", "Success");
             return RedirectToRoute("DetailsAccounts",new { id = idClient, typecompte = "Deposit", idcompte = idCompte });//("Index", new { id = ViewBag.AccountId } );
         }
         #endregion

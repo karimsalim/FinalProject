@@ -4,6 +4,29 @@
     ViewBag.Title = "Details du compte sélectionné";
 }
 
+@if (TempData["Delete"]?.ToString() == "Success")
+{
+    <div id="modalEditSuccess" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Suppression de carte bancaire</h4>
+                </div>
+                <div class="modal-body alert alert-info">
+                    <p>La carte bancaire a été supprimée.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="CloseDiv">
+                        Fermer
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
 @if (Model.TypeCompte == "Deposit")
 {
     <h2>Détails du compte courant sélectionné</h2>
@@ -153,7 +176,7 @@ else
         </dl>
 
         <p>
-            
+
 
             @*Ajout de la vue partielle des cartes de crédits*@
 
