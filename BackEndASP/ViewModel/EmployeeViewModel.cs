@@ -13,5 +13,6 @@ namespace BackEndASP.ViewModel
         public SelectList ChangeManager { get; set; }
         public SelectList ChangeEmployee { get; set; }
         public List<Client> ListClient { get; set; }
+
     }
 }

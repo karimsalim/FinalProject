@@ -1,35 +1,36 @@
-﻿@model IEnumerable<DAL.Client>
+﻿@model BackEndASP.ViewModel.EmployeeViewModel
+
 
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-@Html.ActionLink("Back to List", "Index", "Employees", new { id = ViewBag.idManager}, "")
+@Html.ActionLink("Back to List", "Index", "Employees", new { id = ViewBag.idManager }, "")
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Street)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th></th>
-    </tr>
+    @*<tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZipCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th></th>
+        </tr>*@
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.ListClient)
     {
         <tr>
             <td>
@@ -53,7 +54,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.PersonId }) |
 
-                @*ajouter un boutton pour afficher les comptes de clients*@ 
+                @*ajouter un boutton pour afficher les comptes de clients*@
                 @Html.ActionLink("Details", "Details", new { id = item.PersonId })
                 |
                 @Html.ActionLink("Delete", "Delete", new { id = item.PersonId }) |
@@ -63,6 +64,18 @@
                 @Html.ActionLink("Accounts", "Index", "Accounts", new { id = item.PersonId }, "")
 
             </td>
+
+            @using (Html.BeginForm($"ChangeEmployee/{item.PersonId}/{Model.CurrentEmployee.PersonId}", "Clients", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <td>
+                    @Html.DropDownListFor(model => model.CurrentEmployee.PersonId, Model.ChangeEmployee)
+                    @Html.ValidationMessageFor(model => model.ChangeEmployee, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    <input type="submit" value="Change"btn btn-default" />
+                </td>
+            }
         </tr>
     }
 

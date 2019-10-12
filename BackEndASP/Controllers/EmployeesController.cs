@@ -133,20 +133,21 @@ namespace BackEndASP.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            
+
             var listEmp = db.Employees.ToList(); //Récupère la liste des employé
             Employee employee = db.Employees.Find(id); //Récupère l'id de l'employé courant
-            List<Employee> listEmpbyManager = new List<Employee>(listEmp);
+            List<Employee> listEmpbyManager = listEmp.ToList();
 
-            EmployeeViewModel employeeViewModel = new EmployeeViewModel(); //Créer un objet ViewModel aillant un objet Employee et une SelectList
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel();
             foreach (var item in listEmp)
             {
-                if(item.Manager.PersonId != employee.Manager.PersonId)
+                if (item.Manager.PersonId != employee.Manager.PersonId)
                 {
+                    if(item.PersonId != employee.Manager.PersonId)
                     listEmpbyManager.Remove(item);
                 }
             }
-            employeeViewModel.ChangeEmployee = new SelectList(listEmpbyManager, "PersonId", "LastName", employee.PersonId) ; //Liste des employés avec par défaut l'employé actuel 
+            employeeViewModel.ChangeEmployee = new SelectList(listEmpbyManager, "PersonId", "LastName", employee.PersonId); //Liste des employés avec par défaut l'employé actuel 
             employeeViewModel.CurrentEmployee = employee; // Récupère l'employé
             var listEmpWithoutCurrentEmp = db.Employees.ToList(); //Récupère la liste des employé
             listEmpWithoutCurrentEmp.Remove(employee);  //Supprime l'employé actuel de la liste des employé
@@ -203,7 +204,7 @@ namespace BackEndASP.Controllers
             db.Entry(client).State = EntityState.Modified;
             //*************************//
             db.SaveChanges();
-            return RedirectToAction("Edit/"+ idEmployee);
+            return RedirectToAction("Edit/" + idEmployee);
         }
         // GET: Employees/Delete/5
         public ActionResult Delete(int? id)
@@ -227,9 +228,13 @@ namespace BackEndASP.Controllers
         {
             Employee employee = db.Employees.Find(id);
             int currentManger = employee.Manager.PersonId; //Récupère l'id du manager afin de retourner sur la liste des employé de celui-ci
-            db.People.Remove(employee);
-            db.SaveChanges();
-            return RedirectToAction("ListEmployee/" + currentManger);
+            if (employee.Clients == null)
+            {
+                db.People.Remove(employee);
+                db.SaveChanges();
+                return RedirectToAction("ListEmployee/" + currentManger);
+            }
+            return RedirectToAction("Delete/" + employee);
         }
 
         protected override void Dispose(bool disposing)

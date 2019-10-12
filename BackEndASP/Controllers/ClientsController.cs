@@ -18,20 +18,25 @@ namespace BackEndASP.Controllers
         // GET: Clients
         public ActionResult Index(int? id)
         {
-            ViewBag.idManager = id;
-            List<Client> listClient = null;
 
-            Employee employee = db.Employees.Find(id);
-           
-            if (listClient is null)
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel();
+            List<Employee> listEmp = db.Employees.ToList();
+            List<Employee> sortingList = listEmp.ToList();
+            foreach (var item in listEmp)
             {
-                listClient = db.Clients.Where(c => c.Conseiller.PersonId== id).ToList();
-            } else
-            {
-                listClient.AddRange(db.Clients.Where(c => c.Conseiller.PersonId == id).ToArray<Client>());
+                if (item.Manager.PersonId != id)
+                {
+                    sortingList.Remove(item);
+                }
             }
-          
-            return View(listClient);
+
+            ViewBag.idManager = id;
+            employeeViewModel.CurrentEmployee = db.Employees.Find(id);
+            employeeViewModel.ListClient = db.Clients.Where(c => c.Conseiller.PersonId == id).ToList();
+            employeeViewModel.ChangeEmployee = new SelectList(sortingList, "PersonId", "LastName", id);
+
+
+            return View(employeeViewModel);
         }
 
         // GET: Clients/Details/5
@@ -120,6 +125,25 @@ namespace BackEndASP.Controllers
                 return RedirectToAction("Index/"+ conseiller.PersonId);
             }
             return View(clientViewModel.currentClient);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeEmployee(EmployeeViewModel modifEmployee, int? idClient, int? idEmployee)
+        {
+            Client client = db.Clients.Find(idClient);
+            Employee oldEmployee = db.Employees.Find(idEmployee);
+            oldEmployee.Clients.Remove(client);
+            Employee newEmployee = db.Employees.Find(modifEmployee.CurrentEmployee.PersonId);
+            client.Conseiller = newEmployee;
+         
+            //Suppression du client a l'ancien employé
+            db.Entry(oldEmployee).State = EntityState.Modified;
+            //Ajout de l'employé au client
+            db.Entry(client).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index/" + idEmployee);
         }
 
         // GET: Clients/Delete/5

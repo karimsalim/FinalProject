@@ -1,28 +1,28 @@
 ﻿@model BackEndASP.ViewModel.EmployeeViewModel
 
 <table class="table">
-    @foreach (var item2 in Model.ListClient)
+    @foreach (var item in Model.ListClient)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item2.FirstName)
+                @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item2.LastName)
+                @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item2.DateOfBirth)
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item2.Street)
+                @Html.DisplayFor(modelItem => item.Street)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item2.ZipCode)
+                @Html.DisplayFor(modelItem => item.ZipCode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item2.City)
+                @Html.DisplayFor(modelItem => item.City)
             </td>
-            @using (Html.BeginForm($"ChangeEmployee/{item2.PersonId}/{Model.CurrentEmployee.PersonId}","Employees",FormMethod.Post))
+            @using (Html.BeginForm($"ChangeEmployee/{item.PersonId}/{Model.CurrentEmployee.PersonId}","Employees",FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 <td>
