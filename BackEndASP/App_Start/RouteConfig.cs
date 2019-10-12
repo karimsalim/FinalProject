@@ -46,9 +46,9 @@ namespace BackEndASP
             #region Route Modification d'une carte de crédit
             routes.MapRoute(
                 name: "EditCard",
-                url: "Cards/Edit/{id}",
+                url: "Cards/Edit/{id}/Account/{idcompte}/Client/{idclient}",
                 new { Controller = "Cards", action = "Edit" },
-                new { id = @"\d+" });
+                new { id = @"\d+", idcompte = @"\d+", idclient=@"\d+" });
             #endregion
 
             #region Route Liste des comptes d'un client 

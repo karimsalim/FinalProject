@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm($"Edit/{Model.Deposit.AccountID}", "Cards", FormMethod.Post))
+@using (Html.BeginForm($"Edit/{Model.CardId}/Account/{TempData["IdAccount"]}/Client/{TempData["IdClient"]}", "Cards", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -59,7 +59,7 @@
 }
 
 <div>
-    <a class="btn btn-info" href="@Url.Action("Index","Cards",new { id = ViewBag.IdDeposit })"><span class="glyphicon glyphicon-arrow-left"></span> Retour </a>
+    <a class="btn btn-info" href="@Url.Action("Details","Accounts",new { id = TempData["IdClient"], typecompte = "Deposit", idcompte = TempData["IdAccount"]})"><span class="glyphicon glyphicon-arrow-left"></span> Retour </a>
     @*<span class="btn btn-danger">@Html.ActionLink("Retour à la liste", "Index", "Cards", new { id = ViewBag.IdDeposit }, "") </span>*@
     @*@Html.ActionLink("Back to List", "Index")*@
 </div>

@@ -61,17 +61,17 @@
                     </td>
                     <td>
                         <div class="btn-group">
-                            @using (Html.BeginForm($"Delete/{item.CardId}", "Cards", FormMethod.Post, new {@class="FormDelCard btn-group"}))
+                            @using (Html.BeginForm($"Delete/{item.CardId}", "Cards", FormMethod.Post, new { @class = "FormDelCard btn-group" }))
                             {
-                                <a class="btn btn-warning" href="@Url.Action("Edit", "Cards",
-                                new { id = item.CardId})">
+                                <a class="btn btn-warning" href="@Url.Action($"Edit/{item.CardId}" +
+                                                                $"/Account/{Model.EditDeposit.AccountID}/Client/{Model.PersonID}", "Cards")">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </a>
 
-
-
                                 @Html.AntiForgeryToken()
                                 @Html.HiddenFor(model => item.CardId, new { id = "idCard" })
+                                @Html.HiddenFor(model => model.EditDeposit.AccountID)
+                                @Html.HiddenFor(model => model.PersonID)
 
                                 <button class="btn btn-danger Delete" type="submit" id="Delete"><span class="glyphicon glyphicon-trash"></span></button>
                             }

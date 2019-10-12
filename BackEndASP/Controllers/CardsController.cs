@@ -69,8 +69,8 @@ namespace BackEndASP.Controllers
         }
         #endregion
 
-        #region Modification d'une carte de crédit => Get : Cards/Edit/{idcard}
-        public ActionResult Edit(int? id)
+        #region Modification d'une carte de crédit => Get : Cards/Edit/{idcard}/Account/{idcompte}/Client/{idclient}
+        public ActionResult Edit(int? id, int idcompte, int idclient)
         {
             if (id == null)
             {
@@ -81,7 +81,8 @@ namespace BackEndASP.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdDeposit = card.Deposit.AccountID;
+            TempData.Add("IdAccount",idcompte);
+            TempData.Add("IdClient", idclient);
             return View(card);
         }
         #endregion
@@ -89,13 +90,14 @@ namespace BackEndASP.Controllers
         #region Sauvegarde d'une modification d'une carte => Post : Cards/Edit/{idcard}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Card card, int? id)
+        public ActionResult Edit( Card card, int? id, int idcompte, int idclient)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(card).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", new { id = id });
+                TempData.Add("Edit", "Success");
+                return RedirectToAction("Details","Accounts", new { id = idclient, typecompte = "Deposit", idcompte = idcompte});
             }
             return View(card);
         }

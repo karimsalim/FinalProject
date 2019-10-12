@@ -47,14 +47,16 @@ namespace BackEndASP.Controllers
                     EditAccountViewModel deposit = new EditAccountViewModel()
                     {
                         EditDeposit = db.Deposits
-                            .Include("Cards").First(d => d.AccountID == idCompte),
+                            .Include("Cards")
+                            .First(d => d.AccountID == idCompte),
                         PersonID = id,
                         TypeCompte = typecompte
                     };
                     if (deposit.EditDeposit == null){
                         return HttpNotFound();
                     }
-                    deposit.ReturnUrl = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    deposit.ReturnUrl = System.Web.HttpContext
+                        .Current.Request.UrlReferrer;
                     return View(deposit);
                 case "Saving":
                     EditAccountViewModel saving = new EditAccountViewModel()
@@ -67,7 +69,8 @@ namespace BackEndASP.Controllers
                     {
                         return HttpNotFound();
                     }
-                    saving.ReturnUrl = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    saving.ReturnUrl = System.Web.HttpContext
+                        .Current.Request.UrlReferrer;
                     return View(saving);
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

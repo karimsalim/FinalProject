@@ -4,6 +4,7 @@
     ViewBag.Title = "Details du compte sélectionné";
 }
 
+@*Fenêtre modale de confirmation de la suppression de la carte bancaire*@
 @if (TempData["Delete"]?.ToString() == "Success")
 {
     <div id="modalEditSuccess" class="modal" role="dialog">
@@ -14,6 +15,30 @@
                 </div>
                 <div class="modal-body alert alert-info">
                     <p>La carte bancaire a été supprimée.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="CloseDiv">
+                        Fermer
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+@*Fenêtre modale de confirmation de modification de la carte bancaire*@
+@if (TempData["Edit"]?.ToString() == "Success")
+{
+    <div id="modalEditSuccess" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Modification de la carte bancaire</h4>
+                </div>
+                <div class="modal-body alert alert-info">
+                    <p>La carte bancaire a été modifiée.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-dismiss="modal" id="CloseDiv">
