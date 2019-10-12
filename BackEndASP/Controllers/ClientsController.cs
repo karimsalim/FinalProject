@@ -57,8 +57,10 @@ namespace BackEndASP.Controllers
         }
 
         // GET: Clients/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            Employee manager = db.Employees.Find(id);
+            ViewBag.IdEmployee = manager.PersonId;
             return View();
         }
 

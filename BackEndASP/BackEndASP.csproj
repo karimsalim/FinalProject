@@ -190,9 +190,9 @@
     <Content Include="Views\Employees\Details.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
-    <Content Include="Views\Shared\_ListEmployee.cshtml" />
     <Content Include="Views\Employees\ListEmployee.cshtml" />
     <Content Include="Views\Employees\listEmployeDebug.cshtml" />
+    <Content Include="Views\Shared\_ListClientsEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -81,13 +81,6 @@ namespace BackEndASP.Controllers
             }
 
             Employee employee = db.Employees.Find(id); //Récupère l'employé de l'id courante
-
-            //Si le nom du manager est différent de l'employé courant
-            if (employee.FirstName != employee.Manager.FirstName)
-            {
-                ViewBag.Manager = employee.Manager.FirstName; //Génération de la liste des employés
-                ViewBag.DisplayManager = "Manager :";
-            }
             if (employee == null)
             {
                 return HttpNotFound();
@@ -98,6 +91,8 @@ namespace BackEndASP.Controllers
         // GET: Employees/Create
         public ActionResult Create(int? id)
         {
+            Employee manager = db.Employees.Find(id);
+            ViewBag.IdEmployee = manager.PersonId;
             return View();
         }
 
@@ -138,14 +133,28 @@ namespace BackEndASP.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var listEmployee = db.Employees.ToList(); //Récupère la liste des employé
+            
+            var listEmp = db.Employees.ToList(); //Récupère la liste des employé
             Employee employee = db.Employees.Find(id); //Récupère l'id de l'employé courant
+            List<Employee> listEmpbyManager = new List<Employee>(listEmp);
 
             EmployeeViewModel employeeViewModel = new EmployeeViewModel(); //Créer un objet ViewModel aillant un objet Employee et une SelectList
-            employeeViewModel.CurrentEmployee = employee;
+            foreach (var item in listEmp)
+            {
+                if(item.Manager.PersonId != employee.Manager.PersonId)
+                {
+                    listEmpbyManager.Remove(item);
+                }
+            }
+            employeeViewModel.ChangeEmployee = new SelectList(listEmpbyManager, "PersonId", "LastName", employee.PersonId) ; //Liste des employés avec par défaut l'employé actuel 
+            employeeViewModel.CurrentEmployee = employee; // Récupère l'employé
+            var listEmpWithoutCurrentEmp = db.Employees.ToList(); //Récupère la liste des employé
+            listEmpWithoutCurrentEmp.Remove(employee);  //Supprime l'employé actuel de la liste des employé
+            employeeViewModel.ListClient = employee.Clients.ToList(); //Récupère la liste des clients de l'employé
+
 
             //Objet listeEmployee, value PersonId, Texte affiché LastName, séléctionne par defaut le manager de l'employé
-            employeeViewModel.ListManager = new SelectList(listEmployee, "PersonId", "LastName", employee.Manager?.PersonId);
+            employeeViewModel.ChangeManager = new SelectList(listEmpWithoutCurrentEmp, "PersonId", "LastName", employee.Manager?.PersonId); //Liste des employés sans l'employé actuel avec par défaut son manager
 
             ViewBag.IdManagerForBackToList = employee.Manager.PersonId; //Transport l'id du manager pour le Back de la ViewDetail
 
@@ -177,6 +186,25 @@ namespace BackEndASP.Controllers
             //return View(employeeViewModel);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeEmployee(EmployeeViewModel modifEmployee, int? idClient, int? idEmployee)
+        {
+            Client client = db.Clients.Find(idClient);
+            Employee oldEmployee = db.Employees.Find(idEmployee);
+            oldEmployee.Clients.Remove(client);
+            Employee newEmployee = db.Employees.Find(modifEmployee.CurrentEmployee.PersonId);
+            client.Conseiller = newEmployee;
+
+            //*************************//
+            //Suppression du client a l'ancien employé
+            db.Entry(oldEmployee).State = EntityState.Modified;
+            //Ajout de l'employé au client
+            db.Entry(client).State = EntityState.Modified;
+            //*************************//
+            db.SaveChanges();
+            return RedirectToAction("Edit/"+ idEmployee);
+        }
         // GET: Employees/Delete/5
         public ActionResult Delete(int? id)
         {

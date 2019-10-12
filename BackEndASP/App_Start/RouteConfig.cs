@@ -13,12 +13,18 @@ namespace BackEndASP
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
-
                 name: "AfficheEmploye",
                 url: "Employees/{id}",
                 new { Controller = "Employees", action = "Index" },
                 new { id = @"\d+" }
                 );
+
+            routes.MapRoute(
+               name: "ChangeEmployeeAssignation",
+               url: "Employees/{Action}/{idClient}/{idEmployee}",
+               new { Controller = "Employees", action = "ChangeEmployee" },
+               new { idClient = @"\d+", idEmployee = @"\d+" }
+               );
 
 
             routes.MapRoute(

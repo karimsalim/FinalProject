@@ -1,0 +1,38 @@
+﻿@model BackEndASP.ViewModel.EmployeeViewModel
+
+<table class="table">
+    @foreach (var item2 in Model.ListClient)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item2.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item2.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item2.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item2.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item2.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item2.City)
+            </td>
+            @using (Html.BeginForm($"ChangeEmployee/{item2.PersonId}/{Model.CurrentEmployee.PersonId}","Employees",FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <td>
+                    @Html.DropDownListFor(model => model.CurrentEmployee.PersonId, Model.ChangeEmployee)
+                    @Html.ValidationMessageFor(model => model.ChangeEmployee, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </td>
+            }
+        </tr>
+    }
+</table>
