@@ -1,57 +1,27 @@
 ﻿@model DAL.Card
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Suppression d'une carte bancaire";
+    Layout = null;
 }
+<div class="well">
+    <h3>Supprimer cette carte bancaire?</h3>
+    <div>
+        @using (Html.BeginForm($"DeleteCard/{Model.CardId}/{ViewBag.IdCompte}/{ViewBag.IdClient}", "Cards", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.CardId)
+            <div class="form-actions no-color">
+                <button type="submit" class="btn btn-danger">
+                    Supprimer
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Card</h4>
-    <hr />
-    @*<dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.NewtorkIssuer)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.NewtorkIssuer)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.CardNumber)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CardNumber)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.SecurityCode)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.SecurityCode)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ExpirationDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ExpirationDate)
-            </dd>
-
-        </dl>*@
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="CloseModalDel()">
+                    Annuler
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </div>
+        }
+    </div>
 </div>

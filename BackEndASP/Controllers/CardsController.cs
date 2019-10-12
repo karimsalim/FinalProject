@@ -17,13 +17,16 @@ namespace BackEndASP.Controllers
 
         //[AjaxOnly] //Pour accepter uniquement les appels ajax
         // GET: Cards/Id avec ID l'id du compte courant (Deposit) sélectionné
+
+        #region Liste des cartes d'un compte courant => Get : Cards/{id}
         public ActionResult Index(int? id)
         {
             ViewBag.IdDeposit = id;
             return View(db.Cards.Include("Deposit").Where(c => c.Deposit.AccountID == id).ToList());
         }
+        #endregion
 
-        // GET: Cards/Details/5
+        #region Détails d'une carte de crédit ==> NON DISPONIBLE DANS NOTRE CAS ! A SUPPRIMER PLUS TARD
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,18 +41,18 @@ namespace BackEndASP.Controllers
             ViewBag.IdDeposit = id;
             return View(card);
         }
+        #endregion
 
-        // GET: Cards/Create
+        #region Création D'une carte de crédit => Get: Cards/Create/{idcompte}
         public ActionResult Create(int? id)
         {
             ViewBag.IdDeposit = id;
             ViewBag.Url = System.Web.HttpContext.Current.Request.UrlReferrer;
             return View();
         }
+        #endregion
 
-        // POST: Cards/Create
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
+        #region Sauvegarde de création d'une carte => Post : Cards/Create/{idcompte}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CardId,NewtorkIssuer,CardNumber,SecurityCode,ExpirationDate")] Card card, int? id)
@@ -64,8 +67,9 @@ namespace BackEndASP.Controllers
             ViewBag.IdDeposit = id;
             return View("Create", card);
         }
+        #endregion
 
-        // GET: Cards/Edit/5
+        #region Modification d'une carte de crédit => Get : Cards/Edit/{idcard}
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,10 +84,9 @@ namespace BackEndASP.Controllers
             ViewBag.IdDeposit = card.Deposit.AccountID;
             return View(card);
         }
+        #endregion
 
-        // POST: Cards/Edit/5
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
+        #region Sauvegarde d'une modification d'une carte => Post : Cards/Edit/{idcard}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit( Card card, int? id)
@@ -96,8 +99,10 @@ namespace BackEndASP.Controllers
             }
             return View(card);
         }
+        #endregion
 
-        // GET: Cards/Delete/5
+        #region Suppression d'une carte de crédit => Post : Cards/Delete/{idcard}
+        [HttpPost]
         public ActionResult Delete(int? id)
         {
 
@@ -105,27 +110,32 @@ namespace BackEndASP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Card card = db.Cards.Find(id);
+            Card card = db.Cards.Include("Deposit").First(c => c.CardId == id);
             if (card == null)
             {
                 return HttpNotFound();
             }
             ViewBag.idCard = id;
+            ViewBag.idCompte = card.Deposit.AccountID;
+            ViewBag.idClient = card.Deposit.Client.PersonId;
             return PartialView("Delete" , card);
         }
+        #endregion
 
-        // POST: Cards/Delete/5
-        [HttpPost, ActionName("Delete")]
+        #region Confirmation de suppression d'une carte de crédit => Post : Cards/Delete/{idcard}
+        [HttpPost, ActionName("DeleteCard")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int? id)
+        public ActionResult DeleteConfirmed(int id, int idCompte, int idClient)
         {
             Card card = db.Cards.Find(id);
-            ViewBag.AccountId = card.Deposit.AccountID;
+            //ViewBag.AccountId = card.Deposit.AccountID;
             db.Cards.Remove(card);
             db.SaveChanges();
-            return RedirectToAction("Index", new { id = ViewBag.AccountId } );
+            return RedirectToRoute("DetailsAccounts",new { id = idClient, typecompte = "Deposit", idcompte = idCompte });//("Index", new { id = ViewBag.AccountId } );
         }
+        #endregion
 
+        #region Dispose du controller Cards
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -134,5 +144,6 @@ namespace BackEndASP.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
     }
 }

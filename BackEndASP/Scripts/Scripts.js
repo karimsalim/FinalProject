@@ -40,6 +40,20 @@
                 $mymodal.fadeIn();
             });
     });
+
+    $('.FormDelCard').submit(function (e) {
+        e.preventDefault();
+        var $form = $(this)[0].attributes["action"].value;
+        $.post(
+            $form,
+            {},
+            function (data) {
+                $mymodal = $("#myModals");
+                $mymodal.find("div.modal-body").html(data);
+                $mymodal.fadeIn();
+            }
+        );
+    });
 });
 
 function CloseModalDel() {

@@ -11,10 +11,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close"
-                        data-dismiss="modal" aria-label="Close">
+                        data-dismiss="modal" aria-label="Close" onclick="CloseModalDel()">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Supprimer un compte</h4>
+                <h4 class="modal-title">Supprimer une carte bancaire</h4>
             </div>
             <div class="modal-body">
             </div>
@@ -26,9 +26,6 @@
 
     <h2>Details des cartes du compte : </h2>
 
-    @*<p>
-        @Html.ActionLink("Ajouter", "Create")  A MODIFIER POUR AFFICHER LA PAGE DE CREATION D'UNE CARTE DE CREDIT!!!
-    </p>*@
     <div class="well">
         <table class="table">
             <tr>
@@ -63,12 +60,8 @@
                         @Html.DisplayFor(modelItem => item.ExpirationDate)
                     </td>
                     <td>
-                        @*<a href="@Url.Action("Edit", "Cards", new { id = item.CardId })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
-                            @Html.ActionLink("Details", "Details", new { id = item.CardId }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.CardId })
-                            <a href="@Url.Action("Delete", "Cards", new { id = item.CardId })" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></a>*@
                         <div class="btn-group">
-                            @using (Html.BeginForm($"Delete/{item.CardId}", "Cards", FormMethod.Post, new { id = "FormDelCard", @class="btn-group" }))
+                            @using (Html.BeginForm($"Delete/{item.CardId}", "Cards", FormMethod.Post, new {@class="FormDelCard btn-group"}))
                             {
                                 <a class="btn btn-warning" href="@Url.Action("Edit", "Cards",
                                 new { id = item.CardId})">
@@ -105,3 +98,8 @@ else
 <div id="Edit" class="col-xs-12 alert-info" style="border-radius:20px; padding:30px; display:none;">
 
 </div>
+
+@*<a href="@Url.Action("Edit", "Cards", new { id = item.CardId })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+@Html.ActionLink("Details", "Details", new { id = item.CardId }) |
+@Html.ActionLink("Delete", "Delete", new { id = item.CardId })
+<a href="@Url.Action("Delete", "Cards", new { id = item.CardId })" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></a>*@
