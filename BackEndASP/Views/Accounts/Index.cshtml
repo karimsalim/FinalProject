@@ -25,12 +25,15 @@
 <h2>Liste des comptes du client</h2>
 
 <div class="well">
-    <h2>Liste des comptes d'épargnes</h2>
-
-    <a class="btn btn-info" href="@Url.Action("Create", "Accounts", new { id = Model.PersonID, typecompte = "Saving" })">
-        Ajouter un compte épargne
-        <span class="glyphicon glyphicon-plus-sign"></span>
-    </a>
+    <div class="entete-titre">
+        <h2>Liste des comptes d'épargnes</h2>
+        <div class="btn-group posbtn">
+            <a class="small btn btn-info" href="@Url.Action("Create", "Accounts", new { id = Model.PersonID, typecompte = "Saving" })"
+               data-toggle="tooltip" data-placement="right" title="Nouveau compte epargne">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+            </a>
+        </div>
+    </div>
     @*Fenetre modale pour la confirmation de modification*@
     @if (TempData["Edit"]?.ToString() == "Success")
     {
@@ -159,19 +162,24 @@
                         @using (Html.BeginForm($"Delete/{item.AccountID}/Saving", "Accounts", FormMethod.Post, new { @class = "FormDelSaving btn-group" }))
                         {
                             <a class="btn btn-warning" href="@Url.Action("Edit","Accounts",
-                                new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
+                                new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })"
+                               data-toggle="tooltip" data-placement="bottom" title="Modifier le compte">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
 
                             <a class="btn btn-success" href="@Url.Action("Details","Accounts",
-                                new {id = Model.PersonID,typecompte = "Saving", idcompte = item.AccountID})">
+                                new {id = Model.PersonID,typecompte = "Saving", idcompte = item.AccountID})"
+                               data-toggle="tooltip" data-placement="bottom" title="Détails du compte">
                                 <span class="glyphicon glyphicon-zoom-in"></span>
                             </a>
 
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(model => item.AccountID, new { id = "idAccount" })
 
-                            <button class="btn btn-danger Delete" type="submit" id="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                            <button class="btn btn-danger Delete" type="submit" id="Delete"
+                                    data-toggle="tooltip" data-placement="bottom" title="Supprimer le compte">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
                         }
 
                         @*<a class="btn btn-danger" href="@Url.Action("Delete", "Accounts", new { id = item.AccountID })">
@@ -185,15 +193,23 @@
     }
     else
     {
-        <H4>Le client n'a aucun compte d'épargne</H4>
+        <div>
+            <div class="badge alert alert-danger">
+                <H4>Le client n'a aucun compte d'épargne</H4>
+            </div>
+        </div>
     }
 </div>
 <div class="well">
-    <h2>Liste des comptes courants</h2>
-    <a class="btn btn-info" href="@Url.Action("Create", "Accounts", new { id = Model.PersonID, typecompte = "Deposit" })">
-        Ajouter un compte courant
-        <span class="glyphicon glyphicon-plus-sign"></span>
-    </a>
+    <div class="entete-titre">
+        <h2>Liste des comptes courants</h2>
+        <div class="btn-group posbtn">
+            <a class="small btn btn-info" href="@Url.Action("Create", "Accounts", new { id = Model.PersonID, typecompte = "Deposit" })"
+               title="Nouveau compte courant" data-toggle="tooltip" data-placement="right">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+            </a>
+        </div>
+    </div>
     @if (Model.Deposits.Count > 0)
     {
         <table class="table">
@@ -247,28 +263,33 @@
                         @Html.DisplayFor(modelItem => item.Balance)
                     </td>
                     <td>
-                        @using (Html.BeginForm($"Delete/{item.AccountID}/Deposit", "Accounts", FormMethod.Post, new { @class = "FormDelDeposit btn-group"}))
+                        @using (Html.BeginForm($"Delete/{item.AccountID}/Deposit", "Accounts", FormMethod.Post, new { @class = "FormDelDeposit btn-group" }))
                         {
                             @*<a class="btn btn-warning" href="@Url.Action("Edit","Accounts",
-                new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </a>*@
+                                    new { id = Model.PersonID, typecompte="Saving", idcompte = item.AccountID })">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>*@
                             <a class="btn btn-warning" href="@Url.Action("Edit","Accounts",
-                                new { id = Model.PersonID, typecompte="Deposit", idcompte = item.AccountID })">
+                                new { id = Model.PersonID, typecompte="Deposit", idcompte = item.AccountID })"
+                               data-toggle="tooltip" data-placement="bottom" title="Modifier le compte">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                             <a class="btn btn-success" href="@Url.Action("Details","Accounts",
-                                new {id = Model.PersonID,typecompte = "Deposit", idcompte = item.AccountID})">
+                                new {id = Model.PersonID,typecompte = "Deposit", idcompte = item.AccountID})"
+                               data-toggle="tooltip" data-placement="bottom" title="Détails du compte et des cartes bancaires associées">
                                 <span class="glyphicon glyphicon-list-alt"></span> @*<span class="glyphicon glyphicon-credit-card"></span>*@
                             </a>
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(model => item.AccountID, new { id = "idAccount" })
 
-                            <button class="btn btn-danger Delete" type="submit" id="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                            <button class="btn btn-danger Delete" type="submit" id="Delete"
+                                    data-toggle="tooltip" data-placement="bottom" title="Supprimer le compte">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
                         }
                         @*<a class="btn btn-danger" href="@Url.Action("Delete", "Accounts", new { id = item.AccountID })">
-            <span class="glyphicon glyphicon-trash"></span>
-        </a>*@
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>*@
                     </td>
                 </tr>
             }
@@ -277,7 +298,11 @@
     }
     else
     {
-        <H4>Le client n'a aucun compte courant.</H4>
+        <div>
+            <div class="badge alert alert-danger">
+                <H4>Le client n'a aucun compte courant.</H4>
+            </div>
+        </div>
     }
 </div>
 

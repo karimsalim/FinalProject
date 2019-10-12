@@ -44,9 +44,10 @@ namespace BackEndASP.Controllers
         #endregion
 
         #region Création D'une carte de crédit => Get: Cards/Create/{idcompte}
-        public ActionResult Create(int? id)
+        public ActionResult Create(int? id, int idclient)
         {
             ViewBag.IdDeposit = id;
+            ViewBag.IdClient = idclient;
             ViewBag.Url = System.Web.HttpContext.Current.Request.UrlReferrer;
             return View();
         }
@@ -55,14 +56,15 @@ namespace BackEndASP.Controllers
         #region Sauvegarde de création d'une carte => Post : Cards/Create/{idcompte}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CardId,NewtorkIssuer,CardNumber,SecurityCode,ExpirationDate")] Card card, int? id)
+        public ActionResult Create([Bind(Include = "CardId,NewtorkIssuer,CardNumber,SecurityCode,ExpirationDate")] Card card, int? id, int idclient)
         {
             if (ModelState.IsValid)
             {
                 card.Deposit = db.Deposits.Find(id);
                 db.Cards.Add(card);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Accounts",new { id = id });
+                TempData.Add("Create", "Success");
+                return RedirectToAction("Details", "Accounts",new { id = idclient, typecompte = "Deposit", idCompte = id});
             }
             ViewBag.IdDeposit = id;
             return View("Create", card);

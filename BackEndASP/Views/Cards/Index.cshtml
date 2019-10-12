@@ -21,6 +21,7 @@
         </div>
     </div>
 </div>
+
 @if (Model.EditDeposit.Cards.Count > 0)
 {
 
@@ -64,7 +65,8 @@
                             @using (Html.BeginForm($"Delete/{item.CardId}", "Cards", FormMethod.Post, new { @class = "FormDelCard btn-group" }))
                             {
                                 <a class="btn btn-warning" href="@Url.Action($"Edit/{item.CardId}" +
-                                                                $"/Account/{Model.EditDeposit.AccountID}/Client/{Model.PersonID}", "Cards")">
+                                                                $"/Account/{Model.EditDeposit.AccountID}/Client/{Model.PersonID}", "Cards")"
+                                   data-toggle="tooltip" data-placement="bottom" title="Modifier la carte bancaire">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </a>
 
@@ -73,7 +75,8 @@
                                 @Html.HiddenFor(model => model.EditDeposit.AccountID)
                                 @Html.HiddenFor(model => model.PersonID)
 
-                                <button class="btn btn-danger Delete" type="submit" id="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                                <button class="btn btn-danger Delete" type="submit" id="Delete"
+                                        data-toggle="tooltip" data-placement="bottom" title="Supprimer la carte bancaire"><span class="glyphicon glyphicon-trash"></span></button>
                             }
                         </div>
                     </td>
@@ -81,6 +84,14 @@
             }
 
         </table>
+
+        <div class="btn-group">
+            <a href="@Url.Action("Create","Cards", new { id = Model.EditDeposit.AccountID, idclient = Model.PersonID })"
+               class="btn btn-info">
+                Ajouter une carte bancaire
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
     </div>
 }
 else
@@ -88,7 +99,7 @@ else
     <h2>Détails des cartes du compte</h2>
     <div class="well">
         <div class="alert-danger badge"><h4>Aucune carte existe pour ce compte.</h4></div>
-        <a href="@Url.Action("Create","Cards", new { id = Model.EditDeposit.AccountID })" class="btn btn-info">
+        <a href="@Url.Action("Create","Cards", new { id = Model.EditDeposit.AccountID, idclient = Model.PersonID })" class="btn btn-info">
             Ajouter une carte banquaire
             <span class="glyphicon glyphicon-plus">
             </span>
@@ -100,6 +111,6 @@ else
 </div>
 
 @*<a href="@Url.Action("Edit", "Cards", new { id = item.CardId })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
-@Html.ActionLink("Details", "Details", new { id = item.CardId }) |
-@Html.ActionLink("Delete", "Delete", new { id = item.CardId })
-<a href="@Url.Action("Delete", "Cards", new { id = item.CardId })" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></a>*@
+    @Html.ActionLink("Details", "Details", new { id = item.CardId }) |
+    @Html.ActionLink("Delete", "Delete", new { id = item.CardId })
+    <a href="@Url.Action("Delete", "Cards", new { id = item.CardId })" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span></a>*@

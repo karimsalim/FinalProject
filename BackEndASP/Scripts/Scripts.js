@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+
+    $('[data-toggle="tooltip"]').tooltip();
+
     $("#CloseDiv").click(function () {
         $("#modalEditSuccess").fadeOut();
     });

@@ -7,7 +7,7 @@
 <h2>Ajouter une carte banquaire</h2>
 
 
-@using (Html.BeginForm($"Create/{ViewBag.IdDeposit}", "Cards", FormMethod.Post))
+@using (Html.BeginForm($"Account/{ViewBag.IdDeposit}/Create/{ViewBag.IdClient}", "Cards", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 

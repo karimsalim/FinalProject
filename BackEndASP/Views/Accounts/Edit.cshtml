@@ -14,10 +14,14 @@
             @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
-                <h4>Modification d'un compte d'épargne</h4>
-                <a href="@Url.Action("Index", "Accounts", new { id = Model.PersonID })" class="btn btn-info">
-                    <span class="glyphicon glyphicon-arrow-left"></span> Retour à la liste
-                </a>
+                <div class="badge alert alert-info">
+                    <h4>Veuillez saisir les nouvelles informations du compte épargne</h4>
+                </div>
+                <div class="posbtn">
+                    <a href="@Url.Action("Index", "Accounts", new { id = Model.PersonID })" class="btn btn-info">
+                        <span class="glyphicon glyphicon-arrow-left"></span> Retour à la liste
+                    </a>
+                </div>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.EditSaving.AccountID)
@@ -139,10 +143,14 @@
             @Html.HiddenFor(model => model.PersonID)
 
             <div class="form-horizontal">
-                <h4>Modification d'un compte courant</h4>
-                <a href="@Url.Action("Index", "Accounts", new { id = Model.PersonID })" class="btn btn-info">
-                    <span class="glyphicon glyphicon-arrow-left"></span> Retour à la liste
-                </a>
+                <div class="badge alert alert-info">
+                    <h4>Veuillez saisir les nouvelles informations du compte courant</h4>
+                </div>
+                <div class="posbtn">
+                    <a href="@Url.Action("Index", "Accounts", new { id = Model.PersonID })" class="btn btn-info">
+                        <span class="glyphicon glyphicon-arrow-left"></span> Retour à la liste
+                    </a>
+                </div>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.EditDeposit.AccountID)

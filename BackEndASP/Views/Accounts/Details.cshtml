@@ -52,6 +52,30 @@
     </div>
 }
 
+@*Fenêtre modale de confirmation de création de la carte bancaire*@
+@if (TempData["Create"]?.ToString() == "Success")
+{
+    <div id="modalEditSuccess" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Création de la carte bancaire</h4>
+                </div>
+                <div class="modal-body alert alert-info">
+                    <p>La carte bancaire a été créée.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="CloseDiv">
+                        Fermer
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
 @if (Model.TypeCompte == "Deposit")
 {
     <h2>Détails du compte courant sélectionné</h2>
@@ -199,17 +223,5 @@ else
                 @Html.DisplayFor(m => Model.EditSaving.MaximumDate)
             </dd>
         </dl>
-
-        <p>
-
-
-            @*Ajout de la vue partielle des cartes de crédits*@
-
-        </p>
     </div>
 }
-
-<p>
-    @*@Html.ActionLink("Edit", "Edit", new { id = Model.AccountID }) |
-        @Html.ActionLink("Back to List", "Index")*@
-</p>
