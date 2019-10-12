@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29215.179
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EF", "EF", "{E7ED4387-7B63-44D3-AE55-FD9A4CCA8D5A}"
 EndProject
@@ -12,6 +12,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestInitBase", "TestInitBase\TestInitBase.csproj", "{EC93E781-ACC4-4A5C-99C3-C88B27613909}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Context", "Context", "{F1FE4D9E-F3EB-40E2-A3E2-362BC5BA4AC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankManagerWPF", "BankManagerWPF\BankManagerWPF.csproj", "{E18AE931-6B4A-4AE3-A225-2A06BC122C55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{CD2449AE-0164-45A4-88A5-9A32F5CC55A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankManagerAPI", "BankManagerAPI\BankManagerAPI.csproj", "{AA62BEED-C18C-4D3E-AA16-EE15C40E21A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +37,14 @@ Global
 		{EC93E781-ACC4-4A5C-99C3-C88B27613909}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC93E781-ACC4-4A5C-99C3-C88B27613909}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC93E781-ACC4-4A5C-99C3-C88B27613909}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E18AE931-6B4A-4AE3-A225-2A06BC122C55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E18AE931-6B4A-4AE3-A225-2A06BC122C55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E18AE931-6B4A-4AE3-A225-2A06BC122C55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E18AE931-6B4A-4AE3-A225-2A06BC122C55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA62BEED-C18C-4D3E-AA16-EE15C40E21A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA62BEED-C18C-4D3E-AA16-EE15C40E21A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA62BEED-C18C-4D3E-AA16-EE15C40E21A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA62BEED-C18C-4D3E-AA16-EE15C40E21A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,6 +52,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E5765D61-F1C6-4DCB-A377-74214DF5F084} = {E7ED4387-7B63-44D3-AE55-FD9A4CCA8D5A}
 		{4B52C099-D598-4AA9-A609-A885620D2EF2} = {F1FE4D9E-F3EB-40E2-A3E2-362BC5BA4AC0}
+		{E18AE931-6B4A-4AE3-A225-2A06BC122C55} = {CD2449AE-0164-45A4-88A5-9A32F5CC55A2}
+		{AA62BEED-C18C-4D3E-AA16-EE15C40E21A1} = {CD2449AE-0164-45A4-88A5-9A32F5CC55A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {53735FE3-826A-46CB-B2FC-CD7FD32750CC}
