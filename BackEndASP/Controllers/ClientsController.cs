@@ -26,6 +26,7 @@ namespace BackEndASP.Controllers
             {
                 if (item.Manager.PersonId != id)
                 {
+                    if(item.PersonId != id)
                     sortingList.Remove(item);
                 }
             }
@@ -169,7 +170,18 @@ namespace BackEndASP.Controllers
         {
             Client client = db.Clients.Find(id);
             int idConseiller = client.Conseiller.PersonId;
-            db.Clients.Remove(client);
+            List<Account> listAccounts = client.Accounts.ToList();
+            foreach (var item in listAccounts)
+            {
+                if(item is Deposit)
+                {
+                    Card card = db.Cards.Find(item.AccountID);
+                    if(card != null)
+                    db.Cards.Remove(card);
+                }
+            }
+
+            db.People.Remove(client);
             db.SaveChanges();
             return RedirectToAction("Index/" + idConseiller);
         }

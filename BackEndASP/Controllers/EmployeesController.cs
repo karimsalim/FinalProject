@@ -69,7 +69,14 @@ namespace BackEndASP.Controllers
                     }
                 }
             }
-            return View(list);
+            if (list is null)
+            {
+                return RedirectToAction("Index/" + employee.PersonId);
+            }
+            else
+            {
+                return View(list);
+            }
         }
 
         // GET: Employees/Details/5
@@ -143,8 +150,8 @@ namespace BackEndASP.Controllers
             {
                 if (item.Manager.PersonId != employee.Manager.PersonId)
                 {
-                    if(item.PersonId != employee.Manager.PersonId)
-                    listEmpbyManager.Remove(item);
+                    if (item.PersonId != employee.Manager.PersonId)
+                        listEmpbyManager.Remove(item);
                 }
             }
             employeeViewModel.ChangeEmployee = new SelectList(listEmpbyManager, "PersonId", "LastName", employee.PersonId); //Liste des employés avec par défaut l'employé actuel 
@@ -228,13 +235,14 @@ namespace BackEndASP.Controllers
         {
             Employee employee = db.Employees.Find(id);
             int currentManger = employee.Manager.PersonId; //Récupère l'id du manager afin de retourner sur la liste des employé de celui-ci
-            if (employee.Clients == null)
+            int nbEmp = employee.Clients.Count();
+            if (nbEmp == 0)
             {
                 db.People.Remove(employee);
                 db.SaveChanges();
                 return RedirectToAction("ListEmployee/" + currentManger);
             }
-            return RedirectToAction("Delete/" + employee);
+            return RedirectToAction("Delete/" + employee.PersonId);
         }
 
         protected override void Dispose(bool disposing)

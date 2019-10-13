@@ -25,15 +25,13 @@ namespace BackEndASP
                new { Controller = "Employees", action = "ChangeEmployee" },
                new { idClient = @"\d+", idEmployee = @"\d+" }
                );
-            //*************Redondance**************//
-            //Redirection différente
+        
             routes.MapRoute(
                name: "ChangeEmployeeAssignationClients",
-               url: "Employees/{Action}/{idClient}/{idEmployee}",
+               url: "Clients/{Action}/{idClient}/{idEmployee}",
                new { Controller = "Clients", action = "ChangeEmployee" },
                new { idEmployee = @"\d+", idClient = @"\d+" }
                );
-            //*************************/
 
 
             routes.MapRoute(
