@@ -79,7 +79,16 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.EditSaving.Balance, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditSaving.Balance, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.EditSaving.Balance, new
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control",
+                                data_toggle = "tooltip",
+                                title = "Solde actuel",
+                                data_placement = "right"
+                            }
+                        })
                         @Html.ValidationMessageFor(model => model.EditSaving.Balance, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -87,7 +96,16 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.EditSaving.MinimumAmount, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditSaving.MinimumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.EditSaving.MinimumAmount, new
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control",
+                                data_toggle = "tooltip",
+                                title = "Montant minimum autorisé du compte",
+                                data_placement = "right"
+                            }
+                        })
                         @Html.ValidationMessageFor(model => model.EditSaving.MinimumAmount, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -95,7 +113,16 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.EditSaving.MaximumAmount, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditSaving.MaximumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.EditSaving.MaximumAmount, new
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control",
+                                data_toggle = "tooltip",
+                                title = "Laisser vide si le montant est illimité",
+                                data_placement = "right"
+                            }
+                        })
                         @Html.ValidationMessageFor(model => model.EditSaving.MaximumAmount, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -111,18 +138,45 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.EditSaving.MaximumDate, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditSaving.MaximumDate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EditSaving.MaximumDate, "", new { @class = "text-danger" })
+                        @if (Model.EditSaving.MaximumDate.HasValue)
+                        {
+                            @Html.EditorFor(model => model.EditSaving.MaximumDate, new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @class = "form-control",
+                                    @Value = Model.EditSaving.MaximumDate.Value.ToString("yyyy-MM-dd"),
+                                    data_toggle = "tooltip",
+                                    title = "Laisser vide si la date est illimitée",
+                                    data_placement = "right"
+                                }
+                            })
+                            @Html.ValidationMessageFor(model => model.EditSaving.MaximumDate, "", new { @class = "text-danger" })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.EditSaving.MaximumDate, new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @class = "form-control",
+                                    data_toggle = "tooltip",
+                                    title = "Laisser vide si la date est illimitée",
+                                    data_placement = "right"
+                                }
+                            })
+                            @Html.ValidationMessageFor(model => model.EditSaving.MaximumDate, "", new { @class = "text-danger" })
+                        }
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <button class="btn btn-success" type="submit">
-                            Enregistrer <span class="glyphicon glyphicon-floppy-save"></span>
+                            Enregistrer<span class="glyphicon glyphicon-floppy-save"></span>
                         </button>
                         <a class="btn btn-danger" href="@Model.ReturnUrl">
-                            Annuler <span class="glyphicon glyphicon-ban-circle"></span>
+                            Annuler<span class="glyphicon glyphicon-ban-circle"></span>
                         </a>
                         @*Url.Action("Index","Accounts",new { id = Model.PersonID })*@
                     </div>
@@ -212,17 +266,33 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.EditDeposit.GestionDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.EditDeposit.CreationDate, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditDeposit.GestionDate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EditDeposit.GestionDate, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.EditDeposit.CreationDate, new
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control",
+                                @Value = Model.EditDeposit.CreationDate.ToString("yyyy-MM-dd")
+                            }
+                        })
+                        @Html.ValidationMessageFor(model => model.EditDeposit.CreationDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.EditDeposit.AutorizedOverdraft, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditDeposit.AutorizedOverdraft, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.EditDeposit.AutorizedOverdraft, new
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control",
+                                data_toggle = "tooltip",
+                                title = "Découvert surtaxé maximum autorisé",
+                                data_placement = "right"
+                            }
+                        })
                         @Html.ValidationMessageFor(model => model.EditDeposit.AutorizedOverdraft, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -230,7 +300,16 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.EditDeposit.FreeOverdraft, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditDeposit.FreeOverdraft, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.EditDeposit.FreeOverdraft, new
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control",
+                                data_toggle = "tooltip",
+                                title = "Découvert non taxé maximum autorisé",
+                                data_placement = "right"
+                            }
+                        })
                         @Html.ValidationMessageFor(model => model.EditDeposit.FreeOverdraft, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -238,7 +317,16 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.EditDeposit.OverdraftChargeRate, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.EditDeposit.OverdraftChargeRate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.EditDeposit.OverdraftChargeRate, new
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control",
+                                data_toggle = "tooltip",
+                                title = "Taxe appliquée lors du dépassement du découvert autorisé",
+                                data_placement = "right"
+                            }
+                        })
                         @Html.ValidationMessageFor(model => model.EditDeposit.OverdraftChargeRate, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -246,10 +334,10 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <button class="btn btn-success" type="submit">
-                            Enregistrer <span class="glyphicon glyphicon-floppy-save"></span>
+                            Enregistrer<span class="glyphicon glyphicon-floppy-save"></span>
                         </button>
                         <a class="btn btn-danger" href="@Model.ReturnUrl">
-                            Annuler <span class="glyphicon glyphicon-ban-circle"></span>
+                            Annuler<span class="glyphicon glyphicon-ban-circle"></span>
                         </a>
                         @*@Url.Action("Index", "Accounts", new { id = Model.PersonID })*@
                     </div>

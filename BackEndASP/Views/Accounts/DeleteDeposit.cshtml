@@ -7,7 +7,11 @@
 
 <div class="well">
     <h3>Etes-vous sur de vouloir supprimer ce compte?</h3>
-    <div>
+    <div class="bagde text-danger">
+        <span class="glyphicon glyphicon-alert text-danger"></span>
+        Cela supprimera aussi toutes les cartes bancaires du compte.
+    </div>
+    <div class="posbtn">
         @using (Html.BeginForm($"DeleteDeposit/{ViewBag.IdCompte}", "Accounts", FormMethod.Post))
         {
             @Html.AntiForgeryToken()

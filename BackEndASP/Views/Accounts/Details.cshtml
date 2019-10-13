@@ -124,10 +124,10 @@
                 @Html.DisplayFor(m => Model.EditDeposit.Balance) €
             </dd>
             <dt>
-                @Html.DisplayNameFor(m => Model.EditDeposit.GestionDate)
+                @Html.DisplayNameFor(m => Model.EditDeposit.CreationDate)
             </dt>
             <dd>
-                @Html.DisplayFor(m => Model.EditDeposit.GestionDate)
+                @Html.DisplayFor(m => Model.EditDeposit.CreationDate)
             </dd>
             <dt>
                 @Html.DisplayNameFor(m => Model.EditDeposit.AutorizedOverdraft)
@@ -221,6 +221,7 @@ else
             </dt>
             <dd>
                 @Html.DisplayFor(m => Model.EditSaving.MaximumDate)
+                @*@Convert.ToDateTime(Model.EditSaving.MaximumDate).ToString("dd/MM/yyyy")*@
             </dd>
         </dl>
     </div>

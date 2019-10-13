@@ -91,7 +91,7 @@ namespace DAL
 
                 new Deposit()
                 {
-                   GestionDate=DateTime.Parse("2018/05/12"),
+                   CreationDate=DateTime.Parse("12/05/2018"),
                    BankCode ="37951",
                    BranchCode="16287",
                    Key="75",
@@ -106,7 +106,7 @@ namespace DAL
                 },
                 new Deposit()
                 {
-                   GestionDate=DateTime.Parse("2019/01/10"),
+                   CreationDate=DateTime.Parse("10/01/2019"),
                    BankCode ="37584",
                    BranchCode="16287",
                    Key="73",
@@ -121,7 +121,7 @@ namespace DAL
                 },
                 new Deposit()
                 {
-                   GestionDate=DateTime.Parse("2019/03/25"),
+                   CreationDate=DateTime.Parse("25/03/2019"),
                    BankCode ="37591",
                    BranchCode="16274",
                    Key="72",
@@ -135,7 +135,7 @@ namespace DAL
                 },
                 new Deposit()
                 {
-                   GestionDate=DateTime.Parse("2019/03/25"),
+                   CreationDate=DateTime.Parse("28/05/2019"),
                    BankCode ="37591",
                    BranchCode="16274",
                    Key="72",
@@ -167,7 +167,7 @@ namespace DAL
                     MinimumAmount=12,
                     MaximumAmount=200,
                     InterestRate=10,
-                    MaximumDate=DateTime.Parse("2020/01/01"),
+                    MaximumDate=DateTime.Parse("01/01/2020"),
                 },
                 new Savings()
                 {
@@ -181,7 +181,7 @@ namespace DAL
                     MinimumAmount=20,
                     MaximumAmount=5000,
                     InterestRate=10,
-                    MaximumDate=DateTime.Parse("2020/05/05"),
+                    MaximumDate=DateTime.Parse("05/05/2025"),
                 },
                 new Savings()
                 {
@@ -195,7 +195,7 @@ namespace DAL
                     MinimumAmount=100,
                     MaximumAmount=10000,
                     InterestRate=10,
-                    MaximumDate=DateTime.Parse("2024/04/15"),
+                    MaximumDate=DateTime.Parse("15/04/2024"),
                 },
             };
             #endregion
