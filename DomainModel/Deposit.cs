@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using DomainModel.Validators;
 
 namespace DAL
 {
@@ -26,6 +27,7 @@ namespace DAL
         /// Montant autorisé
         /// </summary>
         [Required(ErrorMessage = "Veuillez saisir le montant autorisé")]
+        [DataType(DataType.Currency)]
         [DisplayName("Découvert limité")]
         public decimal AutorizedOverdraft { get; set; }
 
@@ -35,6 +37,7 @@ namespace DAL
         /// </summary>
         [Required(ErrorMessage = "Veuillez saisir le montant")]
         [DisplayName("Découvert autorisé")]
+        [DataType(DataType.Currency)]
         public decimal FreeOverdraft { get; set; }
 
 
@@ -43,6 +46,7 @@ namespace DAL
         /// </summary>
         [Required(ErrorMessage = "Veuillez saisir le montant de taux")]
         [DisplayName("Taux de taxe")]
+        [DisplayFormat(DataFormatString ="{0} %")]
         public double OverdraftChargeRate { get; set; }
         #endregion
 

@@ -20,6 +20,7 @@ namespace DAL
         /// </summary>
         [Required(ErrorMessage = "Veuillez saisir le type de carte bancaire")]
         [DisplayName("Type de carte bancaire")]
+        [RegularExpression(@"[a-z A-Z 0-9]*", ErrorMessage ="Veuillez saisir le type de carte bancaire")]
         public string NewtorkIssuer { get; set; }
 
 
@@ -28,6 +29,7 @@ namespace DAL
         /// </summary>
         [Required(ErrorMessage = "Veuille saisir le N° de carte bancaire")]
         [StringLength(16)]
+        [RegularExpression(@"^[0-9]{16}$", ErrorMessage="Le N° de carte bancaire doit être composé de 16 chiffres")]
         [DisplayName("Numéro de carte bancaire")]
         public string CardNumber { get; set; }
 
@@ -38,6 +40,7 @@ namespace DAL
         [Required(ErrorMessage = "Veuillez saisir le code confidentiel")]
         [StringLength(4)]
         [DisplayName("Code confidentiel")]
+        [RegularExpression(@"^[0-9]{4}$", ErrorMessage="Le code confidentiel doit être composé de 4 chiffres")]
         public string SecurityCode { get; set; }
 
 

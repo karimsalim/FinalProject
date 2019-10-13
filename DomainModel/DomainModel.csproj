@@ -50,6 +50,7 @@
     <Compile Include="Client.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Savings.cs" />
+    <Compile Include="Validators\DateValueValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
