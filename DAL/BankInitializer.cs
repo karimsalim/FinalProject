@@ -20,7 +20,7 @@ namespace DAL
                 {
                    FirstName="Fabrice",
                    LastName="Roussignole",
-                   DateOfBirth=DateTime.Parse("1992/02/21"),
+                   DateOfBirth= new DateTime(1992,2,21),
                    OfficeName="Etienne Bank",
                    isJunior =true,
                 },
@@ -28,7 +28,7 @@ namespace DAL
                 {
                    FirstName="Mourice",
                    LastName="Badran",
-                   DateOfBirth=DateTime.Parse("1997/05/11"),
+                   DateOfBirth=new DateTime(1997,5,11),
                    OfficeName="Etienne Bank",
                    isJunior =true,
                 },
@@ -36,7 +36,7 @@ namespace DAL
                 {
                    FirstName="Biky",
                    LastName="Boo",
-                   DateOfBirth=DateTime.Parse("1975/08/11"),
+                   DateOfBirth=new DateTime(1975,8,11),
                    OfficeName="Etienne Bank",
                    isJunior =false,
                 },
@@ -44,7 +44,7 @@ namespace DAL
                 {
                     FirstName="Tom",
                     LastName="Tom",
-                    DateOfBirth=DateTime.Parse("2001/10/21"),
+                    DateOfBirth=new DateTime(2001,10,21),
                     OfficeName="Etienne Bank",
                     isJunior =true,
                },
@@ -58,7 +58,7 @@ namespace DAL
                 new Client(){
                     FirstName = "Etienne",
                     LastName ="Suhard",
-                    DateOfBirth = DateTime.Parse("1995/12/01"),
+                    DateOfBirth = new DateTime(1995,12,1),
                     City="Kumbuge",
                     ZipCode="321045",
                     Street ="Rue MiKael Jackson",
@@ -68,7 +68,7 @@ namespace DAL
                 {
                     FirstName="Karen",
                     LastName="Bacon",
-                    DateOfBirth=DateTime.Parse("1979/02/01"),
+                    DateOfBirth=new DateTime(1979,2,1),
                     City="Mosco",
                     ZipCode="25487",
                     Street="Rue Rockefeller",
@@ -77,7 +77,7 @@ namespace DAL
                 {
                     FirstName="Edith",
                     LastName="Nawali",
-                    DateOfBirth=DateTime.Parse("1975/05/07"),
+                    DateOfBirth= new DateTime(1975,5,7),
                     City="Lyon",
                     ZipCode="69100",
                     Street="Rue Emile Zola",
@@ -91,7 +91,7 @@ namespace DAL
 
                 new Deposit()
                 {
-                   CreationDate=DateTime.Parse("12/05/2018"),
+                   CreationDate=new DateTime(2018,5,12),
                    BankCode ="37951",
                    BranchCode="16287",
                    Key="75",
@@ -106,7 +106,7 @@ namespace DAL
                 },
                 new Deposit()
                 {
-                   CreationDate=DateTime.Parse("10/01/2019"),
+                   CreationDate=new DateTime(2019,1,10),
                    BankCode ="37584",
                    BranchCode="16287",
                    Key="73",
@@ -121,7 +121,7 @@ namespace DAL
                 },
                 new Deposit()
                 {
-                   CreationDate=DateTime.Parse("25/03/2019"),
+                   CreationDate=new DateTime(2019,3,25),
                    BankCode ="37591",
                    BranchCode="16274",
                    Key="72",
@@ -135,7 +135,7 @@ namespace DAL
                 },
                 new Deposit()
                 {
-                   CreationDate=DateTime.Parse("28/05/2019"),
+                   CreationDate=new DateTime(2019,5,28),
                    BankCode ="37591",
                    BranchCode="16274",
                    Key="72",
@@ -167,7 +167,7 @@ namespace DAL
                     MinimumAmount=12,
                     MaximumAmount=200,
                     InterestRate=10,
-                    MaximumDate=DateTime.Parse("01/01/2020"),
+                    MaximumDate=new DateTime(2020,1,1),
                 },
                 new Savings()
                 {
@@ -181,7 +181,7 @@ namespace DAL
                     MinimumAmount=20,
                     MaximumAmount=5000,
                     InterestRate=10,
-                    MaximumDate=DateTime.Parse("05/05/2025"),
+                    MaximumDate=new DateTime(2025,5,5),
                 },
                 new Savings()
                 {
@@ -195,7 +195,7 @@ namespace DAL
                     MinimumAmount=100,
                     MaximumAmount=10000,
                     InterestRate=10,
-                    MaximumDate=DateTime.Parse("15/04/2024"),
+                    MaximumDate=new DateTime(2024,4,15),
                 },
             };
             #endregion
@@ -208,7 +208,7 @@ namespace DAL
                     NewtorkIssuer="VisaCard",
                     CardNumber="1993178516874882",
                     SecurityCode="5138",
-                    ExpirationDate=DateTime.Parse("2020/01/12"),
+                    ExpirationDate=new DateTime(2020,1,12),
                 },
 
                 new Card()
@@ -216,7 +216,7 @@ namespace DAL
                     NewtorkIssuer="AmexCard",
                     CardNumber="1302564804382137",
                     SecurityCode="6871",
-                    ExpirationDate=DateTime.Parse("2020/01/02"),
+                    ExpirationDate=new DateTime(2020,1,2),
                 },
             };
             #endregion

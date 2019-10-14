@@ -234,6 +234,15 @@ namespace BackEndASP.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Employee employee = db.Employees.Find(id);
+            List<Employee> listEmployee = db.Employees.ToList();
+            foreach (var item in listEmployee)
+            {
+                if (item.Manager.PersonId == id)
+                {
+                    item.Manager = employee.Manager;
+                }
+                
+            }
             int currentManger = employee.Manager.PersonId; //Récupère l'id du manager afin de retourner sur la liste des employé de celui-ci
             int nbEmp = employee.Clients.Count();
             if (nbEmp == 0)
