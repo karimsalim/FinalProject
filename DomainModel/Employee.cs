@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DAL
 {
@@ -28,7 +29,9 @@ namespace DAL
         #endregion
 
         #region Relation
+        [JsonIgnore]
         public virtual ICollection<Client> Clients { get; set; }
+        [JsonIgnore]
         public virtual Employee Manager { get; set; }
         #endregion
 
