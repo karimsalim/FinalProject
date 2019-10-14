@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,14 +11,26 @@ namespace DAL
     public class Client : Person
      {
         #region Propriété
-        /*les propriétés clients */
+
+        /// <summary>
+        /// Rue de l'adresse du client
+        /// </summary>
         [Required(ErrorMessage ="Veuillez saisir la rue ")]
+        [DisplayName("Rue")]
         public string Street { get; set; }
 
-        [Required(ErrorMessage ="Veuillez saisir votre ZipCode")]
+        /// <summary>
+        /// Code postal de l'adresse du client
+        /// </summary>
+        [Required(ErrorMessage ="Veuillez saisir le code postal de l'adresse")]
+        [DisplayName("Code postal")]
         public string ZipCode { get; set; }
           
+        /// <summary>
+        /// Ville de l'adresse du client
+        /// </summary>
         [Required(ErrorMessage ="Veuillez saisir la Ville ")]
+        [DisplayName("Ville")]
         public string City { get; set; }
         #endregion
 
