@@ -12,6 +12,27 @@ namespace BackEndASP
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "AfficheEmploye",
+                url: "Employees/{id}",
+                new { Controller = "Employees", action = "Index" },
+                new { id = @"\d+" }
+                );
+
+            routes.MapRoute(
+               name: "ChangeEmployeeAssignationEmployee",
+               url: "Employees/{Action}/{idClient}/{idEmployee}",
+               new { Controller = "Employees", action = "ChangeEmployee" },
+               new { idClient = @"\d+", idEmployee = @"\d+" }
+               );
+        
+            routes.MapRoute(
+               name: "ChangeEmployeeAssignationClients",
+               url: "Clients/{Action}/{idClient}/{idEmployee}",
+               new { Controller = "Clients", action = "ChangeEmployee" },
+               new { idEmployee = @"\d+", idClient = @"\d+" }
+               );
+
 
             #region Route Afficher les cartes d'un compte
             routes.MapRoute(
@@ -95,7 +116,7 @@ namespace BackEndASP
             routes.MapRoute(
                 name: "Accueil",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Employees", action = "listEmployeDebug", id = UrlParameter.Optional }
             );
             #endregion
         }

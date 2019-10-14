@@ -14,7 +14,7 @@ namespace BackEndASP.Controllers
     public class AccountsController : Controller
     {
         private BankContext db = new BankContext();
-
+        
         #region Récupérer la liste des comptes a partir d'un id d'un client => Get: /Account/{id}
         public ActionResult Index(int? id)
         {
@@ -75,7 +75,6 @@ namespace BackEndASP.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
-
         #endregion
 
         #region Création d'un compte pour un client => Get : /Account/{id}/Create/{typeCompte}
@@ -225,7 +224,6 @@ namespace BackEndASP.Controllers
                 return PartialView("DeleteDeposit", account);
             }
         }
-
         #endregion
 
         #region Suppression confirmée par l'user d'un compte Saving => Post : /Account/DeleteSaving/{id}
@@ -240,7 +238,6 @@ namespace BackEndASP.Controllers
             TempData.Add("Delete", "Success");
             return RedirectToAction("Index", new { id = ViewBag.IdClient });
         }
-
         #endregion
 
         #region Suppression confirmée par l'user d'un compte Deposit => Post : /Account/DeleteDeposit/{id}
@@ -266,7 +263,7 @@ namespace BackEndASP.Controllers
             }
             base.Dispose(disposing);
         }
-        #endregion
 
+        #endregion
     }
 }
