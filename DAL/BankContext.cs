@@ -10,6 +10,7 @@ namespace DAL
 {
     public class BankContext : DbContext
     {
+
         #region Initialisation des DBSet => Entitées du SI
         public DbSet<Account> Accounts { get; set; }
 

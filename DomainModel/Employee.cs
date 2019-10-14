@@ -25,6 +25,21 @@ namespace DAL
         [Required]
         [DisplayName("Niveau junior")]
         public bool isJunior { get; set; }
+
+        /// <summary>
+        /// Pseudo de connexion
+        /// </summary>
+        [Required]
+        [DisplayName("Pseudo")]
+        public string Pseudo { get; set; }
+
+        /// <summary>
+        /// Mot de passe de connexion
+        /// </summary>
+        [Required]
+        [DisplayName("Password")]
+        public string Password { get; set; }
+
         #endregion
 
         #region Relation

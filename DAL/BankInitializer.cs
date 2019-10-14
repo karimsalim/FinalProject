@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace DAL
 {
     internal class BankInitializer : DropCreateDatabaseAlways<BankContext>
     {
+        SHA256CryptoServiceProvider sHA = new SHA256CryptoServiceProvider();
         protected override void Seed(BankContext context)
         {
 
@@ -23,6 +25,8 @@ namespace DAL
                    DateOfBirth= new DateTime(1992,2,21),
                    OfficeName="Etienne Bank",
                    isJunior =true,
+                   Pseudo = "FabriceRoussignole",
+                   Password = BitConverter.ToString(sHA.ComputeHash(Encoding.UTF8.GetBytes("MonMotDePasse")))
                 },
                 new Employee()
                 {
@@ -31,7 +35,9 @@ namespace DAL
                    DateOfBirth=new DateTime(1997,5,11),
                    OfficeName="Etienne Bank",
                    isJunior =true,
-                },
+                   Pseudo = "MoudiceBadran",
+                   Password = BitConverter.ToString(sHA.ComputeHash(Encoding.UTF8.GetBytes("MonMotDePasse")))
+        },
                 new Employee()
                 {
                    FirstName="Biky",
@@ -39,6 +45,8 @@ namespace DAL
                    DateOfBirth=new DateTime(1975,8,11),
                    OfficeName="Etienne Bank",
                    isJunior =false,
+                   Pseudo = "BikiBoo",
+                   Password = BitConverter.ToString(sHA.ComputeHash(Encoding.UTF8.GetBytes("MonMotDePasse")))
                 },
                 new Employee()
                 {
@@ -47,7 +55,9 @@ namespace DAL
                     DateOfBirth=new DateTime(2001,10,21),
                     OfficeName="Etienne Bank",
                     isJunior =true,
-               },
+                    Pseudo = "TomTom",
+                    Password = BitConverter.ToString(sHA.ComputeHash(Encoding.UTF8.GetBytes("MonMotDePasse")))
+        },
             };
 
             #endregion
@@ -282,8 +292,6 @@ namespace DAL
             employees[2].Manager = employees[3];
             employees[3].Manager = employees[3];
             #endregion
-
-            
 
             #region Ajout des données dans le context
 
