@@ -53,7 +53,15 @@ namespace BackEndASP.Controllers
         }
         #endregion
 
-
+        #region Deconnexion au système
+        public ActionResult LogOut()
+        {
+            var ctx = Request.GetOwinContext();
+            var authenticationManager = ctx.Authentication;
+            authenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
 
         #region Validation du pseudo et du mot de passe
         private bool ValidateUser(string Login, string Password)
