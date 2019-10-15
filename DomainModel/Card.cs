@@ -20,7 +20,7 @@ namespace DAL
         /// </summary>
         [Required(ErrorMessage = "Veuillez saisir le type de carte bancaire")]
         [DisplayName("Type de carte bancaire")]
-        [RegularExpression(@"[a-z A-Z 0-9]*", ErrorMessage ="Veuillez saisir le type de carte bancaire")]
+        [RegularExpression(@"[a-zA-Z0-9]*", ErrorMessage ="Veuillez saisir le type de carte bancaire")]
         public string NewtorkIssuer { get; set; }
 
 

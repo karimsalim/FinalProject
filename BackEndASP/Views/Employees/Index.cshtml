@@ -1,19 +1,44 @@
-﻿@model IEnumerable<DAL.Employee>
+﻿@model DAL.Employee
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Accueil";
 }
+<div class="container conteneur">
+    <h2>Accueil</h2>
 
-<h2>Index</h2>
-<h3>Manager : @Html.ViewBag.EmployeManager</h3>
-@if (ViewBag.isManager == true)
-{
-    <p>
-        @Html.ActionLink("Créer un employé", "Create", new { id = ViewBag.IdEmployee }) |  @Html.ActionLink("Liste employé", "ListEmployee", new { id = ViewBag.IdEmployee })
-    </p>
-}
-    <p>
-        @Html.ActionLink("Créer un client", "Create", "Clients", new { id = ViewBag.IdEmployee }, "" )|  @Html.ActionLink("Liste des clients", "Index", "Clients", new { id = ViewBag.IdEmployee }, "")
-    </p>
+    <div class="well text-info">
+        <h3><span class="glyphicon glyphicon-star"></span> Votre manager : @Html.ViewBag.EmployeManager</h3>
 
-    <p>@Html.ActionLink("Back to List", "listEmployeDebug")</p>
+    </div>
+    @if (ViewBag.isManager == true)
+    {
+        <div class="well">
+            <h4><span class="glyphicon glyphicon-user"></span> Gestion des employés</h4>
+            <hr />
+            <a href="@Url.Action("Create","Employees", new { id = ViewBag.IdEmployee })" , class="btn btn-success">
+                Ajouter un employé
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+
+            <a href="@Url.Action("ListEmployee","Employees", new { id = ViewBag.IdEmployee })" class="btn btn-info">
+                Liste de vos employés
+                <span class="glyphicon glyphicon-list"></span>
+            </a>
+            @*<p>
+                    @Html.ActionLink("Liste employé", "ListEmployee", new { id = ViewBag.IdEmployee })
+                </p>*@
+        </div>
+    }
+
+    <div class="well">
+        <h4><span class="glyphicon glyphicon-folder-close"></span> Gestion des clients</h4>
+        <a href="@Url.Action("Create","Clients", new { id = ViewBag.IdEmployee })" class="btn btn-success">
+            Ajouter un client
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+        <a href="@Url.Action("Index","Clients", new { id = ViewBag.IdEmployee })" class="btn btn-info">
+            Liste des clients
+            <span class="glyphicon glyphicon-list"></span>
+        </a>
+    </div>
+</div>

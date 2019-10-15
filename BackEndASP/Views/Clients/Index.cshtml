@@ -2,81 +2,149 @@
 
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Liste des employés";
 }
 
-<h2>Index</h2>
-@Html.ActionLink("Back to List", "Index", "Employees", new { id = ViewBag.idManager }, "")
-<table class="table">
-    @*<tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Street)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ZipCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th></th>
-        </tr>*@
+@*Fenetre modale pour la confirmation de suppression*@
+<div class="modal" id="myModals" style="display:none" onclick="CloseModalDel()">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Supprimer un compte</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
 
-    @foreach (var item in Model.ListClient)
+@*Fenetre modale pour la confirmation de modification*@
+@if (TempData["Edit"]?.ToString() == "Success")
+{
+    <div id="modalEditSuccess" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Modification du compte</h4>
+                </div>
+                <div class="modal-body alert alert-info">
+                    <p>Le compte a été modifié.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="CloseDiv">
+                        Fermer
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<div class="entete-titre">
+    <h2>Liste des employés</h2>
+    <div class="btn-group posbtn">
+        <a class="small btn btn-success" href="@Url.Action("Create", "Employees", new { id = ViewBag.idManager})"
+           data-toggle="tooltip" data-placement="bottom" title="Nouveau employé">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+        </a>
+        <a class="small btn btn-primary" href="@Url.Action("Index","Employees", new { id = ViewBag.idManager })"
+           data-toggle="tooltip" data-placement="right" title="Retour à l'accueil">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+        </a>
+        @*@Html.ActionLink("Back to List", "Index", "Employees", new { id = ViewBag.idManager }, "")*@
+    </div>
+</div>
+<div class="well">
+
+    @if (Model.ListClient.Count > 0)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Street)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ZipCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.PersonId }) |
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListClient.First().FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListClient.First().FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListClient.First().FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListClient.First().FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListClient.First().FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListClient.First().FirstName)
+                </th>
+                <th>
+                    <center>Options</center>
+                </th>
+                <th>
+                    Conseiller
+                </th>
+                <th>
+                    
+                </th>
+                <th></th>
+            </tr>
 
-                @*ajouter un boutton pour afficher les comptes de clients*@
-                @Html.ActionLink("Details", "Details", new { id = item.PersonId })
-                |
-                @Html.ActionLink("Delete", "Delete", new { id = item.PersonId }) |
-
-                @*appeler le Acountscontroller dans la vue : Labl du contrôller, l'action, le nom de controller puis l'objet, une chaine de caractère *@
-
-                @Html.ActionLink("Accounts", "Index", "Accounts", new { id = item.PersonId }, "")
-
-            </td>
-
-            @using (Html.BeginForm($"ChangeEmployee/{item.PersonId}/{Model.CurrentEmployee.PersonId}", "Clients", FormMethod.Post))
+            @foreach (var item in Model.ListClient)
             {
-                @Html.AntiForgeryToken()
-                <td>
-                    @Html.DropDownListFor(model => model.CurrentEmployee.PersonId, Model.ChangeEmployee)
-                    @Html.ValidationMessageFor(model => model.ChangeEmployee, "", new { @class = "text-danger" })
-                </td>
-                <td>
-                    <input type="submit" value="Change"btn btn-default" />
-                </td>
-            }
-        </tr>
-    }
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOfBirth)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Street)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ZipCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.PersonId }) |
 
-</table>
+                        @*ajouter un boutton pour afficher les comptes de clients*@
+                        @Html.ActionLink("Details", "Details", new { id = item.PersonId })
+                        |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.PersonId }) |
+
+                        @*appeler le Acountscontroller dans la vue : Labl du contrôller, l'action, le nom de controller puis l'objet, une chaine de caractère *@
+
+                        @Html.ActionLink("Accounts", "Index", "Accounts", new { id = item.PersonId }, "")
+
+                    </td>
+
+                    @using (Html.BeginForm($"ChangeEmployee/{item.PersonId}/{Model.CurrentEmployee.PersonId}", "Clients", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <td>
+                            @Html.DropDownListFor(model => model.CurrentEmployee.PersonId, Model.ChangeEmployee)
+                            @Html.ValidationMessageFor(model => model.ChangeEmployee, "", new { @class = "text-danger" })
+                        </td>
+                        <td>
+                            <input type="submit" value="Change" btn btn-default" />
+                        </td>
+                    }
+                </tr>
+            }
+
+        </table>
+    }
+</div>

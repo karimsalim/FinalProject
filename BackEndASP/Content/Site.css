@@ -28,26 +28,27 @@ textarea {
     text-decoration: none;
 }
 
-.modal{
-    background-color:rgba(0,0,0,0.6);
-    display:inline;
+.modal {
+    background-color: rgba(0,0,0,0.6);
+    display: inline;
 }
 
-.alert
-{
-    margin-bottom:0px;
+.alert {
+    margin-bottom: 0px;
 }
 
-.entete-titre{
-    display:inline-flex;
-    text-align:center;
+.entete-titre {
+    display: inline-flex;
+    text-align: center;
 }
-.entete{
-    margin:5px;
+
+.entete {
+    margin: 5px;
 }
-.posbtn{
-    margin-left:15px;
-    margin-top:15px;
+
+.posbtn {
+    margin-left: 15px;
+    margin-top: 15px;
 }
 
 .field-validation-error {
@@ -66,4 +67,17 @@ textarea {
 
 input[type="checkbox"].input-validation-error {
     outline: 2px solid #f00;
+}
+
+.navbar {
+    background-color: rgb(21,56,89);
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
+    color: #FFF;
+    font-size:16px;
+}
+
+.conteneur{
+    min-height:640px;
 }

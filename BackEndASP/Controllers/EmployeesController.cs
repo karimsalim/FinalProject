@@ -14,19 +14,22 @@ namespace BackEndASP.Controllers
     public class EmployeesController : Controller
     {
         private BankContext db = new BankContext();
+
+        #region Debug Pour l'affichage des listes des employés
         public ActionResult listEmployeDebug()
         {
             var listEmployee = db.Employees.ToList();
             return View(listEmployee);
         }
+        #endregion
 
 
-        // GET: Employees
+        #region Affichage de la page d'accueil de l'employé
         public ActionResult Index(int? id)
         {
             Employee employee = db.Employees.Find(id); //Récupère l'employé de l'id courante
             var listEmployee = db.Employees.ToList(); //Génération de la liste des employés
-            ViewBag.EmployeManager = employee.Manager.LastName; //Récupère le manager de l'employé courant
+            ViewBag.EmployeManager = employee.Manager.LastName + " " + employee.Manager.FirstName; //Récupère le manager de l'employé courant
 
             //Parcours de la liste des employés
             foreach (var item in listEmployee)
@@ -41,7 +44,9 @@ namespace BackEndASP.Controllers
             ViewBag.IdEmployee = employee.PersonId; //id nécessaire pour le paramètre de création d'employé et client ainsi que leurs listes.
             return View();
         }
+        #endregion
 
+        #region Afficher la liste des clients d'un employé
         public ActionResult ListEmployee(int? id)
         {
             Employee employee = db.Employees.Find(id); //Récupère l'employé de l'id courante
@@ -78,7 +83,9 @@ namespace BackEndASP.Controllers
                 return View(list);
             }
         }
+        #endregion
 
+        #region Détails un employé
         // GET: Employees/Details/5
         public ActionResult Details(int? id)
         {
@@ -94,7 +101,9 @@ namespace BackEndASP.Controllers
             }
             return View(employee);
         }
+        #endregion
 
+        #region Créer un nouveau employé
         // GET: Employees/Create
         public ActionResult Create(int? id)
         {
@@ -102,7 +111,9 @@ namespace BackEndASP.Controllers
             ViewBag.IdEmployee = manager.PersonId;
             return View();
         }
+        #endregion
 
+        #region Sauvegarder la création d'un employé
         // POST: Employees/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -131,6 +142,7 @@ namespace BackEndASP.Controllers
 
             return View(employee);
         }
+        #endregion
 
         // GET: Employees/Edit/5
         public ActionResult Edit(int? id)

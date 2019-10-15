@@ -27,29 +27,29 @@ namespace BackEndASP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel viewModel, string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
             if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
-            if (!ValidateUser(viewModel.Login, viewModel.Password))
+            DefEmp emp = ValidateUser(viewModel.Login, viewModel.Password);
+            if (!emp.find)
             {
                 ModelState.AddModelError(string.Empty, "Le nom d'utilisateur ou le mot de passe est incorrect!");
                 return View(viewModel);
             }
             // L'authentification est réussie, 
             // injecter l'identifiant utilisateur dans le cookie d'authentification :
-            var loginClaim = new Claim(ClaimTypes.NameIdentifier, viewModel.Login);
+            var loginClaim = new Claim(ClaimTypes.NameIdentifier, emp.id.ToString());
             var claimsIdentity = new ClaimsIdentity(new[] { loginClaim }, DefaultAuthenticationTypes.ApplicationCookie);
             var ctx = Request.GetOwinContext();
             var authenticationManager = ctx.Authentication;
             authenticationManager.SignIn(claimsIdentity);
 
             // Rediriger vers l'URL d'origine :
-            if (Url.IsLocalUrl(ViewBag.ReturnUrl))
-                return Redirect(ViewBag.ReturnUrl);
+            //if (Url.IsLocalUrl(ViewBag.ReturnUrl))
+            //    return Redirect(ViewBag.ReturnUrl);
             // Par défaut, rediriger vers la page d'accueil :
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new { id = emp.id });
         }
         #endregion
 
@@ -64,17 +64,27 @@ namespace BackEndASP.Controllers
         #endregion
 
         #region Validation du pseudo et du mot de passe
-        private bool ValidateUser(string Login, string Password)
+        private DefEmp ValidateUser(string Login, string Password)
         {
             using (BankContext db = new BankContext())
             {
                 string hash = HashPassword(Password);
-                int nbemp = db.Employees.Where(e => e.Pseudo == Login).Where(e => e.Password == hash).Count();
-                if (nbemp == 1)
+                List<Employee> emp = db.Employees.Where(e => e.Pseudo == Login).Where(e => e.Password == hash).ToList();
+                DefEmp employe;
+                if (emp.Count == 1)
                 {
-                    return true;
+                    employe = new DefEmp()
+                    {
+                        find = true,
+                        id = emp[0].PersonId
+                    };
+                    return employe;
                 }
-                return false;
+                employe = new DefEmp()
+                {
+                    find = false
+                };
+                return employe;
             }
 
         }
@@ -94,6 +104,14 @@ namespace BackEndASP.Controllers
             }
         }
         #endregion
-
     }
+
+    #region Classe d'un employé identifé
+    internal class DefEmp
+    {
+        public bool find { get; set; }
+
+        public int id { get; set; }
+    }
+    #endregion
 }

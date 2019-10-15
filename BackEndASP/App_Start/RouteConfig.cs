@@ -12,27 +12,33 @@ namespace BackEndASP
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            #region Affichage de la page de l'employe connecté
             routes.MapRoute(
                 name: "AfficheEmploye",
                 url: "Employees/{id}",
                 new { Controller = "Employees", action = "Index" },
                 new { id = @"\d+" }
                 );
+            #endregion
 
+            #region Affectation d'un employé à un manager
             routes.MapRoute(
                name: "ChangeEmployeeAssignationEmployee",
                url: "Employees/{Action}/{idClient}/{idEmployee}",
                new { Controller = "Employees", action = "ChangeEmployee" },
                new { idClient = @"\d+", idEmployee = @"\d+" }
                );
-        
+            #endregion
+
+            #region Affectation d'un client à un employé
             routes.MapRoute(
                name: "ChangeEmployeeAssignationClients",
                url: "Clients/{Action}/{idClient}/{idEmployee}",
                new { Controller = "Clients", action = "ChangeEmployee" },
                new { idEmployee = @"\d+", idClient = @"\d+" }
                );
-
+            #endregion
 
             #region Route Afficher les cartes d'un compte
             routes.MapRoute(
@@ -58,11 +64,13 @@ namespace BackEndASP
                 new { id = @"\d+" });
             #endregion
 
+            #region Confirmation de suppression d'une carte bancaire
             routes.MapRoute(
                 name: "DeleteCardConfirm",
                 url: "Cards/DeleteCard/{id}/{idcompte}/{idclient}",
                 new { Controller = "Cards", action = "DeleteCard" },
                 new { id = @"\d+", idcompte = @"\d+", idclient = @"\d+" });
+            #endregion
 
             #region Route Modification d'une carte de crédit
             routes.MapRoute(
@@ -116,8 +124,9 @@ namespace BackEndASP
             routes.MapRoute(
                 name: "Accueil",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Employees", action = "listEmployeDebug", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
             #endregion
         }
     }
