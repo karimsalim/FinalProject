@@ -1,0 +1,13 @@
+.form-center{
+    margin: 0 auto;
+    display: table;
+}
+.img-center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-log{
+    width: 100%;
+}

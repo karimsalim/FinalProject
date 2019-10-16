@@ -1,0 +1,31 @@
+<div class="form-center">
+  <div>
+    <img class="img-center" src="../../assets/logo.png" />
+  </div>
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Connexion au compte</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="login-form">
+        <mat-form-field class="input-log">
+          <input matInput placeholder="Votre nom" name="LastName" 
+          matTooltip="Veuillez saisir votre nom"
+          aria-label="Button that displays a tooltip when focused or hovered over"
+          required>
+        </mat-form-field>
+        <mat-form-field class="input-log">
+          <input matInput placeholder="Votre prénom" name="FirstName" required>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">
+        Se connecter
+        <i class="material-icons">
+                lock_open
+                </i>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
