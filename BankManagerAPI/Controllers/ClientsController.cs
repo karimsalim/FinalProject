@@ -29,13 +29,35 @@ namespace BankManagerAPI.Controllers
 
         public double GetCardsPercentages()
         {
-            int nbClients = db.Clients.Count();
-            foreach (Account account in db.Accounts)
+            double nbClients = db.Clients.Count();
+            double nbClientsCarded = 0;
+            bool isCounted = false;
+            double percentage;
+            List<Client> clientsCarded = new List<Client>();
+            foreach (Deposit deposit in db.Deposits.Include("Cards").Include("Client"))
             {
-
+                if (deposit.Cards.Count() != 0)
+                {
+                    isCounted = false;
+                    foreach (Client client in clientsCarded)
+                    {
+                        if (client.PersonId == deposit.Client.PersonId)
+                        {
+                            isCounted = true;
+                            break;
+                        }
+                    }
+                    if (isCounted == false)
+                    {
+                        clientsCarded.Add(deposit.Client);
+                    }
+                }
             }
-            
-            return 99.48;
+            nbClientsCarded = clientsCarded.Count();
+            percentage = nbClientsCarded / nbClients * 100;
+            percentage = Math.Round(percentage, 2);
+
+            return percentage;
         }
 
         
