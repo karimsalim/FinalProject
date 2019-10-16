@@ -41,9 +41,10 @@ namespace BankManagerAPI.Controllers
             return db.Savings.Sum(e => e.Balance);
         }
 
-        public decimal GetSavingSumManaged(int personId)
+        
+        public decimal GetSavingSumManaged(int id)
         {
-            return db.Savings.Include("Person").Where(e => e.Client.Conseiller.Manager.PersonId == personId).Sum(e => e.Balance);
+            return db.Savings.Include("Person").Where(e => e.Client.Conseiller.Manager.PersonId == id).Sum(e => e.Balance);
         }
 
         protected override void Dispose(bool disposing)

@@ -22,9 +22,20 @@ namespace BankManagerAPI.Controllers
             return db.Clients.Count();
         }
 
-        public int GetClientManaged(int personId)
+        public int GetClientManaged(int id)
         {
-            return db.Clients.Include("Employee").Where(e => e.Conseiller.Manager.PersonId == personId).Count();
+            return db.Clients.Include("Employee").Where(e => e.Conseiller.Manager.PersonId == id).Count();
+        }
+
+        public double GetCardsPercentages()
+        {
+            int nbClients = db.Clients.Count();
+            foreach (Account account in db.Accounts)
+            {
+
+            }
+            
+            return 99.48;
         }
 
         
