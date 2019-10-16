@@ -7,25 +7,24 @@
       <mat-card-title>Connexion au compte</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form class="login-form">
+      <form [formGroup]="loginForm" autocomplete="off" class="login-form">
         <mat-form-field class="input-log">
-          <input matInput placeholder="Votre nom" name="LastName" 
-          matTooltip="Veuillez saisir votre nom"
-          aria-label="Button that displays a tooltip when focused or hovered over"
-          required>
+          <input matInput placeholder="Votre nom" name="LastName" formControlName="LastName" required>
+          <mat-error *ngIf="hasError('LastName', 'required')">Le nom de famille est obligatoire!</mat-error>
         </mat-form-field>
         <mat-form-field class="input-log">
-          <input matInput placeholder="Votre prénom" name="FirstName" required>
+          <input matInput placeholder="Votre prénom" name="FirstName" formControlName="FirstName" required>
+          <mat-error *ngIf="hasError('FirstName', 'required')">Le prénom est obligatoire!</mat-error>
         </mat-form-field>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [disabled]="!loginForm.valid">
+            Se connecter
+            <i class="material-icons">
+                    lock_open
+                    </i>
+          </button>
+        </mat-card-actions>
       </form>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary">
-        Se connecter
-        <i class="material-icons">
-                lock_open
-                </i>
-      </button>
-    </mat-card-actions>
   </mat-card>
 </div>
