@@ -91,7 +91,7 @@ namespace DAL
 
                 new Deposit()
                 {
-                   GestionDate=DateTime.Parse("2018/05/12"),
+                   CreationDate=DateTime.Parse("2018/05/12"),
                    BankCode ="37951",
                    BranchCode="16287",
                    Key="75",
@@ -106,7 +106,7 @@ namespace DAL
                 },
                 new Deposit()
                 {
-                   GestionDate=DateTime.Parse("2019/01/10"),
+                   CreationDate=DateTime.Parse("2019/01/10"),
                    BankCode ="37584",
                    BranchCode="16287",
                    Key="73",
@@ -121,7 +121,7 @@ namespace DAL
                 },
                 new Deposit()
                 {
-                   GestionDate=DateTime.Parse("2019/03/25"),
+                   CreationDate=DateTime.Parse("2019/03/25"),
                    BankCode ="37591",
                    BranchCode="16274",
                    Key="72",
@@ -135,7 +135,7 @@ namespace DAL
                 },
                 new Deposit()
                 {
-                   GestionDate=DateTime.Parse("2019/03/25"),
+                   CreationDate=DateTime.Parse("2019/03/25"),
                    BankCode ="37591",
                    BranchCode="16274",
                    Key="72",
