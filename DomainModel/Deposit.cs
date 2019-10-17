@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using DomainModel.Validators;
+using Newtonsoft.Json;
 
 namespace DAL
 {
@@ -51,7 +52,6 @@ namespace DAL
         #endregion
 
         #region Relations
-
         public virtual ICollection<Card> Cards { get; set; }
         #endregion
 

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DAL
 {
@@ -55,6 +56,7 @@ namespace DAL
         #endregion
 
         #region Relations
+        [JsonIgnore]
         public Deposit Deposit { get; set; }
         #endregion
 

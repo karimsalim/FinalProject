@@ -14,7 +14,7 @@ namespace BackEndASP.Controllers
     public class EmployeesController : Controller
     {
         private BankContext db = new BankContext();
-        public ActionResult listEmployeDebug()
+        public ActionResult istEmployeDebug()
         {
             var listEmployee = db.Employees.ToList();
             return View(listEmployee);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Newtonsoft.Json;
 
 namespace DAL
 {
@@ -78,6 +79,7 @@ namespace DAL
         #endregion
 
         #region Relations
+        [JsonIgnore]
         public virtual Client Client { get; set; }
         #endregion
 
@@ -88,7 +90,7 @@ namespace DAL
         /// <returns>BBAN du compte sélectionné</returns>
         public string GetRib()
         {
-            return $"{this.BankCode} {this.BranchCode} {this.AccountNumber} {this.Key}"; 
+            return $"{this.BankCode}-{this.BranchCode}-{this.AccountNumber}-{this.Key}"; 
         }
         #endregion
 
