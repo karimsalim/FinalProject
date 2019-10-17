@@ -24,7 +24,7 @@ namespace WebApiAngular.Controllers
 
         public AccountClient(Client client)
         {
-            //Récupère les informations du client
+            //Récupère les informations du client afin de ne pas avoir le Conseiller et le Account du client
             this.Client = new string[7];
             #region tabClient
             this.Client[0] = client.PersonId.ToString();
@@ -42,6 +42,8 @@ namespace WebApiAngular.Controllers
             //Récupère les comptes du client et les trient par rapport à leurs type de compte
             this.Deposit = new List<Account>();
             this.Saving = new List<Account>();
+
+            //Sépare les type d'account pour la sérialisation pour Angular
             foreach (var account in client.Accounts)
             {
                 if (account is Deposit)
@@ -127,7 +129,8 @@ namespace WebApiAngular.Controllers
             string accountNumber = tab[2];
             string key = tab[3];
 
-            Account accountDebiteur = await db.Accounts.FindAsync(id);
+            Account accountDebiteur = await db.Accounts.FindAsync(id); // Compte du débiteur
+            //Recherche le compte du par rapport au rib
             Account accountCrediteur = db.Accounts.SingleOrDefault(c => c.BankCode == bankCode && c.BranchCode == branchCode && c.AccountNumber == accountNumber && c.Key == key);
             if(accountCrediteur is null)
             {
