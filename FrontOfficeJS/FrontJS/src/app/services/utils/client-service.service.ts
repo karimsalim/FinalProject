@@ -34,6 +34,7 @@ export class ClientService {
         this.firstName = "";
         this.isConnected = false;
         this.idClient = null;
+        return this;
       }
 
       constructor() { }

@@ -1,8 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {AccueilClientComponent} from './front/accueil-client/accueil-client.component';
+import {LoginClientComponent} from './front/login-client/login-client.component';
+import {ListComptesComponent} from './front/list-comptes/list-comptes.component';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path:'Clients', component : AccueilClientComponent,
+    children: [
+      {
+        path:'ListeComptes',
+        component : ListComptesComponent
+      }
+    ]
+  },
+  { path: 'Accueil', component: LoginClientComponent},
+  { path: '', redirectTo: 'Accueil', pathMatch: 'full'}
+];
+
+RouterModule.forRoot([
+  
+])
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

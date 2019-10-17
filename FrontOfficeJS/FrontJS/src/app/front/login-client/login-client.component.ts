@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {ClientService} from '../services/client-service.service';
+import {ClientService} from '../../services/utils/client-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -12,8 +12,9 @@ export class LoginClientComponent implements OnInit {
 
   public loginForm : FormGroup;
 
-  constructor(private route: ActivatedRoute,
-    private router: Router,private clientService : ClientService) { }
+  constructor(
+    private router: Router,
+    private clientService : ClientService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -27,6 +28,7 @@ export class LoginClientComponent implements OnInit {
     return this.loginForm.controls[controlName].hasError(errorName);
   }
 
+  /* Appel A L'API pour véfifier la connexion */
   public onSubmit(clientData)
   {
     this.clientService.setClientConnected(clientData.LastName, clientData.FirstName, 99);

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {MenuService} from '../../services/menu-service.service';
-import {ClientService} from '../../services/client-service.service';
+import {MenuService} from '../../services/utils/menu-service.service';
+import {ClientService} from '../../services/utils/client-service.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,9 @@ export class HomeComponent implements OnInit {
   menuItems : MenuService;
   clientConnected : ClientService;
 
-  constructor(private menu : MenuService, private client : ClientService) { }
+  constructor(
+    private menu : MenuService, 
+    private client : ClientService) { }
 
   @Output() public sidenavToggle = new EventEmitter();
 
@@ -32,6 +34,4 @@ export class HomeComponent implements OnInit {
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
   }
-  
-
 }

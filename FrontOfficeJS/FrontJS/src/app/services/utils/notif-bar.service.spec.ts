@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ClientServiceService } from './client-service.service';
+import { NotifBarService } from './notif-bar.service';
 
-describe('ClientServiceService', () => {
+describe('NotifBarService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ClientServiceService = TestBed.get(ClientServiceService);
+    const service: NotifBarService = TestBed.get(NotifBarService);
     expect(service).toBeTruthy();
   });
 });
