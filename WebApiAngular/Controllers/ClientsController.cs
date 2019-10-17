@@ -59,7 +59,7 @@ namespace WebApiAngular.Controllers
     public class ClientsController : ApiController
     {
 
-        private BankContext db = new BankContext();
+        private readonly BankContext db = new BankContext();
 
         // GET: api/Clients
         public IQueryable<Client> GetPeople()
