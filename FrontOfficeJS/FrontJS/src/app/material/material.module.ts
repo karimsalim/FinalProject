@@ -18,7 +18,9 @@ import {
   MatFormField,
   MatFormFieldModule,
   MatProgressSpinnerModule,
-  MatInputModule
+  MatInputModule,
+  MatSidenavModule,
+  MatListModule
 }
 from '@angular/material';
 import {
@@ -49,7 +51,7 @@ import {
     MatIconModule, MatDialogModule, MatProgressSpinnerModule, MatButtonModule,
     MatSortModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatTableModule,
     MatTabsModule, MatFormFieldModule, MatProgressSpinnerModule, MatInputModule,
-    MatPaginatorModule
+    MatPaginatorModule,MatSidenavModule , MatListModule
   ],
 })
 export class MyMaterialModule {}

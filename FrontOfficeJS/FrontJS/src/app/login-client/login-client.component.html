@@ -7,7 +7,7 @@
       <mat-card-title>Connexion au compte</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="loginForm" autocomplete="off" class="login-form">
+      <form [formGroup]="loginForm" autocomplete="off" class="login-form" (ngSubmit)="onSubmit(loginForm.value)">
         <mat-form-field class="input-log">
           <input matInput placeholder="Votre nom" name="LastName" formControlName="LastName" required>
           <mat-error *ngIf="hasError('LastName', 'required')">Le nom de famille est obligatoire!</mat-error>
@@ -20,8 +20,8 @@
           <button mat-raised-button color="primary" [disabled]="!loginForm.valid">
             Se connecter
             <i class="material-icons">
-                    lock_open
-                    </i>
+              lock_open
+            </i>
           </button>
         </mat-card-actions>
       </form>

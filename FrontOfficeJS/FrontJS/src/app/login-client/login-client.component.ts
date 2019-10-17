@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
+import {ClientService} from '../services/client-service.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-client',
@@ -11,7 +12,8 @@ export class LoginClientComponent implements OnInit {
 
   public loginForm : FormGroup;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute,
+    private router: Router,private clientService : ClientService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -23,6 +25,12 @@ export class LoginClientComponent implements OnInit {
   public hasError = (controlName : string, errorName:string) =>
   {
     return this.loginForm.controls[controlName].hasError(errorName);
+  }
+
+  public onSubmit(clientData)
+  {
+    this.clientService.setClientConnected(clientData.LastName, clientData.FirstName, 99);
+    this.router.navigate(['/Clients']);
   }
 
 }

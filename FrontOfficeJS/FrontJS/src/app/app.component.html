@@ -1,7 +1,19 @@
 <app-layout>
-  <app-home>
-  <main>
-    <!-- <router-outlet style="margin-top: 80px;"></router-outlet> -->
-  </main>
-</app-home>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+      <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <!--in here all the content must reside. We will add a navigation header as well-->
+      <app-home (sidenavToggle)="sidenav.toggle()"></app-home>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <!-- <app-home>
+    <main>
+
+    </main>
+  </app-home> -->
 </app-layout>

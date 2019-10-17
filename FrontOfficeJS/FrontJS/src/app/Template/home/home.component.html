@@ -1,9 +1,17 @@
-<mat-toolbar color="primary" class="fixed-header">
-  <mat-toolbar-row>
-    <span>
-      <img src="./assets/logo.png" style="width:50px;">
-    </span>
-    <mat-label style="text-align: right;">Bienvenue</mat-label>
-  </mat-toolbar-row>
+<mat-toolbar color="primary">
+  <div fxHide.gt-sm *ngIf="clientConnected.isConnected == true">
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    Etienne Bank
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.sm fxHide.xs>
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items" *ngIf="clientConnected.isConnected == true">
+      <li *ngFor="let item of menuItems.itemMenu">
+        <a routerLink="/">{{item}} </a>
+      </li>
+    </ul>
+  </div>
 </mat-toolbar>
-<app-login-client></app-login-client>
