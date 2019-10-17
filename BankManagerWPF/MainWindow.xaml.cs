@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace BankManagerWPF
 {
     /// <summary>
@@ -23,6 +24,25 @@ namespace BankManagerWPF
         public MainWindow()
         {
             InitializeComponent();
+
+            //BankContext db = new BankContext();
+            //var clients = from c in db.Clients
+            //                select c;
+            //TheDataGrid.ItemsSource = clients;
         }
+
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //        MainWindow window = new MainWindow();
+        //        window.Show();
+        //    }
+
+        private void CboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
     }
-}
+    }
+    
+

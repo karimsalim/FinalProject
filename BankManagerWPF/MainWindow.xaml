@@ -4,9 +4,113 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BankManagerWPF"
+        xmlns:toolkit="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Bank Etienne" Height="550" Width="1000">
+
+    <Window.Resources>
+        <LinearGradientBrush x:Key="GrayBlueGradientBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="DarkGray" Offset="0" />
+            <GradientStop Color="#CCCCFF" Offset="0.5" />
+            <GradientStop Color="DarkGray" Offset="1" />
+        </LinearGradientBrush>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="{StaticResource GrayBlueGradientBrush}" />
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Background" Value="{StaticResource GrayBlueGradientBrush}" />
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="0,0,-0.4,-0.2">
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="130" />
+            <RowDefinition Height="130" />
+            <RowDefinition Height="130" />
+        </Grid.RowDefinitions>-->
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="500"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+
+            <WrapPanel>
+                
+                    <Label Content="View by each Manager" Grid.Column="0" HorizontalAlignment="Left" Margin="178,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.237,-1.234" Width="135" Height="34"/>
+                
+                <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="500">
+                <DockPanel>
+                    <Label Content="List of managers" HorizontalAlignment="Left" Margin="28,11.6,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+                    <ComboBox ItemsSource="{Binding Path=Employee}" DisplayMemberPath="Name" SelectedValuePath="Name" SelectedItem="{Binding Path=Employees}" HorizontalAlignment="Left" Height="26" Margin="131,11.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="184"/>
+                </DockPanel>
+                </Border>
+
+                <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6">
+                    <WrapPanel Visibility="Visible" DockPanel.Dock="Bottom" Width="498">
+                        <Label x:Name="Label1" HorizontalAlignment="Left" Grid.Column="0" Height="25" Width="75" Content="TotalofClients"/>
+                        <TextBox x:Name="TotalofCleints" Width="500"></TextBox>
+                        <Label x:Name="Label2" HorizontalAlignment="Center" Grid.Column="0" Height="25" Width="75" Content="%ofCards"/>
+                        <TextBox x:Name="PercentageofCards" Width="500"></TextBox>
+                        <Label x:Name="Label3" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Height="25" Width="75">SumOfsavings</Label>
+                        <TextBox x:Name="SumOfsavings" Width="500"></TextBox>
+                    </WrapPanel>
+                </Border>
+
+                
+                    <Label Content="List of clients by manager" HorizontalAlignment="Right" Margin="28,8.2,0,0" VerticalAlignment="Top"/>
+                    <ScrollViewer Height="300">
+                        <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="477">
+                        <DockPanel Height="200" Margin="0.4,0">
+                            <DataGrid DockPanel.Dock="Top" ItemsSource="{Binding Client}" HorizontalAlignment="Left" Height="200"  VerticalAlignment="Top" Width="350" Margin="28,34.2,0,0" Grid.Row="2" Grid.RowSpan="3"/>
+
+                            <!--<WrapPanel DockPanel.Dock="Bottom">
+                                <Button x:Name="Btn5" HorizontalAlignment="Left" Grid.Column="0" Height="25" Width="75" Content="Save"/>
+                                <Button x:Name="Btn6" HorizontalAlignment="Left" Grid.Column="0" Height="25" Width="75" Content="Save"/>
+                                <Button x:Name="h" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Height="25" Width="75"></Button>
+                            </WrapPanel>-->
+                        </DockPanel>
+                        </Border>
+                    </ScrollViewer>
+                
+            </WrapPanel> 
+            
+        </Grid>
+
+        <Grid Margin="494,10,6,-10" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            
+            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="477">
+                <Label Content="Overview" Grid.Row="0" Width="Auto" Margin="226,10,190,55.8"/>
+                </Border>
+                <Label Content="Percentage of accounts by clients" Height="35" Width="200" Margin="30,10.2,270,55.6" Grid.Row="1"/>
+                <TextBox x:Name="Percentage" Height="1"></TextBox>
+
+                <Label Grid.Row="2" Content="Total of clients" Margin="30,10.4,332,57.4" Width="Auto"/>
+                <TextBox x:Name="Total" Height="1"></TextBox>
+
+
+                <Label Grid.Row="3" Content="Total of accounts" Margin="30,9.6,332,57.2" Width="Auto"/>
+                <TextBox x:Name="Accounts" Height="1"></TextBox>
+
+                <Label Grid.Row="4" Content="Percentage of savings"  Margin="30,9.8,332,60" Width="Auto"/>
+                <TextBox x:Name="Savings" Height="1"></TextBox>
+            
+        </Grid>
+
     </Grid>
 </Window>
