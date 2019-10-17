@@ -159,10 +159,10 @@ namespace BankManagerAPI.Controllers
             return percentage;
         }
 
-        //Get api/clients/GetClientList/{id}
+        //Get api/clients/GetClients/{id}
         public IQueryable<Client> GetClients(int id)
         {
-            return db.Clients.Include("Employee").Where(e => e.Conseiller.Manager.PersonId == id);
+            return db.Clients.Where(e => e.Conseiller.Manager.PersonId == id);
         }
 
 

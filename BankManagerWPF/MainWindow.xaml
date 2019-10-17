@@ -57,39 +57,47 @@
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
 
-            
 
-                <Label Content="View by each Manager" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Center"  VerticalAlignment="Top"  Width="135" Height="34"/>
 
-                <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="500" Grid.Row="1" Grid.ColumnSpan="6">
-                    <DockPanel>
-                        <Label Content="List of managers" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="99"/>
-                        <ComboBox ItemsSource="{Binding Path=Employee}" DisplayMemberPath="Name" SelectedValuePath="Name" SelectedItem="{Binding Path=Employees}" HorizontalAlignment="Left" Height="26" Margin="131,11.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="184"/>
-                    </DockPanel>
-                </Border>
+            <Label Content="View by each Manager" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Center"  VerticalAlignment="Top"  Width="135" Height="34"/>
 
-                <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="2" Grid.ColumnSpan="6">
-                    <WrapPanel Visibility="Visible" DockPanel.Dock="Bottom" Width="498">
-                        <Label x:Name="Label1" HorizontalAlignment="Left" Grid.Column="0" Height="25" Width="75" Content="TotalofClients"/>
-                        <TextBox x:Name="TotalofCleints" Height="25" Width="75"></TextBox>
-                        <Label x:Name="Label2" HorizontalAlignment="Center" Grid.Column="0" Height="25" Width="60" Content="%ofCards"/>
-                        <TextBox x:Name="PercentageofCards" Height="25" Width="75"></TextBox>
-                        <Label x:Name="Label3" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Height="25" Width="75">SumOfsavings</Label>
-                        <TextBox x:Name="SumOfsavings" Height="25" Width="75"></TextBox>
-                    </WrapPanel>
-                </Border>
+            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="500" Grid.Row="1" Grid.ColumnSpan="6">
+                <DockPanel>
+                    <Label Content="List of managers" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="99"/>
+                    <ComboBox ItemsSource="{Binding Path=Employee}" DisplayMemberPath="Name" SelectedValuePath="Name" SelectedItem="{Binding Path=Employees}" HorizontalAlignment="Left" Height="26" Margin="131,11.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="184"/>
+                </DockPanel>
+            </Border>
 
-                <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="3" Grid.ColumnSpan="6">
-                    <Label Content="List of clients by manager" HorizontalAlignment="Center" VerticalAlignment="Center" Width="151"/>
-                </Border>
+            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="2" Grid.ColumnSpan="6">
+                <WrapPanel Visibility="Visible" DockPanel.Dock="Bottom" Width="498">
+                    <Label x:Name="Label1" HorizontalAlignment="Left" Grid.Column="0" Height="25" Width="75" Content="TotalofClients"/>
+                    <TextBox x:Name="TotalofCleints" Height="25" Width="75"></TextBox>
+                    <Label x:Name="Label2" HorizontalAlignment="Center" Grid.Column="0" Height="25" Width="60" Content="%ofCards"/>
+                    <TextBox x:Name="PercentageofCards" Height="25" Width="75"></TextBox>
+                    <Label x:Name="Label3" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Height="25" Width="75">SumOfsavings</Label>
+                    <TextBox x:Name="SumOfsavings" Height="25" Width="75"></TextBox>
+                </WrapPanel>
+            </Border>
+
+            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="3" Grid.ColumnSpan="6">
+                <Label Content="List of clients by manager" HorizontalAlignment="Center" VerticalAlignment="Center" Width="151"/>
+            </Border>
 
 
             <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="6">
-                <DataGrid ItemsSource="{Binding Client}" HorizontalAlignment="Center" Height="200"  VerticalAlignment="Center" Width="400" />
+                <DataGrid ItemsSource="{Binding Client}" HorizontalAlignment="Center" Height="200"  VerticalAlignment="Center" Width="400">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Prénom" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nom" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Code Postal" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Ville" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Date de Naissance"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Border>
-                
 
-            
+
+
 
         </Grid>
 
