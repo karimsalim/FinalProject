@@ -42,7 +42,7 @@ namespace BankManagerAPI.Controllers
         }
 
         
-        public decimal GetSavingSumManaged(int id)
+        public decimal GetSavingSum(int id)
         {
             return db.Savings.Include("Person").Where(e => e.Client.Conseiller.Manager.PersonId == id).Sum(e => e.Balance);
         }
