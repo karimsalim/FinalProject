@@ -26,7 +26,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid Margin="0,0,-0.4,-0.2">
+    <Grid>
         <!--<Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
@@ -36,24 +36,39 @@
         </Grid.RowDefinitions>-->
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="500"/>
-            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
 
-            <WrapPanel>
+            
 
-                <Label Content="View by each Manager" Grid.Column="0" HorizontalAlignment="Left" Margin="178,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.237,-1.234" Width="135" Height="34"/>
+                <Label Content="View by each Manager" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Center"  VerticalAlignment="Top"  Width="135" Height="34"/>
 
-                <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="500">
+                <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="500" Grid.Row="1" Grid.ColumnSpan="6">
                     <DockPanel>
                         <Label Content="List of managers" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="99"/>
                         <ComboBox ItemsSource="{Binding Path=Employee}" DisplayMemberPath="Name" SelectedValuePath="Name" SelectedItem="{Binding Path=Employees}" HorizontalAlignment="Left" Height="26" Margin="131,11.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="184"/>
                     </DockPanel>
                 </Border>
 
-                <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6">
+                <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="2" Grid.ColumnSpan="6">
                     <WrapPanel Visibility="Visible" DockPanel.Dock="Bottom" Width="498">
                         <Label x:Name="Label1" HorizontalAlignment="Left" Grid.Column="0" Height="25" Width="75" Content="TotalofClients"/>
                         <TextBox x:Name="TotalofCleints" Height="25" Width="75"></TextBox>
@@ -64,28 +79,26 @@
                     </WrapPanel>
                 </Border>
 
-                <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6">
-                    <Label Content="List of clients by manager" HorizontalAlignment="Right" VerticalAlignment="Top" Width="151"/>
+                <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="3" Grid.ColumnSpan="6">
+                    <Label Content="List of clients by manager" HorizontalAlignment="Center" VerticalAlignment="Center" Width="151"/>
                 </Border>
-                <ScrollViewer Height="300">
-                    <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="477">
 
-                        <DataGrid DockPanel.Dock="Top" ItemsSource="{Binding Client}" HorizontalAlignment="Left" Height="200"  VerticalAlignment="Top" Width="350" Margin="28,34.2,0,0" Grid.Row="2" Grid.RowSpan="3"/>
-                    </Border>
-                </ScrollViewer>
 
-            </WrapPanel>
+            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="6">
+                <DataGrid ItemsSource="{Binding Client}" HorizontalAlignment="Center" Height="200"  VerticalAlignment="Center" Width="400" />
+            </Border>
+                
+
+            
 
         </Grid>
 
-        <Grid Margin="494,10,6,-10" Grid.ColumnSpan="2">
+        <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="100"/>
-
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="477" Margin="12,0,12,100.6" Grid.RowSpan="2">
@@ -106,7 +119,7 @@
             <TextBox x:Name="Percentageofsavings" Height="25" RenderTransformOrigin="0.508,3.136" Margin="319,49.4,43,26.4" Grid.Row="2"></TextBox>
 
 
-            <Image Source="C:\Users\Formation\Desktop\ProjetFinale\logo.png" Stretch="None" Grid.Row="2" Margin="0,100.4,11,-117.8" Grid.RowSpan="2" />
+            <Image Source="Resources/logo.png" Stretch="None" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" />
 
 
 

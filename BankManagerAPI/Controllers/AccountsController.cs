@@ -17,31 +17,21 @@ namespace BankManagerAPI.Controllers
     {
         private BankContext db = new BankContext();
 
-        // GET: api/Accounts
+        // GET: api/Accounts/GetTotalBalance
         public decimal GetTotalBalance()
         {
             return db.Accounts.Sum(e => e.Balance);
         }
 
-        // GET: api/Accounts/5
-        //[ResponseType(typeof(Account))]
-        //public async Task<IHttpActionResult> GetAccount(int id)
-        //{
-        //    Account account = await db.Accounts.FindAsync(id);
-        //    if (account == null)
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    return Ok(account);
-        //}
 
+        //GET api/Accounts/GetSavingSum
         public decimal GetSavingSum()
         {
             return db.Savings.Sum(e => e.Balance);
         }
 
-        
+        //GET api/Accounts/GetSavingSum/{id}
         public decimal GetSavingSum(int id)
         {
             return db.Savings.Include("Person").Where(e => e.Client.Conseiller.Manager.PersonId == id).Sum(e => e.Balance);

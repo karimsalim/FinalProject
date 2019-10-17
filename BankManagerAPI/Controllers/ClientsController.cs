@@ -16,17 +16,19 @@ namespace BankManagerAPI.Controllers
     {
         private BankContext db = new BankContext();
 
-        // GET: api/Clients
+        // GET: api/Clients/GetClientAmount
         public int GetClientAmount()
         {
             return db.Clients.Count();
         }
 
+        // GET: api/Clients/GetClientAmount/{id}
         public int GetClientAmount(int id)
         {
             return db.Clients.Include("Employee").Where(e => e.Conseiller.Manager.PersonId == id).Count();
         }
 
+        // GET: api/Clients/GetCardsPercentages
         public double GetCardsPercentages()
         {
             double nbClients = db.Clients.Count();
@@ -59,7 +61,7 @@ namespace BankManagerAPI.Controllers
 
             return percentage;
         }
-
+        // GET: api/Clients/GetCardsPercentages/{id}
         public double GetCardsPercentages(int id)
         {
             double nbClients = db.Clients.Include("Employee").Where(e => e.Conseiller.Manager.PersonId == id).Count();
@@ -94,6 +96,7 @@ namespace BankManagerAPI.Controllers
             return percentage;
         }
 
+        //GET: api/Clients/GetSavingsPercentages
         public double GetSavingsPercentages()
         {
             double nbClients = db.Clients.Count();
@@ -124,6 +127,7 @@ namespace BankManagerAPI.Controllers
             return percentage;
         }
 
+        //GET: api/Clients/GetSavingsPercentages/{id}
         public double GetSavingsPercentages(int id)
         {
             double nbClients = db.Clients.Include("Employee").Where(e => e.Conseiller.Manager.PersonId == id).Count();
@@ -153,6 +157,12 @@ namespace BankManagerAPI.Controllers
             percentage = Math.Round(percentage, 2);
 
             return percentage;
+        }
+
+        //Get api/clients/GetClientList/{id}
+        public IQueryable<Client> GetClients(int id)
+        {
+            return db.Clients.Include("Employee").Where(e => e.Conseiller.Manager.PersonId == id);
         }
 
 

@@ -17,7 +17,7 @@ namespace BankManagerAPI.Controllers
     {
         private BankContext db = new BankContext();
 
-        // GET: api/Manager
+        // GET: api/Manager/GetManager
         //public IQueryable<Employee> GetManager()
         public List<Employee> GetManager()
         {
@@ -47,18 +47,6 @@ namespace BankManagerAPI.Controllers
             return managers;
         }
 
-        // GET: api/Manager/5
-        //[ResponseType(typeof(Employee))]
-        //public async Task<IHttpActionResult> GetEmployee(int id)
-        //{
-        //    Employee employee = await db.Employees.FindAsync(id);
-        //    if (employee == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(employee);
-        //}
 
 
         protected override void Dispose(bool disposing)

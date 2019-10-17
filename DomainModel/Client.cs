@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DAL
 {
@@ -36,7 +37,9 @@ namespace DAL
 
         #region Relation
         //propriétés commun avec class person 
+        [JsonIgnore]
         public virtual ICollection<Account> Accounts { get; set; }
+        [JsonIgnore]
         public virtual Employee Conseiller { get; set; }
         #endregion
 
