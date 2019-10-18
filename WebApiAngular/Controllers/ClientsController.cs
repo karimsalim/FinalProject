@@ -11,10 +11,12 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DomainModel;
 using DAL;
+using System.Web.Http.Cors;
 
 namespace WebApiAngular.Controllers
 {
     #region Class AccountClient
+    [DisableCors]
     public class AccountClient
     {
         public string[] Client { get; set; }
@@ -58,6 +60,9 @@ namespace WebApiAngular.Controllers
         }
     }
     #endregion
+
+    //[DisableCors]
+    [EnableCors(origins: "http://127.0.0.1:4200", headers: "*", methods: "*")]
     public class ClientsController : ApiController
     {
 
