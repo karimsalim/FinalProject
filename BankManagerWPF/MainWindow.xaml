@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BankManagerWPF"
         xmlns:toolkit="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
         mc:Ignorable="d"
-        Title="Bank Etienne" Height="550" Width="1000">
+        Title="Bank Etienne" Height="550" Width="1000" Loaded="Window_Loaded">
 
     <Window.Resources>
         <LinearGradientBrush x:Key="GrayBlueGradientBrush" StartPoint="0,0" EndPoint="1,1">
@@ -24,6 +24,7 @@
             <Setter Property="Width" Value="80" />
             <Setter Property="Margin" Value="10" />
         </Style>
+        <BitmapImage x:Key="logo" UriSource="/Resources/logo.png"/>
     </Window.Resources>
 
     <Grid>
@@ -64,7 +65,8 @@
             <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="500" Grid.Row="1" Grid.ColumnSpan="6">
                 <DockPanel>
                     <Label Content="List of managers" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="99"/>
-                    <ComboBox ItemsSource="{Binding Path=Employee}" DisplayMemberPath="Name" SelectedValuePath="Name" SelectedItem="{Binding Path=Employees}" HorizontalAlignment="Left" Height="26" Margin="131,11.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="184"/>
+                    <ComboBox x:Name="ManagerBox" DisplayMemberPath="FullName" SelectedValuePath="PersonId" SelectedItem="-1" HorizontalAlignment="Left" Height="26" Margin="131,11.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="184" SelectionChanged="ManagerBox_SelectionChanged">
+                    </ComboBox>
                 </DockPanel>
             </Border>
 
@@ -85,14 +87,14 @@
 
 
             <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="6">
-                <DataGrid ItemsSource="{Binding Client}" HorizontalAlignment="Center" Height="200"  VerticalAlignment="Center" Width="400">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Prénom" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Nom" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Code Postal" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Ville" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Date de Naissance"></DataGridTextColumn>
-                    </DataGrid.Columns>
+                <DataGrid x:Name="ClientGrid" HorizontalAlignment="Center" Height="auto"  VerticalAlignment="Top" Width="auto" IsReadOnly="True">
+                    <!--<DataGrid.Columns>
+                        <DataGridTextColumn x:Name="FirstName" Header="Prénom" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="LastName" Header="Nom" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="ZipCode" Header="Code Postal" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="City"  Header="Ville" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="DateOfBirth" Header="Date de Naissance"></DataGridTextColumn>
+                    </DataGrid.Columns>-->
                 </DataGrid>
             </Border>
 
@@ -110,7 +112,7 @@
             </Grid.RowDefinitions>
 
             <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="477" Margin="12,0,12,100.6" Grid.RowSpan="2">
-                <Label Content="Overview" Grid.Row="0" Width="Auto" Margin="226,10,190,55.8"/>
+                <Label Content="Overview" Grid.Row="0" Width="Auto"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Border>
 
             <Label Content="Percentage of accounts by clients" Height="25" Width="200" Margin="30,10.2,270,55.6" Grid.Row="1"/>
@@ -127,7 +129,7 @@
             <TextBox x:Name="Percentageofsavings" Height="25" RenderTransformOrigin="0.508,3.136" Margin="319,49.4,43,26.4" Grid.Row="2"></TextBox>
 
 
-            <Image Source="Resources/logo.png" Stretch="None" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" />
+            <Image Source="{StaticResource ResourceKey=logo}" Stretch="None" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.RowSpan="2" />
 
 
 
