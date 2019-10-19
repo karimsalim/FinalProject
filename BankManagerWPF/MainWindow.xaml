@@ -36,27 +36,20 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
 
 
 
-            <Label Content="View by each Manager" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Center"  VerticalAlignment="Top"  Width="135" Height="34"/>
+            <Label Content="View by each Manager" Grid.Column="0"  HorizontalAlignment="Center"  VerticalAlignment="Top"  Width="135" Height="34"/>
 
-            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Width="500" Grid.Row="1" Grid.ColumnSpan="6">
+            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6"  Grid.Row="1" >
                 <DockPanel>
                     <Label Content="List of managers" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="99"/>
                     <ComboBox x:Name="ManagerBox" DisplayMemberPath="FullName" SelectedValuePath="PersonId" SelectedItem="-1" HorizontalAlignment="Left" Height="26" Margin="131,11.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="184" SelectionChanged="ManagerBox_SelectionChanged">
@@ -64,23 +57,36 @@
                 </DockPanel>
             </Border>
 
-            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="2" Grid.ColumnSpan="6">
-                <WrapPanel Visibility="Visible" DockPanel.Dock="Bottom" Width="498">
-                    <Label x:Name="Label1" HorizontalAlignment="Left" Grid.Column="0" Height="25" Width="75" Content="TotalofClients"/>
-                    <TextBox x:Name="TotalofCleints" Height="25" Width="75"></TextBox>
-                    <Label x:Name="Label2" HorizontalAlignment="Center" Grid.Column="0" Height="25" Width="60" Content="%ofCards"/>
-                    <TextBox x:Name="PercentageofCards" Height="25" Width="75"></TextBox>
-                    <Label x:Name="Label3" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Height="25" Width="75">SumOfsavings</Label>
-                    <TextBox x:Name="SumOfsavings" Height="25" Width="75"></TextBox>
-                </WrapPanel>
+            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label  Grid.Column="0" Grid.Row="0" Content="Clients Totaux" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="auto" Width="auto"/>
+                    <TextBox x:Name="ClientTotalMText" IsReadOnly="True" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10"></TextBox>
+                    <Label  Grid.Column="2" Grid.Row="0"  Content="% de CB" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="auto" Width="auto"/>
+                    <TextBox x:Name="CardPercentageMText" IsReadOnly="True" Grid.Column="3" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10"></TextBox>
+                    <Label  Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Total Epargne" Height="auto" Width="auto"/>
+                    <TextBox x:Name="SavingTotalMText" IsReadOnly="True" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10"></TextBox>
+                    <Label  Grid.Column="2" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="% d'épargne" Height="auto" Width="auto"/>
+                    <TextBox x:Name="SavingPercentageMText" IsReadOnly="True" Grid.Column="3" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10"></TextBox>
+                </Grid>
+
             </Border>
 
-            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="3" Grid.ColumnSpan="6">
-                <Label Content="List of clients by manager" HorizontalAlignment="Center" VerticalAlignment="Center" Width="151"/>
+            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="3">
+                <Label Content="Liste des clients du Manager" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
 
 
-            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="6">
+            <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2">
                 <DataGrid x:Name="ClientGrid" HorizontalAlignment="Center" Height="auto"  VerticalAlignment="Top" Width="auto" IsReadOnly="True">
                     <!--<DataGrid.Columns>
                         <DataGridTextColumn x:Name="FirstName" Header="Prénom" Width="*"></DataGridTextColumn>
