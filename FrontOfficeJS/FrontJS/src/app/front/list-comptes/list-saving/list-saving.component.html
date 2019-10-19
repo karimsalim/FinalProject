@@ -1,0 +1,51 @@
+<div *ngIf="account?.Saving.length>0">
+  <h3><b>Liste des comptes épargnes</b></h3>
+  <mat-accordion displayMode="flat" multi class="mat-table">
+    <section matSort class="mat-elevation-z2 mat-header-row">
+      <span class="mat-header-cell txt-center">
+        <h2>Rib</h2>
+      </span> <!-- mat-sort-header="BankCode" -->
+      <span class="mat-header-cell txt-center">
+        <h2>Balance</h2>
+      </span> <!-- mat-sort-header="Balance"-->
+      <span class="mat-header-cell txt-center">
+        <h2>Date limite utilisation</h2>
+      </span> <!-- mat-sort-header="Balance"-->
+    </section>
+    <mat-expansion-panel *ngFor="let item of account.Saving">
+      <mat-expansion-panel-header class="mat-row">
+        <span class="mat-cell txt-center">{{getRib(item)}}</span>
+        <span class="mat-cell txt-center">{{item.Balance | number:'1.2-2'}} €</span>
+        <span class="mat-cell txt-center">{{item.MaximumDate | date:'dd/MM/yyyy'}}</span>
+      </mat-expansion-panel-header>
+      <div class="details-compte">
+        <div class="mat-elevation-z8 detailsComptes content-compte">
+          <mat-divider></mat-divider>
+          <table>
+            <tr>
+              <th>IBAN</th>
+              <th>BIC</th>
+              <th>Montant minimum autorisé</th>
+              <th>Montant maximum autorisé</th>
+              <th>Taux d'intéret</th>
+              <th>Options</th>
+            </tr>
+            <tr>
+              <td>{{item.IBAN}}</td>
+              <td>{{item.BIC}}</td>
+              <td>{{item.MinimumAmount | number : '1.2-2'}} €</td>
+              <td>{{item.MaximumAmount | number : '1.2-2'}} €</td>
+              <td>{{item.InterestRate | number:'1.2-2'}} %</td>
+              <td>
+                <button mat-mini-fab matTooltip="Créer un virement" color="primary" (click)="openDialog()">
+                  <i class="material-icons">
+                    call_made
+                  </i></button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

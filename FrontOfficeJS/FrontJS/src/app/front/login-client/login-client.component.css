@@ -11,3 +11,10 @@
 .input-log{
     width: 100%;
 }
+
+.flex-disp{
+    display: flex;
+}
+.flex-disp-content{
+    margin:10px;
+}

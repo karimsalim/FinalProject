@@ -14,6 +14,7 @@ import { NotifBarService } from 'src/app/services/utils/notif-bar.service';
 export class LoginClientComponent implements OnInit {
 
   public loginForm : FormGroup;
+  public loading: boolean;
   accountvar : any;
 
   constructor(
@@ -38,7 +39,7 @@ export class LoginClientComponent implements OnInit {
   /* Appel A L'API pour véfifier la connexion */
   public onSubmit(clientData)
   {
-    
+    this.loading = true;
     this.http.get<AccountService>
     (`http://localhost:51588/api/Clients?firstname=${clientData.FirstName}&lastname=${clientData.LastName}`)
     .subscribe( data => {
@@ -56,6 +57,7 @@ export class LoginClientComponent implements OnInit {
         this.router.navigate(['/Clients/ListeComptes']);
     },
         err => {
+          this.loading = false;
           if(err.status == 404)
           {
             this.notif.openSnackBar("On ne vous reconnait pas ! Veuillez vérifier les informations saisies","Fermer");

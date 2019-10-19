@@ -2,7 +2,9 @@
   <div>
     <img class="img-center" src="../../assets/logo.png" />
   </div>
+  <mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
   <mat-card class="login-card">
+      
     <mat-card-header>
       <mat-card-title>Connexion au compte</mat-card-title>
     </mat-card-header>
@@ -18,7 +20,7 @@
           <mat-error *ngIf="hasError('FirstName', 'required')">Le prénom est obligatoire!</mat-error>
         </mat-form-field>
         <mat-card-actions>
-          <button mat-raised-button color="primary" [disabled]="!loginForm.valid">
+          <button mat-raised-button color="primary" [disabled]="!loginForm.valid" class="flex-disp-content">
             Se connecter
             <i class="material-icons">
               lock_open

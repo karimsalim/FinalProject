@@ -23,7 +23,11 @@ import {
   MatSidenavModule,
   MatListModule,
   MatExpansionModule,
-  MatChipsModule
+  MatChipsModule,
+  MatButtonToggleModule,
+  MatTooltipModule,
+  MatProgressBarModule,
+  MatStepperModule
 }
 from '@angular/material';
 import {
@@ -54,7 +58,8 @@ import {
     MatIconModule, MatDialogModule, MatProgressSpinnerModule, MatButtonModule,
     MatSortModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatTableModule,
     MatTabsModule, MatFormFieldModule, MatProgressSpinnerModule, MatInputModule,
-    MatPaginatorModule,MatSidenavModule , MatListModule, MatExpansionModule, MatGridListModule, MatChipsModule
+    MatPaginatorModule,MatSidenavModule , MatListModule, MatExpansionModule, MatGridListModule, 
+    MatChipsModule, MatButtonToggleModule, MatTooltipModule, MatProgressBarModule, MatStepperModule
   ],
 })
 export class MyMaterialModule {}

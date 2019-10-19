@@ -14,6 +14,9 @@ import { AccueilClientComponent } from './front/accueil-client/accueil-client.co
 import { SidenavListComponent } from './Template/sidenav-list/sidenav-list.component';
 import { ListComptesComponent } from './front/list-comptes/list-comptes.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ListDepositComponent } from './front/list-comptes/list-deposit/list-deposit.component';
+import { ListSavingComponent } from './front/list-comptes/list-saving/list-saving.component';
+import { DialogVirementComponent } from './front/list-comptes/dialog-virement/dialog-virement.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { HttpClientModule } from '@angular/common/http';
     AccueilClientComponent,
     SidenavListComponent,
     ListComptesComponent,
+    ListDepositComponent,
+    ListSavingComponent,
+    DialogVirementComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +41,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogVirementComponent]
 })
 
 

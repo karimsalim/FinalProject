@@ -1,0 +1,82 @@
+<div *ngIf="account?.Deposit.length>0">
+  <h3><b>Liste des comptes courants</b></h3>
+  <mat-accordion displayMode="flat" multi class="mat-table">
+    <section matSort class="mat-elevation-z2 mat-header-row">
+      <span class="mat-header-cell txt-center">
+        <h2>Rib</h2>
+      </span> <!-- mat-sort-header="BankCode" -->
+      <span class="mat-header-cell txt-center">
+        <h2>Balance</h2>
+      </span> <!-- mat-sort-header="Balance"-->
+      <span class="mat-header-cell txt-center">
+        <h2>Cartes associées</h2>
+      </span>
+    </section>
+    <mat-expansion-panel *ngFor="let item of account.Deposit">
+      <mat-expansion-panel-header class="mat-row">
+        <span class="mat-cell txt-center">{{getRib(item)}}</span>
+        <span class="mat-cell txt-center">{{item.Balance | number:'1.2-2'}} €</span>
+        <span class="mat-cell txt-center">
+          <mat-chip-list aria-label="Nombre de cartes bancaires">
+            <ng-container *ngIf="item.Cards.length>0; else elseTemplate">
+              <mat-chip color="primary" selected class="txt-center" *ngIf="item.Cards.length>0">
+                {{item.Cards.length}}
+              </mat-chip>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <mat-chip color="accent" selected class="txt-center">
+                {{item.Cards.length}}
+              </mat-chip>
+            </ng-template>
+          </mat-chip-list>
+        </span>
+      </mat-expansion-panel-header>
+      <div class="details-compte">
+        <div class="mat-elevation-z8 detailsComptes content-compte">
+          <b>Date de création</b> : {{item.CreationDate | date: 'dd/MM/yyyy'}}
+          <mat-divider></mat-divider>
+          <table>
+            <tr>
+              <th>IBAN</th>
+              <th>BIC</th>
+              <th>Découvert autorisé</th>
+              <th>Taxe surdécouvert</th>
+              <th>Découvert max*</th>
+              <th>Options</th>
+            </tr>
+            <tr>
+              <td>{{item.IBAN}}</td>
+              <td>{{item.BIC}}</td>
+              <td>{{item.FreeOverdraft | number : '1.2-2'}} €</td>
+              <td>{{item.OverdraftChargeRate | number : '1.2-2'}} %</td>
+              <td>{{item.AutorizedOverdraft | number:'1.2-2'}} €</td>
+              <td>
+                <button mat-mini-fab color="primary" matTooltip="Créer un virement"><i class="material-icons">
+                    call_made
+                  </i></button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="mat-elevation-z8 detailsComptes content-compte" *ngIf="item.Cards.length>0">
+          <b>Détails des cartes bancaires associées au compte</b>
+          <mat-divider></mat-divider>
+          <table>
+            <tr>
+              <th>Type de carte</th>
+              <th>N° de carte</th>
+              <th>Date d'expiration</th>
+              <th>Code de sécurité</th>
+            </tr>
+            <tr *ngFor="let item of item.Cards">
+              <td>{{item.NewtorkIssuer}}</td>
+              <td>{{item.CardNumber}}</td>
+              <td>{{item.ExpirationDate | date : 'dd/MM/yyyy'}}</td>
+              <td>****</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

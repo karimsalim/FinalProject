@@ -1,0 +1,87 @@
+<h1 mat-dialog-title>Créer un virement</h1>
+<mat-divider></mat-divider>
+<mat-horizontal-stepper>
+  <!--ETAPE I-->
+  <mat-step>
+    <ng-template matStepLabel>Sélectionner votre compte à débiter</ng-template>
+    <mat-form-field>
+      <mat-select>
+        <mat-option *ngFor="let item of account.Deposit" [value]="getRib(item)">
+          <b>RIB : {{getRib(item)}}</b> - Balance : {{item.Balance | number:'1.2-2'}} €
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <button mat-button matStepperNext color="primary">
+        Suivant
+        <i class="material-icons">
+          keyboard_arrow_right
+        </i>
+      </button>
+    </div>
+  </mat-step>
+
+  <!--ETAPE II-->
+  <mat-step>
+    <ng-template matStepLabel>Veuillez saisir le rib du compte destinataire</ng-template>
+    <mat-form-field>
+      <input matInput placeholder="RIB du destinataire">
+    </mat-form-field>
+    <div>
+      <button mat-button matStepperPrevious color="accent">
+        <i class="material-icons">
+          keyboard_arrow_left
+        </i>
+        Retour
+      </button>
+      <button mat-button matStepperNext color="primary">
+        Suivant
+        <i class="material-icons">
+          keyboard_arrow_right
+        </i>
+      </button>
+    </div>
+  </mat-step>
+
+  <!--ETAPE III-->
+  <mat-step>
+      <ng-template matStepLabel>Veuillez saisir le montant à envoyer</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Montant à envoye en €"> 
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious color="accent">
+          <i class="material-icons">
+            keyboard_arrow_left
+          </i>
+          Retour
+        </button>
+        <button mat-button matStepperNext color="primary">
+          Suivant
+          <i class="material-icons">
+            keyboard_arrow_right
+          </i>
+        </button>
+      </div>
+  </mat-step>
+
+  <!--ETAPE IV-->
+  <mat-step>
+    <ng-template matStepLabel>Confirmer le virement</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+<!-- Fin du modale -->
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()" color="warn">
+    Fermer
+    <i class="material-icons">
+      close
+    </i></button>
+</div>
