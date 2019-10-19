@@ -28,7 +28,6 @@ namespace BankManagerWPF
         HttpClient client = new HttpClient();
         HttpResponseMessage managerResponse;
         HttpResponseMessage clientResponse;
-        HttpResponseMessage response;
         List<Manager> Managers;
         
         public MainWindow()
@@ -58,6 +57,7 @@ namespace BankManagerWPF
                 }
                 ManagerBox.ItemsSource = Managers;
             }
+            LoadGeneralStats();
         }
 
         private async void ManagerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -70,6 +70,41 @@ namespace BankManagerWPF
                 List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(content);
                 ClientGrid.ItemsSource = Clients;
             }
+        }
+
+        private async void LoadGeneralStats()
+        {
+            HttpResponseMessage responseClient = await client.GetAsync("/api/Clients/GetClientAmount");
+            if (responseClient.IsSuccessStatusCode)
+            {
+                string clientAmount = await responseClient.Content.ReadAsStringAsync();
+                ClientTotalText.Text = clientAmount;
+            }
+            HttpResponseMessage responseBalance = await client.GetAsync("/api/Accounts/GetTotalBalance");
+            if (responseBalance.IsSuccessStatusCode)
+            {
+                string totalBalance = await responseBalance.Content.ReadAsStringAsync() + "€";
+                BalanceTotalText.Text = totalBalance;
+            }
+            HttpResponseMessage responseSavingSum = await client.GetAsync("/api/Accounts/GetSavingSum");
+            if (responseSavingSum.IsSuccessStatusCode)
+            {
+                string totalSavings = await responseSavingSum.Content.ReadAsStringAsync() + "€";
+                SavingsTotalText.Text = totalSavings;
+            }
+            HttpResponseMessage responseCardP = await client.GetAsync("/api/Clients/GetCardsPercentages");
+            if (responseCardP.IsSuccessStatusCode)
+            {
+                string cardPercentage = await responseCardP.Content.ReadAsStringAsync() + "%";
+                CardPercentageText.Text = cardPercentage;
+            }
+            HttpResponseMessage responseSavingP = await client.GetAsync("/api/Clients/GetSavingsPercentages");
+            if (responseSavingP.IsSuccessStatusCode)
+            {
+                string savingPercentage = await responseSavingP.Content.ReadAsStringAsync() + "%";
+                SavingPercentageText.Text = savingPercentage;
+            }
+
         }
     }
     }
