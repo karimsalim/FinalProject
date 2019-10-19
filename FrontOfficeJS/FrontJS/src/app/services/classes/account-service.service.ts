@@ -1,10 +1,30 @@
-export interface AccountService {
+import { Injectable } from '@angular/core';
 
-   Deposit : DepositService[];
-   Saving : SavingService[];
-   Client : Client;
-   Conseiller : Conseiller;
+@Injectable({
+  providedIn: 'root'
+})
 
+export class AccountService {
+
+   public Deposit : DepositService[];
+   public Saving : SavingService[];
+   public Client : string[];
+   public Conseiller : Conseiller;
+
+   public data: any;
+   
+   public getAccount(){
+        return this.data;
+   }
+
+   public setAccount(value){
+     this.data = value;
+   }
+
+   public getRib(account : Account){
+     return `${account.BankCode}-${account.BranchCode}-${account.AccountNumber}-${account.Key}`;
+   }
+   
 }
 
 /*************************************************************/
@@ -17,7 +37,7 @@ export interface AccountService {
 /*
  * interface account 
  */
-export interface Account{
+export class Account{
      AccountId : number;
      AccountNumber : string;
      Balance : number;
@@ -31,7 +51,7 @@ export interface Account{
 /*
   * interface Deposit 
   */
-export interface DepositService extends Account{
+export class DepositService extends Account{
      AutorizedOverdraft : number;
      CreationDate : Date;
      FreeOverdraft : number;
@@ -41,7 +61,7 @@ export interface DepositService extends Account{
 /*
  * interface Saving 
  */
-export interface SavingService extends Account{
+export class SavingService extends Account{
       InterestRate : number;
       MaximumAmount : number;
       MaximumDate : Date;
@@ -51,19 +71,20 @@ export interface SavingService extends Account{
 /**
  * Interface Client
  */
-export interface Client{
-      LastName : string;
-      FirstName : string;
-      DateOfBirth : Date;
-      Street : string;
-      ZipCode : string;
-      City : string;
-}
+// export interface Client{
+//       PersonID : number;
+//       LastName : string;
+//       FirstName : string;
+//       DateOfBirth : Date;
+//       Street : string;
+//       ZipCode : string;
+//       City : string;
+// }
 
 /**
  * Interface Conseiller
  */
-export interface Conseiller{
+export class Conseiller{
     LastName : string;
     FirstName : string;
 }

@@ -13,6 +13,7 @@ import { HomeComponent } from './Template/home/home.component';
 import { AccueilClientComponent } from './front/accueil-client/accueil-client.component';
 import { SidenavListComponent } from './Template/sidenav-list/sidenav-list.component';
 import { ListComptesComponent } from './front/list-comptes/list-comptes.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ListComptesComponent } from './front/list-comptes/list-comptes.componen
     BrowserAnimationsModule,
     MyMaterialModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {ClientService} from '../../services/utils/client-service.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { AccountService } from 'src/app/services/classes/account-service.service';
+import {Router} from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { NotifBarService } from 'src/app/services/utils/notif-bar.service';
 
 @Component({
   selector: 'app-login-client',
@@ -11,10 +14,14 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class LoginClientComponent implements OnInit {
 
   public loginForm : FormGroup;
+  accountvar : any;
 
   constructor(
     private router: Router,
-    private clientService : ClientService) { }
+    private clientService : ClientService,
+    private http : HttpClient, 
+    private notif : NotifBarService,
+    private account : AccountService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -31,8 +38,36 @@ export class LoginClientComponent implements OnInit {
   /* Appel A L'API pour véfifier la connexion */
   public onSubmit(clientData)
   {
-    this.clientService.setClientConnected(clientData.LastName, clientData.FirstName, 99);
-    this.router.navigate(['/Clients']);
+    
+    this.http.get<AccountService>
+    (`http://localhost:51588/api/Clients?firstname=${clientData.FirstName}&lastname=${clientData.LastName}`)
+    .subscribe( data => {
+
+      this.accountvar = data; // Ne pas écraser la valeur du service AccountService
+
+      this.account.setAccount(data);
+
+      this.clientService
+        .setClientConnected(
+        this.accountvar.Client[1], 
+        this.accountvar.Client[2], 
+        parseInt(this.accountvar.Client[0]));
+
+        this.router.navigate(['/Clients/ListeComptes']);
+    },
+        err => {
+          if(err.status == 404)
+          {
+            this.notif.openSnackBar("On ne vous reconnait pas ! Veuillez vérifier les informations saisies","Fermer");
+          }
+          else
+          {
+            this.notif.openSnackBar("Un problème est survenu. Veuillez réessayer plus tard.","Fermer");
+          }
+        }
+      )
+
+    
   }
 
 }

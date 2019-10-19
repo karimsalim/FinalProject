@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import {
   MatNativeDateModule,
+  MatGridListModule,
   MatSnackBarModule,
   MatIconModule,
   MatDialogModule,
@@ -21,7 +22,8 @@ import {
   MatInputModule,
   MatSidenavModule,
   MatListModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatChipsModule
 }
 from '@angular/material';
 import {
@@ -52,7 +54,7 @@ import {
     MatIconModule, MatDialogModule, MatProgressSpinnerModule, MatButtonModule,
     MatSortModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatTableModule,
     MatTabsModule, MatFormFieldModule, MatProgressSpinnerModule, MatInputModule,
-    MatPaginatorModule,MatSidenavModule , MatListModule, MatExpansionModule
+    MatPaginatorModule,MatSidenavModule , MatListModule, MatExpansionModule, MatGridListModule, MatChipsModule
   ],
 })
 export class MyMaterialModule {}

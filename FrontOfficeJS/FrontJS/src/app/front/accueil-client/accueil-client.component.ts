@@ -24,7 +24,7 @@ export class AccueilClientComponent implements OnInit {
       this.router.navigate(['/Accueil']);
     }
     else{
-      this.notif.openSnackBar("Bonjour " + this.client.getClientNom(),"Fermer");
+      this.notif.openSnackBar(`Bonjour ${this.client.lastName} ${this.client.firstName}`,"Fermer");
     }
   }
   /*Récupérer le service du client connecté*/
@@ -34,7 +34,7 @@ export class AccueilClientComponent implements OnInit {
 
   /**Bouton Déconnexion du client**/
   public Deconnexion(){
-    this.client = this.clientService.initClient();
+    this.client = this.client.initClient();
     this.router.navigate['/Accueil'];
   }
 

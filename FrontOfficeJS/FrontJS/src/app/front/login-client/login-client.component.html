@@ -8,6 +8,7 @@
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="loginForm" autocomplete="off" class="login-form" (ngSubmit)="onSubmit(loginForm.value)">
+        <!-- <mat-progress-bar mode="buffer"></mat-progress-bar> -->
         <mat-form-field class="input-log">
           <input matInput placeholder="Votre nom" name="LastName" formControlName="LastName" required>
           <mat-error *ngIf="hasError('LastName', 'required')">Le nom de famille est obligatoire!</mat-error>
