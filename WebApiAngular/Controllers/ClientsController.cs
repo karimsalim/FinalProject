@@ -62,7 +62,7 @@ namespace WebApiAngular.Controllers
     #endregion
 
     //[DisableCors]
-    [EnableCors(origins: "http://127.0.0.1:4200", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ClientsController : ApiController
     {
 
@@ -75,16 +75,39 @@ namespace WebApiAngular.Controllers
 
         }
 
+        public async Task<int> GetAccountID(string rib)
+        {
+            string[] tab = rib.Split("-".ToCharArray());
+            string bankCode = tab[0];
+            string branchCode = tab[1];
+            string accountNumber = tab[2];
+            string key = tab[3];
+
+            //Recherche le compte du par rapport au rib
+            var accountCrediteur = await db.Accounts.SingleOrDefaultAsync(c => c.BankCode == bankCode 
+            && c.BranchCode == branchCode 
+            && c.AccountNumber == accountNumber 
+            && c.Key == key);
+            if(accountCrediteur != null)
+            {
+                return accountCrediteur.AccountID;
+            }
+            else
+            {
+                return -1;
+            }
+        }
 
         // GET: api/Clients/5
         [ResponseType(typeof(Client))]
         public async Task<IHttpActionResult> GetClient(string firstName, string lastName)
         {
-            AccountClient client = new AccountClient(await db.Clients.SingleOrDefaultAsync(c => c.FirstName == firstName && c.LastName == lastName));
-            if (client == null)
+            var tmp = await db.Clients.SingleOrDefaultAsync(c => c.FirstName == firstName && c.LastName == lastName);
+            if (tmp == null)
             {
                 return NotFound();
             }
+            AccountClient client = new AccountClient(tmp);
 
             return Ok(client);
         }
