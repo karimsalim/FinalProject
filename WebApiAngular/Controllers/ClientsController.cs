@@ -62,7 +62,7 @@ namespace WebApiAngular.Controllers
     #endregion
 
     //[DisableCors]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://127.0.0.1:4200", headers: "*", methods: "*")]
     public class ClientsController : ApiController
     {
 
@@ -99,7 +99,7 @@ namespace WebApiAngular.Controllers
         }
 
         // GET: api/Clients/5
-        [ResponseType(typeof(Client))]
+        [ResponseType(typeof(AccountClient))]
         public async Task<IHttpActionResult> GetClient(string firstName, string lastName)
         {
             var tmp = await db.Clients.SingleOrDefaultAsync(c => c.FirstName == firstName && c.LastName == lastName);
@@ -148,6 +148,7 @@ namespace WebApiAngular.Controllers
         }
 
         // PUT: api/Clients/5
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutTransfert(int id, string rib, decimal montantOperation)
         {
@@ -214,7 +215,7 @@ namespace WebApiAngular.Controllers
 
                         } else {
                             //Le plafond du compte courant est dépacé
-                            return BadRequest("Le solde du compte épargne du créditeur dépace le plafond maximal autorisé");
+                            return BadRequest("Le solde du compte épargne du créditeur dépasse le plafond maximal autorisé");
                         }
                     } else {
                         //Erreur le découvert du compte courant est dépacé
@@ -231,6 +232,7 @@ namespace WebApiAngular.Controllers
                     Deposit depositAccountCrediteur = await db.Deposits.FindAsync(accountCrediteur.AccountID);
 
                     depositAccountDebiteur.Balance -= montantOperation;
+                    depositAccountCrediteur.Balance += montantOperation;
 
                     //Si le solde du épargne du débiteur reste supérieur au montant minimum du même compte : Valide
                     if (depositAccountDebiteur.Balance >= depositAccountDebiteur.MinimumAmount)
