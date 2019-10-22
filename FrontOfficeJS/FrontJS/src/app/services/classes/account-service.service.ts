@@ -10,6 +10,7 @@ export class AccountService {
    public Saving : SavingService[];
    public Client : string[];
    public Conseiller : Conseiller;
+   public isUpdated : boolean;
 
    public data: any;
    

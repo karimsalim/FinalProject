@@ -36,6 +36,7 @@ export class LoginClientComponent implements OnInit {
     return this.loginForm.controls[controlName].hasError(errorName);
   }
 
+  
   /* Appel A L'API pour véfifier la connexion */
   public onSubmit(clientData)
   {
@@ -47,11 +48,12 @@ export class LoginClientComponent implements OnInit {
       this.accountvar = data; // Ne pas écraser la valeur du service AccountService
 
       this.account.setAccount(data);
+      this.account.isUpdated = false;
 
       this.clientService
         .setClientConnected(
-        this.accountvar.Client[1], 
         this.accountvar.Client[2], 
+        this.accountvar.Client[1], 
         parseInt(this.accountvar.Client[0]));
 
         this.router.navigate(['/Clients/ListeComptes']);

@@ -51,7 +51,7 @@
               <td>{{item.OverdraftChargeRate | number : '1.2-2'}} %</td>
               <td>{{item.AutorizedOverdraft | number:'1.2-2'}} €</td>
               <td>
-                <button mat-mini-fab color="primary" matTooltip="Créer un virement"><i class="material-icons">
+                <button mat-mini-fab color="primary" matTooltip="Créer un virement" (click)="openDialog()"><i class="material-icons">
                     call_made
                   </i></button>
               </td>

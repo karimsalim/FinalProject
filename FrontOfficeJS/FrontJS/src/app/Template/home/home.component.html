@@ -10,7 +10,11 @@
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.sm fxHide.xs>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items" *ngIf="clientConnected.isConnected">
       <li *ngFor="let item of menuItems.itemMenu">
-        <a routerLink="{{item.link}}">{{item.display}} </a>
+        <a routerLink="{{item.link}}">
+          <i class="material-icons">
+            {{item.icon}}
+          </i>
+          {{item.display}} </a>
       </li>
     </ul>
   </div>

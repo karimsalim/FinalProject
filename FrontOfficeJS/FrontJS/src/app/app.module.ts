@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import 'hammerjs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListDepositComponent } from './front/list-comptes/list-deposit/list-deposit.component';
 import { ListSavingComponent } from './front/list-comptes/list-saving/list-saving.component';
 import { DialogVirementComponent } from './front/list-comptes/dialog-virement/dialog-virement.component';
+import { RibDirective } from './services/utils/rib.directive';
+import { FormulaireComponent } from './front/formulaire/formulaire.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,8 @@ import { DialogVirementComponent } from './front/list-comptes/dialog-virement/di
     ListDepositComponent,
     ListSavingComponent,
     DialogVirementComponent,
+    RibDirective,
+    FormulaireComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,8 @@ import { DialogVirementComponent } from './front/list-comptes/dialog-virement/di
     MyMaterialModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

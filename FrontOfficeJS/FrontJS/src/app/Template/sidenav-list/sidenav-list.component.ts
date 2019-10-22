@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { DialogVirementComponent } from 'src/app/front/list-comptes/dialog-virement/dialog-virement.component';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -8,7 +10,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class SidenavListComponent implements OnInit {
   @Output() sidenavClose = new EventEmitter();
  
-  constructor() { }
+  constructor(private dialog : MatDialog) { }
  
   ngOnInit() {
   }
@@ -16,5 +18,18 @@ export class SidenavListComponent implements OnInit {
   public onSidenavClose = () => {
     this.sidenavClose.emit();
   }
+
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "100%";
+    dialogConfig.maxWidth="none";
+    
+    this.dialog.open(DialogVirementComponent, dialogConfig)
+    this.onSidenavClose();
+  }
+    
 
 }

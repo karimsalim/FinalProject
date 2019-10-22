@@ -1,0 +1,85 @@
+<section class="mat-typography">
+  <div [class.mat-elevation-z4]="!isActive" class="detailsClient">
+    <h2>Bonjour Mr {{client.getClientNom()}}</h2>
+    <mat-divider></mat-divider>
+    <h3><b>Informations personnelles</b></h3>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="header"><i class="material-icons">face</i></div>
+        <mat-card-title>{{account?.Client[2]}} {{account?.Client[1]}}</mat-card-title>
+        <mat-card-subtitle>
+          <u>Votre conseiller : Mr {{account?.Conseiller.LastName}}</u>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="formContent" [class.mat-elevation-z4]="!isActive">
+          <div style="margin-bottom: 10px;">
+            <b>Votre conseiller : {{account?.Conseiller.LastName}} {{account?.Conseiller.FirstName}}</b>
+          </div>
+          <form [formGroup]="ClientForm" autocomplete="off" (ngSubmit)="onSubmit(ClientForm.value)">
+            <div class="form-field">
+              <mat-form-field>
+                <input matInput placeholder="Votre nom" value="{{account?.Client[2]}}" class="floatright"
+                formControlName = "LastName" required>
+                <mat-error *ngIf="hasError('LastName', 'required')">Votre nom est obligatoire!</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-field">
+              <mat-form-field>
+                <input matInput placeholder="Votre Prénom" value="{{account?.Client[1]}}" class="floatright"
+                formControlName = "FirstName" required>
+                <mat-error *ngIf="hasError('FirstName', 'required')">Votre prénom est obligatoire!</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-field">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Votre date de naissance" [ngModel]="date"
+                formControlName = "DateOfBirth" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker touchUi #picker></mat-datepicker>
+                <mat-error *ngIf="hasError('DateOfBirth', 'required')">Votre date de naissance est obligatoire!</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-field">
+              <mat-form-field>
+                <input matInput placeholder="Votre adresse" value="{{account?.Client[4]}}" class="floatright"
+                formControlName = "Street" required>
+                <mat-error *ngIf="hasError('Street', 'required')">Votre adresse est obligatoire!</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-field">
+              <mat-form-field>
+                <input matInput placeholder="Votre code postal" value="{{account?.Client[5]}}" class="floatright"
+                formControlName = "Zip" required>
+                <mat-error *ngIf="hasError('Zip', 'required')">Votre code postal est obligatoire!</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-field">
+              <mat-form-field>
+                <input matInput placeholder="Votre ville" value="{{account?.Client[6]}}" class="floatright"
+                formControlName = "City" required>
+                <mat-error *ngIf="hasError('City', 'required')">Votre ville est obligatoire!</mat-error>
+              </mat-form-field>
+            </div>
+          </form>
+          <mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
+        </div>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [disabled]="!ClientForm.valid" (click) = "onSubmit(ClientForm.value)">
+          Sauvegarder
+          <i class="material-icons">
+            save
+          </i></button>
+        <button mat-raised-button color="accent" (click)="returnHome()">
+          Annuler
+          <i class="material-icons">
+            cancel
+          </i>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</section>

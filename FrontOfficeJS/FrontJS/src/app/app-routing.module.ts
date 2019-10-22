@@ -3,14 +3,20 @@ import { Routes, RouterModule } from '@angular/router';
 import {AccueilClientComponent} from './front/accueil-client/accueil-client.component';
 import {LoginClientComponent} from './front/login-client/login-client.component';
 import {ListComptesComponent} from './front/list-comptes/list-comptes.component';
+import { FormulaireComponent } from './front/formulaire/formulaire.component';
 
 
 const routes: Routes = [
-  {path:'Clients', component : AccueilClientComponent,
+  {
+    path:'Clients', component : AccueilClientComponent,
     children: [
       {
         path:'ListeComptes',
         component : ListComptesComponent
+      },
+      {
+        path:'DonneesClients',
+        component : FormulaireComponent
       }
     ]
   },

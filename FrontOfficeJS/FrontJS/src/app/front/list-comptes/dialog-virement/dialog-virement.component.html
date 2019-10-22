@@ -2,52 +2,47 @@
 <mat-divider></mat-divider>
 <mat-horizontal-stepper>
   <!--ETAPE I-->
-  <mat-step>
-    <ng-template matStepLabel>Sélectionner votre compte à débiter</ng-template>
-    <mat-form-field>
-      <mat-select>
-        <mat-option *ngFor="let item of account.Deposit" [value]="getRib(item)">
-          <b>RIB : {{getRib(item)}}</b> - Balance : {{item.Balance | number:'1.2-2'}} €
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div>
-      <button mat-button matStepperNext color="primary">
-        Suivant
-        <i class="material-icons">
-          keyboard_arrow_right
-        </i>
-      </button>
-    </div>
+  <mat-step [stepControl]="compteForm">
+    <form [formGroup]="compteForm" autocomplete="off">
+      <ng-template matStepLabel>Sélectionner votre compte à débiter</ng-template>
+      <mat-form-field>
+        <mat-select formControlName="compteDebit" required [(value)]="ribSelected">
+          <mat-optgroup *ngIf="account?.Deposit.length>0" [label]="Courants">
+            <button mat-raised-button color="primary">Comptes courants</button>
+            <mat-option *ngFor="let item of account.Deposit" [value]="getRib(item)">
+              <b>RIB : {{getRib(item)}}</b> - Balance : {{item.Balance | number:'1.2-2'}} €
+            </mat-option>
+          </mat-optgroup>
+          <mat-optgroup *ngIf="account?.Saving.length>0" [label]="Epargne">
+            <button mat-raised-button color="warn">Comptes Epargnes</button>
+            <mat-option *ngFor="let item of account.Saving" [value]="getRib(item)">
+              <b>RIB : {{getRib(item)}}</b> - Balance : {{item.Balance | number:'1.2-2'}} €
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+        <mat-error *ngIf="compteErrorForm('compteDebit', 'required')">Vous devez sélectionner un compte avant de
+          continuer!</mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext color="primary" [disabled]="!compteForm.valid">
+          Suivant
+          <i class="material-icons">
+            keyboard_arrow_right
+          </i>
+        </button>
+      </div>
+    </form>
   </mat-step>
 
   <!--ETAPE II-->
-  <mat-step>
-    <ng-template matStepLabel>Veuillez saisir le rib du compte destinataire</ng-template>
-    <mat-form-field>
-      <input matInput placeholder="RIB du destinataire">
-    </mat-form-field>
-    <div>
-      <button mat-button matStepperPrevious color="accent">
-        <i class="material-icons">
-          keyboard_arrow_left
-        </i>
-        Retour
-      </button>
-      <button mat-button matStepperNext color="primary">
-        Suivant
-        <i class="material-icons">
-          keyboard_arrow_right
-        </i>
-      </button>
-    </div>
-  </mat-step>
-
-  <!--ETAPE III-->
-  <mat-step>
-      <ng-template matStepLabel>Veuillez saisir le montant à envoyer</ng-template>
+  <mat-step [stepControl]="ribForm">
+    <form [formGroup]="ribForm" autocomplete="off">
+      <ng-template matStepLabel>Veuillez saisir le rib du compte destinataire</ng-template>
       <mat-form-field>
-        <input matInput placeholder="Montant à envoye en €"> 
+        <input matInput #rib placeholder="RIB du destinataire" formControlName="ribReceiver" required
+          [(ngModel)]="ribCrediteur" Rib>
+        <mat-hint align="end">{{rib.value.length}} / 26</mat-hint>
+        <mat-error *ngIf="ribErrorForm('ribReceiver', 'required')">Le RIB saisi est incorrect!</mat-error>
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious color="accent">
@@ -56,22 +51,72 @@
           </i>
           Retour
         </button>
-        <button mat-button matStepperNext color="primary">
+        <button mat-button matStepperNext color="primary" [disabled]="!ribForm.valid">
           Suivant
           <i class="material-icons">
             keyboard_arrow_right
           </i>
         </button>
       </div>
+    </form>
+  </mat-step>
+
+  <!--ETAPE III-->
+  <mat-step [stepControl]="montantForm">
+    <form [formGroup]="montantForm" autocomplete="off">
+      <ng-template matStepLabel>Veuillez saisir le montant à envoyer</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Montant à envoye en €" formControlName="montantSend" required
+          [(ngModel)]="montantSaisi">
+        <mat-error *ngIf="montantErrorForm('montantSend', 'required')">Le montant saisi est incorrect!</mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious color="accent">
+          <i class="material-icons">
+            keyboard_arrow_left
+          </i>
+          Retour
+        </button>
+        <button mat-button matStepperNext color="primary" [disabled]="!montantForm.valid">
+          Suivant
+          <i class="material-icons">
+            keyboard_arrow_right
+          </i>
+        </button>
+      </div>
+    </form>
   </mat-step>
 
   <!--ETAPE IV-->
   <mat-step>
     <ng-template matStepLabel>Confirmer le virement</ng-template>
-    You are now done.
+    <div class="label">
+      Veuillez vérifier les informations de virement avant de continuer.
+    </div>
+    <div id="flex-container" class="label">
+      <div class="flex-item">
+        Compte à débiter : <b>{{ribSelected}}</b>
+      </div>
+      <div class="flex-item">
+        Compte à créditer : <b>{{ribCrediteur}}</b>
+      </div>
+      <div class="flex-item">
+        Montant à créditer : <b>{{montantSaisi | number:'1.2-2'}} €</b>
+      </div>
+    </div>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button matStepperPrevious color="accent">
+        <i class="material-icons">
+          keyboard_arrow_left
+        </i>
+        Retour
+      </button>
+      <button mat-button color="primary" (click)="invokeVirement(compteForm.value, ribForm.value, montantForm.value)">
+        Confirmer le virement
+        <i class="material-icons">
+          check
+        </i>
+      </button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
@@ -84,4 +129,5 @@
     <i class="material-icons">
       close
     </i></button>
+    <mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar> <!---->
 </div>

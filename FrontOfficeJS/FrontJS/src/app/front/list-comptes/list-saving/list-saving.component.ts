@@ -32,6 +32,15 @@ export class ListSavingComponent implements OnInit {
     this.account = this.accountService.getAccount();
   }
 
+  ngDoCheck(): void {
+    if(this.accountService.isUpdated)
+    {
+      this.getAccountConnected();
+      console.log("Rechargement après modifications");
+      this.accountService.isUpdated = false;
+    }
+  }
+
   getRib(account : Account){
     return `${account.BankCode}-${account.BranchCode}-${account.AccountNumber}-${account.Key}`;
   }
