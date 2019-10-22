@@ -19,6 +19,10 @@
             <Setter Property="Margin" Value="10" />
         </Style>
         <BitmapImage x:Key="logo" UriSource="/Resources/logo.png"/>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment"
+                 Value="Center" />
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -91,14 +95,14 @@
 
 
             <Border Background="White" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="6" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2">
-                <DataGrid x:Name="ClientGrid" Height="auto" Width="auto" IsReadOnly="True">
-                    <!--<DataGrid.Columns>
-                        <DataGridTextColumn x:Name="FirstName" Header="Prénom" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn x:Name="LastName" Header="Nom" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn x:Name="ZipCode" Header="Code Postal" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn x:Name="City"  Header="Ville" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn x:Name="DateOfBirth" Header="Date de Naissance"></DataGridTextColumn>
-                    </DataGrid.Columns>-->
+                <DataGrid x:Name="ClientGrid" AutoGenerateColumns="False" Height="auto" Width="auto" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="FirstName" Header="Prénom" Width="2*" Binding="{Binding FirstName}"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="LastName" Header="Nom" Width="2*" Binding="{Binding LastName}"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="ZipCode" Header="Code Postal" Width="2*" Binding="{Binding ZipCode}"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="City"  Header="Ville" Width="2*" Binding="{Binding City}"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="DateOfBirth" Header="Date de Naissance" Width="3*"  Binding="{Binding DateOfBirth, StringFormat=\{0:MM/dd/yyyy\}}"></DataGridTextColumn>
+                    </DataGrid.Columns>
                 </DataGrid>
             </Border>
 
