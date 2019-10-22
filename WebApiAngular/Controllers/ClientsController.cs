@@ -113,6 +113,7 @@ namespace WebApiAngular.Controllers
         }
 
         // PUT: api/Clients/5
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutClient(int id, Client client)
         {
@@ -123,7 +124,7 @@ namespace WebApiAngular.Controllers
 
             if (id != client.PersonId)
             {
-                return BadRequest();
+                return BadRequest("Paramètre ID incorrect");
             }
 
             db.Entry(client).State = EntityState.Modified;

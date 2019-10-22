@@ -15,6 +15,11 @@ namespace WebApiAngular
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "ModifClient",
+                routeTemplate: "api/Clients/PutClient/{id}",
+                defaults: new { controller = "Clients", action = "PutClient" });
+
+            config.Routes.MapHttpRoute(
                 name: "Transfert",
                 routeTemplate: "api/Clients/PutTransfert/{id}/{rib}/{montantOperation}",
                 //routeTemplate: "api/Clients/PutTransfert",
