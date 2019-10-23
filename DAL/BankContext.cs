@@ -37,7 +37,7 @@ namespace DAL
         /// </summary>
         static BankContext()
         {
-            //Database.SetInitializer(new BankInitializer());
+            Database.SetInitializer(new BankInitializer());
         }
         #endregion
 
