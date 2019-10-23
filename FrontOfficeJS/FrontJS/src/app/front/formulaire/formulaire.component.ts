@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from 'src/app/services/utils/client-service.service';
-import { AccountService} from 'src/app/services/classes/account-service.service';
-import { FormGroupDirective, FormGroup, FormControl, Validators } from '@angular/forms';
+import { AccountService, Account} from 'src/app/services/classes/account-service.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { NotifBarService } from 'src/app/services/utils/notif-bar.service';
 
 @Component({
   selector: 'app-formulaire',
@@ -24,7 +27,8 @@ export class FormulaireComponent implements OnInit{
         private clientService : ClientService,
         private accountService : AccountService,
         private router : Router,
-        private http: HttpClient
+        private http: HttpClient,
+        private notif : NotifBarService
         ) { }
   
   ngOnInit() {
@@ -33,8 +37,8 @@ export class FormulaireComponent implements OnInit{
     if(this.account){
       this.date = new Date(this.account.Client[3]);
       this.ClientForm = new FormGroup({
-        LastName : new FormControl(this.account.Client[1],[Validators.required]),
-        FirstName : new FormControl(this.account.Client[2],[Validators.required]),
+        LastName : new FormControl(this.account.Client[2],[Validators.required]),
+        FirstName : new FormControl(this.account.Client[1],[Validators.required]),
         DateOfBirth : new FormControl(this.date,Validators.required),
         Street : new FormControl(this.account.Client[4],Validators.required),
         Zip : new FormControl(this.account.Client[5],Validators.required),
@@ -67,31 +71,49 @@ export class FormulaireComponent implements OnInit{
   }
 
   onSubmit(clientData){
+
+    console.log(this.account);
+
     this.loading = true;
+
     let client = {
-      "LastName" : clientData.LastName,
+      "PersonID" : this.clientService.idClient,
       "FirstName" : clientData.FirstName,
+      "LastName" : clientData.LastName,
       "DateOfBirth" : clientData.DateOfBirth,
       "Street" : clientData.Street,
-      "Zip" : clientData.Zip,
+      "ZipCode" : clientData.Zip,
       "City" : clientData.City
     }
-    console.warn(client);
-    console.log(JSON.stringify(client));
-    let httpconfig = { 
-      header: new HttpHeaders({
-      'Content-Type' : 'application/json'
-    })}
-    this.http.put(`http://127.0.0.1:51588/Clients/PutClient/${this.client.idClient}`,
-        JSON.stringify(client)).subscribe(data => {
-            console.log(data);
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    this.http.put(`http://localhost:51588/api/Clients/PutClient/${this.client.idClient}`,
+    JSON.stringify(client), {headers : headers})
+     .subscribe(data => {
+          this.http.get<AccountService>
+          (`http://localhost:51588/api/Clients?firstname=${clientData.FirstName}&lastname=${clientData.LastName}`)
+            .subscribe( data => {
             this.loading = false;
-          },
+
+            this.accountService.setAccount(data);
+            this.account.isUpdated = false;
+
+            this.clientService
+              .setClientConnected(
+              this.account.Client[2], 
+              this.account.Client[1], 
+              parseInt(this.account.Client[0]));
+
+            this.router.navigate(['/Clients/ListeComptes'])
+            this.notif.openSnackBar("Modifications enregistrées.","Fermer");
+          })},
           err => {
             console.error(err);
+            this.notif.openSnackBar("Une erreur est survenue. Veuillez réessayer plus tard.","Fermer");
             this.loading = false;
           }
-          )
+      )
 
   }
 

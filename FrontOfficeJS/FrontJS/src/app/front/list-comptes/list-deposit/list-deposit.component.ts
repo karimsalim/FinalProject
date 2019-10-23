@@ -45,4 +45,8 @@ export class ListDepositComponent implements OnInit {
   getRib(account : Account){
     return `${account.BankCode}-${account.BranchCode}-${account.AccountNumber}-${account.Key}`;
   }
+
+  printRib(){
+    alert("En cours de développement.");
+  }
 }

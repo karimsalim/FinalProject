@@ -41,6 +41,10 @@ export class ListSavingComponent implements OnInit {
     }
   }
 
+  printRib(){
+    alert("En cours de développement.");
+  }
+
   getRib(account : Account){
     return `${account.BankCode}-${account.BranchCode}-${account.AccountNumber}-${account.Key}`;
   }
